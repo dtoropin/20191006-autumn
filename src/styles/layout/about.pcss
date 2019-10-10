@@ -66,6 +66,7 @@
   height: 50px;
   border-radius: 50%;
   border: 1px solid #fff;
+  transition: .3s opacity ease;
 
   &:first-child {
     margin-right: 30px;
@@ -73,6 +74,10 @@
 
   &--left {
     transform: rotate(180deg);
+  }
+
+  &:hover {
+    opacity: 0.8;
   }
 }
 
