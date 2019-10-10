@@ -1,0 +1,53 @@
+-
+  var reviews = [
+    {
+      photo: 'user1.jpg',
+      name: 'Ковальчук Дмитрий',
+      pos: 'Основатель Loftschool',
+      text: 'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!'
+    },
+    {
+      photo: 'user2.jpg',
+      name: 'Владимир Сабанцев',
+      pos: 'Преподаватель',
+      text: 'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах'
+    },
+    {
+      photo: 'user1.jpg',
+      name: 'Ковальчук Дмитрий',
+      pos: 'Основатель Loftschool',
+      text: 'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!'
+    },
+    {
+      photo: 'user2.jpg',
+      name: 'Владимир Сабанцев',
+      pos: 'Преподаватель',
+      text: 'Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах'
+    }
+  ]
+
+.about
+  .about__leaf.about__leaf--1
+  .about__leaf.about__leaf--2
+  .about__leaf.about__leaf--3
+  .about__leaf.about__leaf--4
+  .about__container.container
+    .about__header
+      h2.about__title Что обо мне говорят
+      .about__control
+        a.about__arrow.about__arrow--left(href="#")
+          +icon('arrow-down', 'about__icon')
+        a.about__arrow.about__arrow--right(href="#")
+          +icon('arrow-down', 'about__icon')
+    ul.about__list
+      - for (var i = 0; i < reviews.length; i++)
+        li.about__item
+          .about__block
+            .about__text
+              p= `${reviews[i].text}`
+            .about__user
+              .about__img
+                +image(`content/${reviews[i].photo}`)
+              .about__subs
+                h4.about__name= `${reviews[i].name}`
+                span.about__position= `${reviews[i].pos}`

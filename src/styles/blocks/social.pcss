@@ -1,0 +1,21 @@
+.social {
+  display: flex;
+  justify-content: space-between;
+}
+
+.social__item {
+  & ~ .social__item {
+    margin-left: 40px;
+  }
+}
+
+.social__link:hover .social__icon {
+  fill: #fff;
+}
+
+.social__icon {
+  width: 25px;
+  height: 25px;
+  fill: rgba(#fff, .6);
+  transition: .3s ease;
+}

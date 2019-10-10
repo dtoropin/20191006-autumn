@@ -1,0 +1,85 @@
+- var navLink = ['Главная', 'Обо мне', 'Навыки', 'Работы', 'Отзывы', 'Связаться']
+-
+  var social = [
+      {
+        link: 'https://www.instagram.com/?hl=ru',
+        icon: 'insta',
+        title: 'Instagram'
+      },
+      {
+        link: 'https://vk.com/d.toropin',
+        icon: 'vk',
+        title: 'VKontakte'
+      },
+      {
+        link: 'https://github.com/dtoropin',
+        icon: 'github',
+        title: 'github'
+      }
+    ]
+
+.contacts
+  .contacts__container
+    .container
+      h2.contacts__title Связаться со мной
+
+    .contacts__block.container
+      form.contacts-form
+        .contacts-form__row
+          .contacts-form__item
+            span.contacts-form__title Введите ваше имя
+            label.contacts-form__label
+              .contacts-form__pic
+                +icon('user', 'contacts-form__icon')
+              .contacts-form__field
+                input(type="text" placeholder="Имя").contacts-form__input
+
+          .contacts-form__item
+            span.contacts-form__title Введите ваш email
+            label.contacts-form__label
+              .contacts-form__pic
+                +icon('envelope', 'contacts-form__icon')
+              .contacts-form__field
+                input(type="email" placeholder="mail@example.com").contacts-form__input
+
+        .contacts-form__row
+          .contacts-form__item
+            span.contacts-form__title Сообщение к письму
+            label.contacts-form__label
+              .contacts-form__pic.contacts-form__pic--textarea
+                +icon('message', 'contacts-form__icon')
+              .contacts-form__field
+                textarea(placeholder="Сообщение").contacts-form__input.contacts-form__input--textarea
+
+        .contacts-form__row
+          .contacts-form__item
+            button(type="submit").contacts-form__btn Отправить
+
+    footer.footer
+      .footer__container.container
+        .footer__copy ©&nbsp;2019
+        .footer__title
+          h3.footer__name Владимир Астахов
+          span.footer__subs Личный сайт веб&#8209;разработчика
+        .footer__block
+          .footer__nav
+            ul.nav__list
+              - for (var i = 0; i < navLink.length; i++)
+                li.nav__item
+                  a.nav__link(href="#")= navLink[i]
+
+          .footer__info
+            .footer__personal
+              .footer__text
+                p Этот сайт я сделал в рамках обучения в Школе онлайн образования Loftschool
+
+              ul.footer__social
+                - for (var i = 0; i < social.length; i++)
+                  li.footer__item
+                    a.footer__link(href=`${social[i].link}` title=`${social[i].title}` target='_blank')
+                      +icon(`${social[i].icon}`, 'footer__icon')
+
+            .footer__cite
+              .footer__text
+                p Всегда пишите код так, будто сопровождать его будет склонный к насилию психопат, который знает где вы живете
+              span.footer__author Martin Golding
