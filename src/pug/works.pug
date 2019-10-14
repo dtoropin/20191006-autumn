@@ -53,7 +53,7 @@
             - for (var i = 0; i < work.length; i++)
               li.slider__item
                 .slider__img
-                  +image(`content/${work[i].img}.jpg`)
+                  +image(`content/${work[i].img}.jpg`, '', `${work[i].title}`)
                 .slider__idx= `${i+1}`
                 .slider__subs
                   ul.slider__skills

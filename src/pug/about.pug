@@ -47,7 +47,7 @@
               p= `${reviews[i].text}`
             .about__user
               .about__img
-                +image(`content/${reviews[i].photo}`)
+                +image(`content/${reviews[i].photo}`, '', `${reviews[i].name}`)
               .about__subs
                 h4.about__name= `${reviews[i].name}`
                 span.about__position= `${reviews[i].pos}`

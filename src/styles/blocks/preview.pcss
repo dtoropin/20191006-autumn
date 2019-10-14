@@ -38,6 +38,7 @@
   width: 50px;
   height: 50px;
   background-color: #2d3c4e;
+  transition: .3s background-color ease;
 
   &--right {
     transform: rotate(180deg);
@@ -50,5 +51,18 @@
     width: 8px;
     height: 10px;
     transform: translate(-50%, -50%);
+    transition: .3s fill ease;
+  }
+
+  &:first-child {
+    border-bottom: 1px solid #2e2e2e;
+  }
+
+  &:hover {
+    background-color: rgba(#2d3c4e, .8);
+
+    & .preview__arrow-icon {
+      fill: #fff;
+    }
   }
 }

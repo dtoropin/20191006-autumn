@@ -5,7 +5,7 @@
   .user__container
     .user__row
       .user__photo
-        +image('content/DSCN0377.JPG', 'user__img')
+        +image('content/DSCN0377.JPG', 'user__img', 'D.Toropin')
       .user__subs
         span.user__head Привет, меня зовут
         h3.user__name Денис Торопин
@@ -13,14 +13,14 @@
           p Я занимаюсь разработкой современных сайтов и приложений. Мне нравится делать интересные и современные проекты.
 
     .user__row
-      .user__data
-        .user-data__row
+      ul.user__data
+        li.user-data__row
           span.user-data__title Проживаю:
           span.user-data__value= userData.town
-        .user-data__row
+        li.user-data__row
           span.user-data__title Возраст:
           span.user-data__value= `${userData.ago} лет`
-        .user-data__row
+        li.user-data__row
           span.user-data__title Родился:
           span.user-data__value= userData.date
 

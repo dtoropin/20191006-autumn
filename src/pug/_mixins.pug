@@ -3,13 +3,14 @@ mixin icon(name, className)
   svg(class=className viewBox=icon.viewBox preserveAspectRatio="none")
     use(xlink:href=icon.url)
 
-mixin image(path, className)
-  img(src=require(`images/${path}`) class=className)
+mixin image(path, className, alt = 'image')
+  img(src=require(`images/${path}`) class=className alt=alt)
 
 mixin skills(arr)
-  - for (var i = 0; i < arr.length; i++)
-    .skills__chart
-      svg(viewBox='0 0 36 36')
-        path(d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831' fill='none' stroke='#eaeaea' opacity='0.1' stroke-width='1')
-        path(d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831' fill='none' stroke='#f29400' stroke-width='2' stroke-dasharray=`${arr[i].percent}, 100`)
-      .skills__text= `${arr[i].label}`
+  ul.skills__list
+    - for (var i = 0; i < arr.length; i++)
+      li.skills__chart
+        svg(viewBox='0 0 36 36')
+          path(d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831' fill='none' stroke='#eaeaea' opacity='0.1' stroke-width='1')
+          path(d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831' fill='none' stroke='#f29400' stroke-width='2' stroke-dasharray=`${arr[i].percent}, 100`)
+        span.skills__text= `${arr[i].label}`
