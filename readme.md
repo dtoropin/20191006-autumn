@@ -6,7 +6,7 @@
 
 Наставник: Любовь Белая
 
-url: 
+url: https://dtoropin.github.io/20191006-autumn/dist/
 
 ## Скрипты package.json:
 
