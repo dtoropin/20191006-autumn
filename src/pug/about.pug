@@ -26,14 +26,10 @@
     }
   ]
 
-.about
-  .about__leaf.about__leaf--1
-  .about__leaf.about__leaf--2
-  .about__leaf.about__leaf--3
-  .about__leaf.about__leaf--4
+.about#about
   .about__container.container
     .about__header
-      h2.about__title Что обо мне говорят
+      h2.section-title Что обо мне говорят
       .about__control
         a.about__arrow.about__arrow--left(href="#")
           +icon('arrow-down', 'about__icon')
@@ -41,13 +37,13 @@
           +icon('arrow-down', 'about__icon')
     ul.about__list
       - for (var i = 0; i < reviews.length; i++)
-        li.about__item
-          .about__block
-            .about__text
+        li.review.about__item
+          .review__content
+            .review__text
               p= `${reviews[i].text}`
-            .about__user
-              .about__img
+            .review__user
+              .review__img
                 +image(`content/${reviews[i].photo}`, '', `${reviews[i].name}`)
-              .about__subs
-                h4.about__name= `${reviews[i].name}`
-                span.about__position= `${reviews[i].pos}`
+              .review__subs
+                h4.review__name= `${reviews[i].name}`
+                span.review__position= `${reviews[i].pos}`

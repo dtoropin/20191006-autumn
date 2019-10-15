@@ -1,67 +1,40 @@
-- 
-  var work = [
-    {
-      img: '1',
-      skill: ['HTML', 'CSS', 'javascript'],
-      link: '#',
-      title: 'Сайт школы образования',
-      text: 'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!'
-    },
-    {
-      img: '2',
-      skill: ['HTML5', 'CSS3', 'javascript'],
-      link: '#',
-      title: 'Сайт школы образования',
-      text: 'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!'
-    },
-    {
-      img: '3',
-      skill: ['HTML5', 'CSS3', 'javascript'],
-      link: '#',
-      title: 'Сайт школы образования',
-      text: 'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!'
-    },
-    {
-      img: '4',
-      skill: ['HTML5', 'CSS3', 'javascript'],
-      link: '#',
-      title: 'Сайт школы образования',
-      text: 'Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!'
-    }
-  ]
+- var preview = [1, 2, 3, 4]
+- var tags = ['HTML', 'CSS', 'javascript']
 
 //- section works
-.works
+section.works#works
   .works__container.container
-    .works__title Мои работы
-    .works__slider
-      .slider
-        .preview
-          ul.preview__list
-            - for (var i = 0; i < work.length; i++)
-              li.preview__item
-                - var img = require(`images/content/${work[i].img}.jpg`)
-                a.preview__link(style=`background-image:url(${img})`, href='#')
-          .preview__control
-            a.preview__arrow.preview__arrow--left(href="#")
-              +icon('arrow-down', 'preview__arrow-icon')
-            a.preview__arrow.preview__arrow--right(href="#")
-              +icon('arrow-down', 'preview__arrow-icon')
+    h2.section-title Мои работы
+    .works__content
+      .works__left
+        .slider
+          +image('content/1.jpg', 'slider__img')
+          .slider__control
+            .control
+              a.control__arrow.control__arrow--prev(href="#")
+                +icon('arrow-down', 'control__icon')
+              a.control__arrow.control__arrow--next(href="#")
+                +icon('arrow-down', 'control__icon')
+
+          .slider__preview
+            ul.preview
+              - for (var i = 0; i < preview.length; i++)
+                li.preview__item(class=`${i === 0 ? 'active' : ''}`)
+                  a.preview__link(href="#")
+                    +image(`content/${preview[i]}.jpg`, 'preview__img', 'preview pictures')
+
+      .works__right
+        .works__tags
+          ul.tags
+            - for (var i = 0; i < tags.length; i++)
+              li.tags__item= `${tags[i]}`
               
-        .slides
-          ul.slider__list
-            - for (var i = 0; i < work.length; i++)
-              li.slider__item
-                .slider__img
-                  +image(`content/${work[i].img}.jpg`, '', `${work[i].title}`)
-                .slider__idx= `${i+1}`
-                .slider__subs
-                  ul.slider__skills
-                    - for (var j = 0; j < work[i].skill.length; j++)
-                      li.slider__skill= `${work[i].skill[j]}`
-                  .slider__title= `${work[i].title}`
-                  .slider__text
-                    p= `${work[i].text}`
-                  a.slider__link(href=`${work[i].link}` target='_blank')
-                    +icon('link', 'slider__icon')
-                    span Посмотреть сайт
+        .works__text
+          h3.works__title Сайт школы образования
+          .works__subs
+            p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
+          a.works__link(href="#" target='_blank')
+            +icon('link', 'works__icon')
+            span Посмотреть сайт
+
+      .works__idx 1

@@ -1,0 +1,77 @@
+- 
+  var navLink = [
+    {
+      title: 'Главная',
+      link: '#welcome'
+    },
+    {
+      title: 'Обо мне',
+      link: '#user'
+    },
+    {
+      title: 'Навыки',
+      link: '#skills'
+    },
+    {
+      title: 'Работы',
+      link: '#works'
+    },
+    {
+      title: 'Отзывы',
+      link: '#about'
+    },
+    {
+      title: 'Связаться',
+      link: '#contacts'
+    }
+  ]
+
+- 
+  var social = [
+    {
+      link: 'https://www.instagram.com/?hl=ru',
+      icon: 'insta',
+      title: 'Instagram'
+    },
+    {
+      link: 'https://vk.com/d.toropin',
+      icon: 'vk',
+      title: 'VKontakte'
+    },
+    {
+      link: 'https://github.com/dtoropin',
+      icon: 'github',
+      title: 'github'
+    }
+  ]
+
+//- section welcome
+section.welcome#welcome
+  .welcome__container.container
+    header.welcome__header
+      .welcome__logo
+        .logo ДТ
+
+      .welcome__menu
+        nav.nav
+          ul.nav__list
+            - for (var i = 0; i < navLink.length; i++)
+              li.nav__item
+                a.nav__link(href=`${navLink[i].link}`)= navLink[i].title
+
+      .welcome__links
+        ul.social
+          - for (var i = 0; i < social.length; i++)
+            li.social__item
+              a.social__link(href=`${social[i].link}` title=`${social[i].title}` target='_blank')
+                +icon(`${social[i].icon}`, 'social__icon')
+
+    .welcome__head
+      .user-info
+        h1.user-info__title Денис Торопин
+        span.user-info__subs Личный сайт веб&nbsp;разработчика
+
+    .welcome__scroll
+      a(href='#user').scroll-btn
+        span.scroll-btn__text Скролл
+        +icon('scroll', 'scroll-btn__icon')

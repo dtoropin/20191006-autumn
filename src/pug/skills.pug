@@ -14,18 +14,18 @@
   ]
 
 //- section skills
-.skills
+.skills#skills
   .skills__container.container
     .skills__head
-      h2.skills__title Чем я могу быть полезен вам
+      h2.section-title--mid Чем я могу быть полезен вам
       .skills__subs
         p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
 
-    .skills__charts
-      .skills__row
-        h3.skills__label Front-end
-        +skills(frontEnd)
+    ul.skills__charts
+      li.chart
+        h3.chart__label Front-end
+        +chart(frontEnd)
 
-      .skills__row
-        h3.skills__label Workflow
-        +skills(workbench)
+      li.chart
+        h3.chart__label Workflow
+        +chart(workbench)

@@ -1,28 +1,31 @@
 - var userData = {town: 'Санкт-Петербург', ago: 45, date: '31 октября 1973'}
 
 //- section user
-.user
-  .user__container
-    .user__row
-      .user__photo
-        +image('content/DSCN0377.JPG', 'user__img', 'D.Toropin')
+.user#user
+  .user__container.container
+    .user__left
+      .user-card
+        .user-card__photo
+          .avatar
+            +image('content/DSCN0377.JPG', '', 'D.Toropin')
+
+        ul.user-card__subs
+          li.user-card__item
+            span.user-card__title Проживаю:
+            span.user-card__value= userData.town
+          li.user-card__item
+            span.user-card__title Возраст:
+            span.user-card__value= `${userData.ago} лет`
+          li.user-card__item
+            span.user-card__title Родился:
+            span.user-card__value= userData.date
+
+    .user__right
       .user__subs
         span.user__head Привет, меня зовут
         h3.user__name Денис Торопин
         .user__text
           p Я занимаюсь разработкой современных сайтов и приложений. Мне нравится делать интересные и современные проекты.
-
-    .user__row
-      ul.user__data
-        li.user-data__row
-          span.user-data__title Проживаю:
-          span.user-data__value= userData.town
-        li.user-data__row
-          span.user-data__title Возраст:
-          span.user-data__value= `${userData.ago} лет`
-        li.user-data__row
-          span.user-data__title Родился:
-          span.user-data__value= userData.date
 
       .user__article
         p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!

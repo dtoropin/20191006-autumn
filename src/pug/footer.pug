@@ -1,3 +1,50 @@
+- 
+  var navLink = [
+    {
+      title: 'Главная',
+      link: '#welcome'
+    },
+    {
+      title: 'Обо мне',
+      link: '#user'
+    },
+    {
+      title: 'Навыки',
+      link: '#skills'
+    },
+    {
+      title: 'Работы',
+      link: '#works'
+    },
+    {
+      title: 'Отзывы',
+      link: '#about'
+    },
+    {
+      title: 'Связаться',
+      link: '#contacts'
+    }
+  ]
+
+-
+  var social = [
+    {
+      link: 'https://www.instagram.com/?hl=ru',
+      icon: 'insta',
+      title: 'Instagram'
+    },
+    {
+      link: 'https://vk.com/d.toropin',
+      icon: 'vk',
+      title: 'VKontakte'
+    },
+    {
+      link: 'https://github.com/dtoropin',
+      icon: 'github',
+      title: 'github'
+    }
+  ]
+
 footer.footer
   .footer__container.container
     .footer__copy ©&nbsp;2019
@@ -9,7 +56,7 @@ footer.footer
         ul.nav__list
           - for (var i = 0; i < navLink.length; i++)
             li.nav__item
-              a.nav__link(href="#")= navLink[i]
+              a.nav__link(href=`${navLink[i].link}`)= navLink[i].title
 
       .footer__info
         .footer__personal

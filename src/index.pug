@@ -11,10 +11,12 @@ html(lang="ru")
     title Portfolio | main page
   body
     .wrapper
-      include ./pug/first.pug
-      include ./pug/user.pug
+      .first
+        include ./pug/welcome.pug
+        include ./pug/user.pug
       include ./pug/skills.pug
       include ./pug/works.pug
-      include ./pug/about.pug
-      include ./pug/contacts.pug
+      .last
+        include ./pug/about.pug
+        include ./pug/contacts.pug
       include ./pug/footer.pug

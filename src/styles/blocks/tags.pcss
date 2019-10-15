@@ -1,0 +1,15 @@
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tags__item {
+  border-radius: 30px;
+  background-color: rgba(#7aa0c5, .2);
+  padding: 13px 19px;
+  font-size: 15px;
+
+  & ~ .tags__item {
+    margin-left: 10px;
+  }
+}
