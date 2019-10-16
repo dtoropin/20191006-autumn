@@ -13,14 +13,21 @@
 }
 
 .welcome__header {
-  display: flex;
+  display: grid;
+  grid-template: 'logo menu social' 1fr / 50px 1fr 160px;
   justify-content: space-between;
   align-items: center;
+  grid-gap: 0 20px;
 }
 
 .welcome__menu {
+  justify-self: center;
   margin-left: 20px;
   margin-right: 20px;
+
+  @include tablets {
+    justify-self: end;
+  }
 }
 
 .welcome__head {

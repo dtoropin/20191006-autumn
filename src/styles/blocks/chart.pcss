@@ -9,6 +9,10 @@
 .chart__list {
   display: flex;
   justify-content: space-between;
+
+  @include tablets {
+    flex-wrap: wrap;
+  }
 }
 
 .chart__label {

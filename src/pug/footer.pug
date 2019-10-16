@@ -53,9 +53,9 @@ footer.footer
       span.footer__subs Личный сайт веб&#8209;разработчика
     .footer__block
       .footer__nav
-        ul.nav__list
+        ul.footer__nav-list
           - for (var i = 0; i < navLink.length; i++)
-            li.nav__item
+            li.footer__nav-item
               a.nav__link(href=`${navLink[i].link}`)= navLink[i].title
 
       .footer__info

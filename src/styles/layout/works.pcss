@@ -1,6 +1,10 @@
 .works {
   padding-top: 200px;
   padding-bottom: 200px;
+
+  @include tablets {
+    padding-bottom: 110px;
+  }
 }
 
 .works__container {
@@ -11,10 +15,19 @@
   position: relative;
   display: flex;
   justify-content: space-between;
+
+  @include tablets {
+    flex-wrap: wrap;
+  }
 }
 
 .works__left {
   width: 65%;
+
+  @include tablets {
+    width: 85%;
+    margin-bottom: 60px;
+  }
 }
 
 .works__right {
@@ -23,10 +36,20 @@
   @include desktop {
     width: 25%;
   }
+
+  @include tablets {
+    width: 57%;
+    margin: 0 auto;
+    text-align: center;
+  }
 }
 
 .works__tags {
   margin-bottom: 50px;
+
+  @include tablets {
+    margin-bottom: 28px;
+  }
 }
 
 .works__title {
@@ -43,6 +66,10 @@
   font-weight: 600;
   opacity: 0.7;
   margin-bottom: 50px;
+
+  @include tablets {
+    margin-bottom: 30px;
+  }
 }
 
 .works__link {
@@ -76,7 +103,12 @@
 
   @include desktop {
     font-size: 200px;
-    right: 24%;
+    right: 23.5%;
     top: 30%;
+  }
+
+  @include tablets {
+    right: 0;
+    top: 12%;
   }
 }

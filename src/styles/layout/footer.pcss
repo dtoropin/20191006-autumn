@@ -17,6 +17,15 @@
       1fr / 20% 1fr;
     grid-gap: 0 40px;
   }
+
+  @include tablets {
+    grid-template: 
+      'copy block'
+      'title block'
+      1fr / 20% 65%;
+    grid-gap: 0;
+    justify-content: space-between;
+  }
 }
 
 .footer__copy {
@@ -28,6 +37,10 @@
   @include desktop {
     margin-bottom: 30px;
     line-height: 1;
+  }
+
+  @include tablets {
+    font-size: 40px;
   }
 }
 
@@ -51,12 +64,37 @@
 }
 
 .footer__nav {
-  margin-bottom: 70px;
+  margin-bottom: 60px;
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-item {
+    margin-bottom: 10px;
+
+    @include tablets {
+      width: 83px;
+    }
+
+    & ~ .footer__nav-item {
+      margin-left: 25px;
+
+      @include tablets {
+        margin-left: 0;
+      }
+    }
+  } 
 }
 
 .footer__info {
   display: flex;
   justify-content: space-between;
+
+  @include tablets {
+    flex-wrap: wrap;
+  }
 }
 
 .footer__personal {
@@ -64,6 +102,11 @@
 
   @include desktop {
     width: 48%;
+  }
+
+  @include tablets {
+    width: 95%;
+    margin-bottom: 50px;
   }
 }
 
@@ -115,6 +158,10 @@
 
   @include desktop {
     width: 48%;
+  }
+
+  @include tablets {
+    width: 95%;
   }
 }
 

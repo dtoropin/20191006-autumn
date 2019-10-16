@@ -6,15 +6,23 @@
   color: #fff;
   background: url(../images/background/bg-skills.jpg) no-repeat center / cover;
 
+  @include tablets {
+    padding-bottom: 350px;
+  }
+
   &::before {
     content: '';
-    display: block;
     position: absolute;
     left: 0;
-    bottom: -87px;
-    width: 568px;
-    height: 842px;
-    background: url(../images/background/hands.png) no-repeat center / contain;
+    bottom: -50px;
+    top: 0;
+    right: 0;
+    background: url(../images/background/hands.png) no-repeat left bottom / 50%;
+
+    @include tablets {
+      bottom: 0;
+      background: url(../images/background/hands-rotate.png) no-repeat center bottom / 70%;
+    }
   }
 }
 
@@ -28,6 +36,11 @@
   width: 590px;
   margin: 0 auto 70px;
   z-index: 5;
+
+  @include tablets {
+    width: 428px;
+    text-align: center;
+  }
 }
 
 .skills__subs {
@@ -39,4 +52,10 @@
 .skills__charts {
   width: 760px;
   z-index: 5;
+
+  @include tablets {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+  }
 }

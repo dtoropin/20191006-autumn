@@ -4,4 +4,16 @@
   padding-top: 100px;
   padding-bottom: 160px;
   z-index: 20;
+
+  @include tablets {
+    padding-top: 60px;
+  }
+}
+
+.contacts__container {
+  @include tablets {
+    & > .section-title {
+      text-align: center;
+    }
+  }
 }

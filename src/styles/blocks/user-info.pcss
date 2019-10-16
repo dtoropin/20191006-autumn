@@ -2,6 +2,10 @@
   font-size: 72px;
   font-weight: 800;
   line-height: 1;
+
+  @include tablets {
+    text-align: center;
+  }
 }
 
 .user-info__subs {
@@ -16,5 +20,17 @@
 
   @include desktop {
     margin-right: 40px;
+  }
+
+  @include tablets {
+    display: block;
+    text-align: center;
+    top: initial;
+    bottom: 100%;
+    right: 50%;
+    transform: translateX(50%);
+    margin-right: 0;
+    margin-bottom: 30px;
+    opacity: 0.5;
   }
 }
