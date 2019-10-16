@@ -1,34 +1,8 @@
 .about {
-  min-height: 100vh;
   position: relative;
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.about__leaf {
-  position: absolute;
-  z-index: 2;
-
-  &--1 {
-    top: -250px;
-    right: 80px;
-    width: 404px;
-    height: 551px;
-    background: url(../images/background/leaf1.png) no-repeat center / cover;
-    transform: rotate(-90deg);
-  }
-
-  &--2 {
-    bottom: 55px;
-    right: 357px;
-    width: 127px;
-    height: 135px;
-    background: url(../images/background/leaf2.png) no-repeat center / cover;
-  }
+  padding-top: 150px;
+  padding-bottom: 100px;
 }
 
 .about__container {
@@ -43,6 +17,7 @@
 
 .about__control {
   display: flex;
+  z-index: 20;
 }
 
 .about__arrow {
@@ -62,7 +37,6 @@
   }
 
   &:hover {
-    opacity: 0.8;
     color: #f29400;
     border: 1px solid #f29400;
   }
