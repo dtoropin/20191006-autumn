@@ -19,6 +19,10 @@
 
 .works__right {
   width: 23%;
+
+  @include desktop {
+    width: 25%;
+  }
 }
 
 .works__tags {
@@ -29,6 +33,10 @@
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 40px;
+
+  @include desktop {
+    font-size: 26px;
+  }
 }
 
 .works__subs {
@@ -65,4 +73,10 @@
   line-height: 0.12;
   color: #e6e6e6;
   z-index: -1;
+
+  @include desktop {
+    font-size: 200px;
+    right: 24%;
+    top: 30%;
+  }
 }

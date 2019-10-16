@@ -6,19 +6,33 @@
 }
 
 .footer__container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template: 'copy title block' 1fr / 15% 15% 1fr;
+  grid-gap: 0 20px;
+
+  @include desktop {
+    grid-template: 
+      'copy block'
+      'title block'
+      1fr / 20% 1fr;
+    grid-gap: 0 40px;
+  }
 }
 
 .footer__copy {
-  width: 11%;
+  grid-area: copy;
   font-size: 48px;
   font-weight: 600;
   opacity: 0.1;
+
+  @include desktop {
+    margin-bottom: 30px;
+    line-height: 1;
+  }
 }
 
 .footer__title {
-  width: 10%;
+  grid-area: title;
   width: 141px;
 }
 
@@ -33,7 +47,7 @@
 }
 
 .footer__block {
-  width: 65%;
+  grid-area: block;
 }
 
 .footer__nav {
@@ -47,6 +61,10 @@
 
 .footer__personal {
   width: 40%;
+
+  @include desktop {
+    width: 48%;
+  }
 }
 
 .footer__text {
@@ -94,6 +112,10 @@
 
 .footer__cite {
   width: 40%;
+
+  @include desktop {
+    width: 48%;
+  }
 }
 
 .footer__author {

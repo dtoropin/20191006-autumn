@@ -5,6 +5,10 @@
 .nav__item {
   & ~ .nav__item {
     margin-left: 60px;
+
+    @include desktop {
+      margin-left: 25px;
+    }
   }
 }
 

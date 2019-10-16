@@ -9,7 +9,16 @@
   padding: 13px 19px;
   font-size: 15px;
 
+  @include desktop {
+    padding: 7px 10px;
+    font-size: 14px;
+  }
+
   & ~ .tags__item {
     margin-left: 10px;
+
+    @include desktop {
+      margin-left: 5px;
+    }
   }
 }

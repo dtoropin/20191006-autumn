@@ -11,7 +11,7 @@
               .contacts-form__pic
                 +icon('user', 'contacts-form__icon')
               .contacts-form__field
-                input(type="text" placeholder="Имя").contacts-form__input
+                input(type="text" name="name" placeholder="Имя").contacts-form__input
 
           .contacts-form__item
             span.contacts-form__title Введите ваш email
@@ -19,7 +19,7 @@
               .contacts-form__pic
                 +icon('envelope', 'contacts-form__icon')
               .contacts-form__field
-                input(type="email" placeholder="mail@example.com").contacts-form__input
+                input(type="email" name="email" placeholder="mail@example.com").contacts-form__input
 
         .contacts-form__row
           .contacts-form__item
@@ -28,7 +28,7 @@
               .contacts-form__pic.contacts-form__pic--textarea
                 +icon('message', 'contacts-form__icon')
               .contacts-form__field
-                textarea(placeholder="Сообщение к письму").contacts-form__input.contacts-form__input--textarea
+                textarea(name="message" placeholder="Сообщение к письму").contacts-form__input.contacts-form__input--textarea
 
         .contacts-form__row
           .contacts-form__item

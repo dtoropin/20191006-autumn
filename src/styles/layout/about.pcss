@@ -53,7 +53,7 @@
 }
 
 .about__list {
-  width: 950px;
+  max-width: 950px;
   display: flex;
   overflow: hidden;
 }
@@ -61,4 +61,9 @@
 .about__item {
   flex-shrink: 0;
   width: 50%;
+  padding-right: 70px;
+
+  @include desktop {
+    padding-right: 30px;
+  }
 }

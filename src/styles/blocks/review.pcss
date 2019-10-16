@@ -1,6 +1,5 @@
 .review {
   display: flex;
-  padding-right: 70px;
 
   &::before {
     content: '';
@@ -22,15 +21,17 @@
 
 .review__user {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /* justify-content: space-between; */
+  /* align-items: center; */
 }
 
 .review__img {
+  flex-shrink: 0;
   width: 75px;
   height: 75px;
   border-radius: 50%;
   overflow: hidden;
+  margin-right: 20px;
 }
 
 .review__name {
