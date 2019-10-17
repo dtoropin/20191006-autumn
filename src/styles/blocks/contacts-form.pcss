@@ -13,14 +13,26 @@
 .contacts-form__row {
   display: flex;
   justify-content: space-between;
+
+  @include phones {
+    flex-wrap: wrap;
+  }
 }
 
 .contacts-form__item {
   width: 100%;
   margin-bottom: 40px;
 
+  @include phones {
+    margin-bottom: 60px;
+  }
+
   & ~ .contacts-form__item {
     margin-left: 60px;
+
+    @include phones {
+      margin-left: 0;
+    }
   }
 }
 

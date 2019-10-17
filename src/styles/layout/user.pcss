@@ -1,6 +1,10 @@
 .user {
   padding-top: 110px;
   padding-bottom: 270px;
+
+  @include phones {
+    padding-bottom: 100px;
+  }
 }
 
 .user__container {
@@ -9,6 +13,10 @@
   display: flex;
   justify-content: space-between;
   color: #fff;
+
+  @include phones {
+    flex-wrap: wrap;
+  }
 }
 
 .user__left {
@@ -16,6 +24,12 @@
 
   @include tablets {
     width: 50%;
+  }
+
+  @include phones {
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 50px;
   }
 }
 
@@ -30,6 +44,10 @@
   @include tablets {
     margin-left: 3%;
     width: 50%;
+  }
+
+  @include phones {
+    width: 100%;
   }
 }
 

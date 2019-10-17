@@ -28,6 +28,10 @@
     width: 85%;
     margin-bottom: 60px;
   }
+
+  @include phones {
+    width: 100%;
+  }
 }
 
 .works__right {
@@ -41,6 +45,11 @@
     width: 57%;
     margin: 0 auto;
     text-align: center;
+  }
+
+  @include phones {
+    width: 100%;
+    text-align: left;
   }
 }
 
@@ -110,5 +119,9 @@
   @include tablets {
     right: 0;
     top: 12%;
+  }
+
+  @include phones {
+    display: none;
   }
 }

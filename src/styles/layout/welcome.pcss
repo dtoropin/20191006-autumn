@@ -18,6 +18,10 @@
   justify-content: space-between;
   align-items: center;
   grid-gap: 0 20px;
+
+  @include phones {
+    grid-template: 'logo menu' 1fr / 50px 1fr;
+  }
 }
 
 .welcome__menu {
@@ -27,6 +31,12 @@
 
   @include tablets {
     justify-self: end;
+  }
+}
+
+.welcome__links {
+  @include phones {
+    display: none;
   }
 }
 

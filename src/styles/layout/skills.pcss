@@ -23,6 +23,10 @@
       bottom: 0;
       background: url(../images/background/hands-rotate.png) no-repeat center bottom / 70%;
     }
+
+    @include phones {
+      background-size: 90%;
+    }
   }
 }
 
@@ -40,6 +44,10 @@
   @include tablets {
     width: 428px;
     text-align: center;
+  }
+
+  @include phones {
+    width: 100%;
   }
 }
 

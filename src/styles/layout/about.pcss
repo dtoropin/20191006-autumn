@@ -17,6 +17,17 @@
   display: flex;
   justify-content: space-between;
   max-width: 640px;
+
+  @include phones {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    & > .section-title {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+  }
 }
 
 .about__control {
@@ -73,5 +84,9 @@
 
   @include desktop {
     padding-right: 30px;
+  }
+
+  @include phones {
+    width: 100%;
   }
 }
