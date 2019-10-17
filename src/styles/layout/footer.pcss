@@ -11,28 +11,18 @@
   grid-gap: 0 20px;
 
   @include desktop {
-    grid-template: 
-      'copy block'
-      'title block'
-      1fr / 20% 1fr;
+    grid-template: 'copy block' 'title block' 1fr / 20% 1fr;
     grid-gap: 0 40px;
   }
 
   @include tablets {
-    grid-template: 
-      'copy block'
-      'title block'
-      1fr / 20% 65%;
+    grid-template: 'copy block' 'title block' 1fr / 20% 65%;
     grid-gap: 0;
     justify-content: space-between;
   }
 
   @include phones {
-    grid-template: 
-      'copy'
-      'title'
-      'block'
-      1fr / 1fr;
+    grid-template: 'copy' 'title' 'block' 1fr / 1fr;
   }
 }
 

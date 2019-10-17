@@ -13,16 +13,18 @@
 
 .works__content {
   position: relative;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template: 'image subtext' 1fr / 65% 25%;
+  justify-content: space-between; 
 
   @include tablets {
-    flex-wrap: wrap;
+    grid-template: 'image' 'subtext' 1fr / 1fr;
+    justify-content: center;
   }
 }
 
 .works__left {
-  width: 65%;
+  grid-area: image;
 
   @include tablets {
     width: 85%;
@@ -35,11 +37,7 @@
 }
 
 .works__right {
-  width: 23%;
-
-  @include desktop {
-    width: 25%;
-  }
+  grid-area: subtext;
 
   @include tablets {
     width: 57%;
@@ -103,8 +101,8 @@
 .works__idx {
   position: absolute;
   top: 35%;
-  right: 20%;
-  font-size: 400px;
+  right: 22.5%;
+  font-size: 360px;
   font-weight: 800;
   line-height: 0.12;
   color: #e6e6e6;

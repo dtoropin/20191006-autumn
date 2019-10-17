@@ -9,46 +9,34 @@
 
 .user__container {
   max-width: 970px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
   color: #fff;
+  display: grid;
+  grid-gap: 15%;
+  justify-content: space-between;
+  grid-template: 'card subs' 1fr / 300px 1fr;
+
+  @include tablets {
+    grid-template: 'card subs' 1fr / 1fr 1fr;
+    grid-gap: 10%;
+  }
 
   @include phones {
-    flex-wrap: wrap;
+    grid-template: 'card' 'subs' 1fr / 1fr;
+    grid-gap: 5%;
   }
 }
 
 .user__left {
-  max-width: 300px;
-
-  @include tablets {
-    width: 50%;
-  }
+  grid-area: card;
 
   @include phones {
-    max-width: 100%;
-    width: 100%;
     margin-bottom: 50px;
   }
 }
 
 .user__right {
-  margin-left: 15%;
+  grid-area: subs;
   color: rgba(#fff, .5);
-
-  @include desktop {
-    margin-left: 10%;
-  }
-
-  @include tablets {
-    margin-left: 3%;
-    width: 50%;
-  }
-
-  @include phones {
-    width: 100%;
-  }
 }
 
 .user__subs {
@@ -85,5 +73,9 @@
     content: '*';
     color: rgba(255, 0, 0, 0.1);
     font-size: 48px;
+
+    @include phones {
+      left: -35px;
+    }
   }
 }
