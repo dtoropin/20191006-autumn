@@ -7,7 +7,7 @@ const parallax = (function () {
   const init = function (wScroll) {
     _move(layer4, wScroll, 95);
     _move(layer2, wScroll, 87);
-    _move(layer3, wScroll, 55);
+    _move(layer3, wScroll, 65);
   };
 
   const _move = function (block, wScroll, offset) {

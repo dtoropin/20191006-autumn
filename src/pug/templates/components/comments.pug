@@ -1,0 +1,25 @@
+script(type='text/x-template')#comments
+  .comments
+    .comments__header
+      h2.section-title Что обо мне говорят
+      .comments__control
+        a.comments__arrow.comments__arrow--left(href="#")
+          +icon('arrow-down', 'comments__icon')
+        a.comments__arrow.comments__arrow--right(href="#")
+          +icon('arrow-down', 'comments__icon')
+    .comments__item
+      swiper(ref='mySwiper' :options='swiperOptions')
+        review(v-for='item in comments' :item='item' :key='item.id')
+
+script(type='text/x-template')#review
+  swiper-slide
+    .review
+      .review__content
+        .review__text
+          p {{ item.text }}
+        .review__user
+          .review__img
+            img(:src='item.photo', '', 'reviews img')
+          .review__subs
+            h4.review__name {{ item.name }}
+            span.review__position {{ item.pos }}
