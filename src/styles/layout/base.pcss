@@ -12,6 +12,9 @@ html {
 body,
 html {
   height: 100%;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  user-select: none;
 }
 
 body {
@@ -22,8 +25,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: $text-color;
   cursor: default;
-  scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
 
   &.noscroll {
     overflow: hidden;

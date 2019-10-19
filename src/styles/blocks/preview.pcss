@@ -1,4 +1,4 @@
-.preview {
+.preview__list {
   display: flex;
   justify-content: flex-end;
 }
@@ -12,6 +12,10 @@
       box-shadow: 0 0 0 2px #f29400;
     }
   }
+
+  &.active > .preview__link {
+    pointer-events: none;
+  }
 }
 
 .preview__link {
@@ -23,6 +27,6 @@
   }
 
   @include tablets {
-    width: 100px;
+    width: 110px;
   }
 }

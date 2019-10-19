@@ -1,0 +1,32 @@
+script(type='text/x-template')#skills-container
+  ul.skills__charts
+    li.skills__item(
+      v-for='skill in skills'
+      :key='skill.group'
+    )
+      chart(
+        :skill='skill'
+      )
+
+script(type='text/x-template')#skills-chart
+  .chart
+    h3.chart__label {{ skill.group }}
+    ul.chart__list
+      li.chart__item(
+        v-for='(percent, name) in skill.skills'
+        :key='name'
+      )
+        diagramm(
+          :name='name'
+          :percent='percent'
+        )
+
+script(type='text/x-template')#skills-diagramm
+  .diagramm
+    svg(viewBox='0 0 36 36')
+      path(d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831' fill='none' stroke='#eaeaea' opacity='0.2' stroke-width='1')
+      path(d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831' fill='none' stroke='url(#linear-gradient)' stroke-width='2' ref='percent-circle')
+      linearGradient(id='linear-gradient')
+        stop(offset='0%' stop-color='#f29400')
+        stop(offset='100%' stop-color='#ea7400')
+    span.diagramm__text {{ name }}
