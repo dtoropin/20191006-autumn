@@ -14,8 +14,12 @@
   width: 65%;
 
   @include tablets {
-    width: 95%;
+    width: 84%;
     margin-bottom: 60px;
+  }
+
+  @include phones {
+    width: 100%;
   }
 }
 
@@ -111,12 +115,18 @@
   z-index: -1;
 
   @include desktop {
-    font-size: 200px;
+    font-size: 220px;
     right: 24%;
     top: 30%;
   }
 
   @include tablets {
+    font-size: 180px;
+    top: 15%;
+    right: 0;
+  }
+
+  @include phones {
     display: none;
   }
 }

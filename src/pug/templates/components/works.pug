@@ -3,9 +3,7 @@ script(type='text/x-template')#slider
     .slider__images
       img(:src='currentSlide.photo').slider__img
       .slider__control
-        control(
-          @slide='changeSlide'
-        )
+        control(@slide='changeSlide')
 
       .slider__preview
         preview(
@@ -16,9 +14,7 @@ script(type='text/x-template')#slider
 
     .slider__desk
       .slider__tags
-        tags(
-          :tags='tags'
-        )
+        tags(:tags='tags')
 
       .slider__text
         h3.slider__title {{ currentSlide.title }}
@@ -30,18 +26,20 @@ script(type='text/x-template')#slider
 
     .slider__idx {{ currentSlide.id }}
 
+
 script(type='text/x-template')#control
   .control
-    a.control__arrow.control__arrow--prev(
-      href='#'
+    button.control__arrow.control__arrow--prev(
+      type='button'
       @click.prevent="$emit('slide', 'next')" 
     )
       +icon('arrow-down', 'control__icon')
-    a.control__arrow.control__arrow--next(
-      href='#'
+    button.control__arrow.control__arrow--next(
+      type='button'
       @click.prevent="$emit('slide', 'prev')" 
     )
       +icon('arrow-down', 'control__icon')
+
 
 script(type='text/x-template')#preview
   .preview
@@ -53,9 +51,10 @@ script(type='text/x-template')#preview
       )
         a.preview__link(
           href='#'
-          @click.prevent="$emit('slide', slide.id)"
+          @click.prevent="$emit('slide', slide.id)" 
         )
           img(:src='slide.photo', 'preview__img', 'preview pictures')
+
 
 script(type='text/x-template')#tags
   .tags

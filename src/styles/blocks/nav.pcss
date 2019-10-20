@@ -9,12 +9,17 @@
     height: 100%;
     right: 0;
     left: 150%;
-    background: rgba(#ccc, 0.92);
+    background: rgba(#ccc, 0.95);
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    padding-left: 70px;
     z-index: 50;
     transition: .5s left ease;
+  }
+
+  @include phones {
+    padding-left: 0;
+    text-align: center;
   }
 }
 

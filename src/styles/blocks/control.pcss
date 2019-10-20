@@ -7,9 +7,12 @@
   position: relative;
   width: 50px;
   height: 50px;
-  background-color: #2d3c4e;
   color: rgba(#fff, .4);
   transition: .3s color ease;
+
+  &[type='button'] {
+    background-color: #2d3c4e;
+  }
 
   @include desktop {
     width: 37.5px;
