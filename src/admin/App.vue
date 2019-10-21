@@ -32,10 +32,29 @@
             .add__text Добавить группу
 
         .about__block
+          //- карточка
           .add-card
             .add-card__header
               .add-card__title
-                span.add-card__input.add-card__input--title Workflow
+                input(type='text' placeholder='Название новой группы').add-card__input.add-card__input--title
+                .add-card__btns
+                  button(type='button').btn.btn--edited--ok
+                  button(type='button').btn.btn--edited--delete
+              
+            .add-card__block
+              
+            .add-card__footer
+              input(type='text' name='newTitle' placeholder='Новый навык').add-card__input
+              input(type='text' name='newPercent').add-card__input.add-card__input--percent
+              span.add-card__percent %
+              button(type='button').add-card__plus
+                .plus
+
+          //- карточка
+          .add-card
+            .add-card__header
+              .add-card__title
+                span.add-card__value.add-card__value--title Workflow
                 .add-card__btns
                   button(type='button').btn.btn--ok
                   button(type='button').btn.btn--delete
@@ -45,25 +64,29 @@
                 li.add-card__item.edited
                   input(type='text' name='skill' value='Git').add-card__input
                   input(type='text' name='percent' value='90').add-card__input.add-card__input--percent
+                  span.add-card__percent %
+                  .add-card__btns
+                    button(type='button').btn.btn--edited--ok
+                    button(type='button').btn.btn--edited--delete
+                li.add-card__item
+                  span.add-card__value Terminal
+                  span.add-card__value.add-card__value--percent 100
+                  span.add-card__percent %
                   .add-card__btns
                     button(type='button').btn.btn--ok
                     button(type='button').btn.btn--delete
                 li.add-card__item
-                  span.add-card__input Terminal
-                  span.add-card__input.add-card__input--percent 100
-                  .add-card__btns
-                    button(type='button').btn.btn--ok
-                    button(type='button').btn.btn--delete
-                li.add-card__item
-                  span.add-card__input Gulp
-                  span.add-card__input.add-card__input--percent 95
+                  span.add-card__value Gulp
+                  span.add-card__value.add-card__value--percent 95
+                  span.add-card__percent %
                   .add-card__btns
                     button(type='button').btn.btn--ok
                     button(type='button').btn.btn--delete
 
             .add-card__footer
-              input(type='text' name='newTitle').add-card__input.add-card__input--title
+              input(type='text' name='newTitle' placeholder='Новый навык').add-card__input
               input(type='text' name='newPercent').add-card__input.add-card__input--percent
+              span.add-card__percent %
               button(type='button').add-card__plus
                 .plus
 
@@ -101,6 +124,7 @@ li {
 }
 body {
   min-height: 100vh;
+  min-width: 340px;
   font-family: "Open Sans", Helvetica, sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -185,10 +209,20 @@ button[type="button"] {
     height: 14px;
     background: url(../images/admin/pencil.png) no-repeat center / cover;
   }
+  &--edited--ok {
+    width: 14px;
+    height: 14px;
+    background: url(../images/admin/tick.png) no-repeat center / cover;
+  }
   &--delete {
     width: 14px;
     height: 14px;
     background: url(../images/admin/trash.png) no-repeat center / cover;
+  }
+  &--edited--delete {
+    width: 14px;
+    height: 14px;
+    background: url(../images/admin/cross.png) no-repeat center / cover;
   }
 }
 /* navigation */
@@ -235,6 +269,9 @@ button[type="button"] {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 /* add */
 .add {
@@ -280,6 +317,9 @@ button[type="button"] {
 }
 /* add-card */
 .add-card {
+  min-height: 387px;
+  display: flex;
+  flex-direction: column;
   padding: 30px;
   box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.15);
   margin-bottom: 30px;
@@ -288,6 +328,10 @@ button[type="button"] {
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(#000, 0.1);
 }
+.add-card__block {
+  flex-grow: 1;
+  margin-bottom: 60px;
+}
 .add-card__title {
   display: grid;
   grid-template-columns: 82% 15%;
@@ -295,23 +339,14 @@ button[type="button"] {
   align-items: center;
 }
 .add-card__item {
+  position: relative;
   display: grid;
-  grid-template-columns: 64% 15% 15%;
-  grid-column-gap: 3%;
+  grid-template-columns: 1fr 60px 50px;
+  grid-column-gap: 20px;
   align-items: center;
-  padding-top: 30px;
-  &.edited {
-    & > .add-card__input {
-      border-bottom: 1px solid #ccc;
-    }
-    & > .add-card__btns > .btn--ok {
-      background: url(../images/admin/tick.png) no-repeat center / cover;
-    }
-    & > .add-card__btns > .btn--delete {
-      background: url(../images/admin/cross.png) no-repeat center / cover;
-    }
-  }
+  padding-top: 16px;
 }
+.add-card__value,
 .add-card__input {
   width: 100%;
   font-size: 16px;
@@ -324,15 +359,20 @@ button[type="button"] {
     font-weight: 700;
   }
   &--percent {
-    position: relative;
-    &::after {
-      content: '%';
-      opacity: 0.7;
-      position: absolute;
-      top: 20%;
-      right: 0;
-    }
+    padding-right: 17px;
   }
+}
+.add-card__input {
+  border-bottom: 1px solid #ccc;
+  transition: 0.3s border ease;
+  &:focus {
+    border-bottom: 1px solid #ea7400;
+  }
+}
+.add-card__percent {
+  position: absolute;
+  bottom: 16%;
+  right: 75px;
 }
 .add-card__btns {
   justify-self: end;
@@ -342,14 +382,22 @@ button[type="button"] {
   }
 }
 .add-card__footer {
+  position: relative;
+  width: 80%;
   display: grid;
-  grid-template-columns: 64% 15% 15%;
-  grid-column-gap: 3%;
+  margin-left: auto;
+  grid-template-columns: 1fr 60px 50px;
+  grid-column-gap: 20px;
   align-items: center;
-  padding-top: 30px;
 }
 .add-card__plus {
-  width: 90%;
-  height: 100%;
+  & .plus {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+  }
+  &:hover .plus {
+    background-image: linear-gradient(to bottom, #f29400, #ea7400);
+  }
 }
 </style>
