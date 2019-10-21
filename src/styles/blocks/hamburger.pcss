@@ -1,0 +1,63 @@
+.hamburger {
+  display: none;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  @include tablets {
+    position: relative;
+    display: block;
+    z-index: 55;
+  }
+
+  &.active {
+    & > .hamburger__elem {
+      background: #5e5e5e;
+    }
+
+    & + .nav__list {
+      display: flex;
+      left: 60%;
+      color: $text-color;
+
+      @include phones {
+        left: 0;
+      }
+    }
+  } 
+}
+
+.hamburger__elem {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: #fff;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  transition: 0.3s all ease;
+  box-shadow: inset 0 0 1.5px #000;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.hamburger:hover > .hamburger__elem {
+  opacity: 0.8;
+}
+
+.hamburger.active > .hamburger__elem {
+  &:nth-child(1) {
+    top: 9px;
+    transform: rotate(45deg);
+  }
+
+  &:nth-child(2) {
+    display: none;
+  }
+
+  &:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+}

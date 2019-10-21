@@ -1,18 +1,38 @@
 .contacts-form {
   width: 60%;
+
+  @include desktop {
+    width: 75%;
+  }
+
+  @include tablets {
+    width: 100%;
+  }
 }
 
 .contacts-form__row {
   display: flex;
   justify-content: space-between;
+
+  @include phones {
+    flex-wrap: wrap;
+  }
 }
 
 .contacts-form__item {
   width: 100%;
   margin-bottom: 40px;
 
+  @include phones {
+    margin-bottom: 60px;
+  }
+
   & ~ .contacts-form__item {
     margin-left: 60px;
+
+    @include phones {
+      margin-left: 0;
+    }
   }
 }
 
@@ -24,29 +44,20 @@
   padding-left: 70px;
 }
 
-.contacts-form__label {
-  display: flex;
-  border-bottom: 1px solid #fff;
-}
-
-.contacts-form__pic {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-
-  &--textarea {
-    padding-top: 10px;
-  }
+.contacts-form__field {
+  position: relative;
+  margin-bottom: 19px;
 }
 
 .contacts-form__icon {
-  fill: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35px;
+  height: 35px;
+  fill: currentColor;
   opacity: 0.3;
-  margin-right: 20px;
-}
-
-.contacts-form__field {
-  width: 100%;
+  transition: .3s ease;
 }
 
 .contacts-form__input {
@@ -54,16 +65,30 @@
   font-size: 18px;
   font-weight: bold;
   color: #fff;
-  padding: 5px 0;
+  padding: 5px 0 25px 55px;
   outline: none;
   background: transparent;
   border: 0;
-  margin-bottom: 19px;
+  line-height: 1;
+  border-bottom: 1px solid rgba(#fff, .6);
+  transition: .3s border-color ease;
 
   &--textarea {
     resize: none;
-    height: 80px;
+    height: 110px;
     line-height: 1.88;
+
+    & + .contacts-form__icon {
+      margin-top: 5px;
+    }
+  }
+
+  &:focus {
+    border-bottom: 1px solid rgba(#ea7400, .6);
+
+    & + .contacts-form__icon {
+      color: #ea7400;
+    }
   }
 }
 
@@ -75,6 +100,11 @@
   text-transform: uppercase;
   background-image: linear-gradient(to right, #ea7400, #f29400);
   transition: .3s ease;
+
+  @include tablets {
+    display: block;
+    margin: 0 auto;
+  }
 
   &:hover {
     background-image: linear-gradient(to left, #ea7400, #f29400);

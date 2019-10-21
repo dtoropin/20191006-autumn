@@ -3,8 +3,17 @@
   color: #fff;
   padding-top: 100px;
   padding-bottom: 160px;
+  z-index: 20;
+
+  @include tablets {
+    padding-top: 60px;
+  }
 }
 
 .contacts__container {
-  z-index: 5;
+  @include tablets {
+    & > .section-title {
+      text-align: center;
+    }
+  }
 }

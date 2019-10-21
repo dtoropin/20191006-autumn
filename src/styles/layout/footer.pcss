@@ -6,26 +6,57 @@
 }
 
 .footer__container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template: 'copy title block' 1fr / 15% 15% 1fr;
+  grid-gap: 0 20px;
+
+  @include desktop {
+    grid-template: 'copy block' 'title block' 1fr / 20% 1fr;
+    grid-gap: 0 40px;
+  }
+
+  @include tablets {
+    grid-template: 'copy block' 'title block' 1fr / 20% 65%;
+    grid-gap: 0;
+    justify-content: space-between;
+  }
+
+  @include phones {
+    grid-template: 'copy' 'title' 'block' 1fr / 1fr;
+  }
 }
 
 .footer__copy {
-  width: 11%;
+  grid-area: copy;
   font-size: 48px;
   font-weight: 600;
   opacity: 0.1;
+
+  @include desktop {
+    margin-bottom: 30px;
+    line-height: 1;
+  }
+
+  @include tablets {
+    font-size: 40px;
+  }
 }
 
 .footer__title {
-  width: 10%;
+  grid-area: title;
   width: 141px;
+
+  @include phones {
+    width: 100%;
+    margin-bottom: 50px;
+  }
 }
 
 .footer__name {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 34px;
+  text-transform: uppercase;
 }
 
 .footer__subs {
@@ -33,20 +64,63 @@
 }
 
 .footer__block {
-  width: 65%;
+  grid-area: block;
 }
 
 .footer__nav {
-  margin-bottom: 70px;
+  margin-bottom: 60px;
+
+  @include phones {
+    margin-bottom: 50px;
+  }
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-item {
+    margin-bottom: 10px;
+
+    @include tablets {
+      width: 83px;
+    }
+
+    @include phones {
+      width: 50%;
+      margin-bottom: 30px;
+    }
+
+    & ~ .footer__nav-item {
+      margin-left: 25px;
+
+      @include tablets {
+        margin-left: 0;
+      }
+    }
+  } 
 }
 
 .footer__info {
   display: flex;
   justify-content: space-between;
+
+  @include tablets {
+    flex-wrap: wrap;
+  }
 }
 
 .footer__personal {
   width: 40%;
+
+  @include desktop {
+    width: 48%;
+  }
+
+  @include tablets {
+    width: 95%;
+    margin-bottom: 50px;
+  }
 }
 
 .footer__text {
@@ -94,6 +168,14 @@
 
 .footer__cite {
   width: 40%;
+
+  @include desktop {
+    width: 48%;
+  }
+
+  @include tablets {
+    width: 95%;
+  }
 }
 
 .footer__author {

@@ -12,6 +12,8 @@ html(lang="ru")
   body
     .wrapper
       .first
+        - for (var i = 4; i > 0; i--)
+          .first__layer(class=`first__layer--${i}`)
         include ./pug/welcome.pug
         include ./pug/user.pug
       include ./pug/skills.pug
@@ -20,3 +22,5 @@ html(lang="ru")
         include ./pug/about.pug
         include ./pug/contacts.pug
       include ./pug/footer.pug
+
+    include ./pug/templates/entry.pug

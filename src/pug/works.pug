@@ -5,36 +5,4 @@
 section.works
   .works__container.container#works
     h2.section-title Мои работы
-    .works__content
-      .works__left
-        .slider
-          +image('content/1.jpg', 'slider__img')
-          .slider__control
-            .control
-              a.control__arrow.control__arrow--prev(href="#")
-                +icon('arrow-down', 'control__icon')
-              a.control__arrow.control__arrow--next(href="#")
-                +icon('arrow-down', 'control__icon')
-
-          .slider__preview
-            ul.preview
-              - for (var i = 0; i < preview.length; i++)
-                li.preview__item(class=`${i === 0 ? 'active' : ''}`)
-                  a.preview__link(href="#")
-                    +image(`content/${preview[i]}.jpg`, 'preview__img', 'preview pictures')
-
-      .works__right
-        .works__tags
-          ul.tags
-            - for (var i = 0; i < tags.length; i++)
-              li.tags__item= `${tags[i]}`
-              
-        .works__text
-          h3.works__title Сайт школы образования
-          .works__subs
-            p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
-          a.works__link(href="#" target='_blank')
-            +icon('link', 'works__icon')
-            span Посмотреть сайт
-
-      .works__idx 1
+    #works__content

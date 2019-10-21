@@ -7,6 +7,16 @@
 .user-card__photo {
   width: 200px;
   margin-bottom: 80px;
+
+  @include tablets {
+    width: 170px;
+  }
+}
+
+.user-card__subs {
+  @include phones {
+    width: 80%;
+  }
 }
 
 .user-card__item {
@@ -25,4 +35,8 @@
 .user-card__value {
   width: 150px;
   margin-left: 60px;
+
+  @include tablets {
+    margin-left: 20px;
+  }
 }

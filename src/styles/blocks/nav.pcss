@@ -1,10 +1,38 @@
 .nav__list {
   display: flex;
+  justify-content: space-between;
+
+  @include tablets {
+    display: none;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    right: 0;
+    left: 150%;
+    background: rgba(#ccc, 0.95);
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 70px;
+    z-index: 50;
+    transition: .5s left ease;
+  }
+
+  @include phones {
+    padding-left: 0;
+    text-align: center;
+  }
 }
 
-.nav__item {
-  & ~ .nav__item {
-    margin-left: 60px;
+.nav__item ~ .nav__item {
+  margin-left: 60px;
+
+  @include desktop {
+    margin-left: 15px;
+  }
+
+  @include tablets {
+    margin-left: 0;
+    margin-top: 20px;
   }
 }
 

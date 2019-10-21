@@ -1,22 +1,43 @@
 .user {
+  position: relative;
   padding-top: 110px;
-  padding-bottom: 270px;
+  padding-bottom: 200px;
+  z-index: 10;
+
+  @include phones {
+    padding-bottom: 100px;
+  }
 }
 
 .user__container {
   max-width: 970px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
   color: #fff;
+  display: grid;
+  grid-gap: 15%;
+  justify-content: space-between;
+  grid-template: 'card subs' 1fr / 300px 1fr;
+
+  @include tablets {
+    grid-template: 'card subs' 1fr / 1fr 1fr;
+    grid-gap: 10%;
+  }
+
+  @include phones {
+    grid-template: 'card' 'subs' 1fr / 1fr;
+    grid-gap: 5%;
+  }
 }
 
 .user__left {
-  width: 300px;
+  grid-area: card;
+
+  @include phones {
+    margin-bottom: 50px;
+  }
 }
 
 .user__right {
-  margin-left: 15%;
+  grid-area: subs;
   color: rgba(#fff, .5);
 }
 
@@ -54,5 +75,9 @@
     content: '*';
     color: rgba(255, 0, 0, 0.1);
     font-size: 48px;
+
+    @include phones {
+      left: -35px;
+    }
   }
 }

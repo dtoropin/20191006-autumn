@@ -1,3 +1,37 @@
 .first {
-  background: url(../images/background/Train Bridge.jpg) no-repeat center / cover;
+  position: relative;
+
+  @include tablets {
+    background: url(../images/background/Train Bridge.jpg) no-repeat center / cover;
+  }
+}
+
+.first__layer {
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 0;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+  
+    &--4 {
+      background: url(../images/parallax/layer4.png) no-repeat;
+    }
+    &--3 {
+      background: url(../images/parallax/layer3.png) no-repeat;
+      background-position: 50% 25%;
+    }
+    &--2 {
+      background: url(../images/parallax/layer2.png) no-repeat;
+      background-position: 50% 43%;
+      background-size: contain;
+      z-index: 5;
+    }
+    &--1 {
+      background: url(../images/parallax/layer1.png) no-repeat;
+      background-position: 50% bottom;
+      background-size: 100% 60%;
+      z-index: 5;
+    }
+  }
 }
