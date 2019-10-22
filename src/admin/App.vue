@@ -11,7 +11,7 @@
           span.head-text Панель администрирования
 
         .header__btn
-          a(href='#').btn Выйти
+          a(href='#').header__link Выйти
 
     nav.nav
       ul.nav__list.container
@@ -28,7 +28,7 @@
           h2.section-title Блок «Обо мне»
           a(href='#').add
             .add__plus
-              .plus
+              .plus.plus--bg
             .add__text Добавить группу
 
         .about__block
@@ -38,8 +38,8 @@
               .add-card__title
                 input(type='text' placeholder='Название новой группы').add-card__input.add-card__input--title
                 .add-card__btns
-                  button(type='button').btn.btn--edited--ok
-                  button(type='button').btn.btn--edited--delete
+                  button(type='button').btn.btn--edit--ok
+                  button(type='button').btn.btn--edit--delete
               
             .add-card__block
               
@@ -48,7 +48,7 @@
               input(type='text' name='newPercent').add-card__input.add-card__input--percent
               span.add-card__percent %
               button(type='button').add-card__plus
-                .plus
+                .plus.plus--bg
 
           //- карточка
           .add-card
@@ -66,8 +66,8 @@
                   input(type='text' name='percent' value='90').add-card__input.add-card__input--percent
                   span.add-card__percent %
                   .add-card__btns
-                    button(type='button').btn.btn--edited--ok
-                    button(type='button').btn.btn--edited--delete
+                    button(type='button').btn.btn--edit--ok
+                    button(type='button').btn.btn--edit--delete
                 li.add-card__item
                   span.add-card__value Terminal
                   span.add-card__value.add-card__value--percent 100
@@ -88,7 +88,7 @@
               input(type='text' name='newPercent').add-card__input.add-card__input--percent
               span.add-card__percent %
               button(type='button').add-card__plus
-                .plus
+                .plus.plus--bg
 
     section.works
       .container
@@ -100,11 +100,11 @@
           
           form.edit-work__block
             .edit-work__download
-              .box-file
-                input(type='file' name='file')#file.box-file__input
-                .box-file__drop
-                  .box-file__subs
-                    span.box-file__info Перетащите или загрузите для загрузки изображения
+              .download-drop-file
+                input(type='file' accept='image/jpeg,image/png,image/jpg' name='file')#file.download-drop-file__input
+                .download-drop-file__drop
+                  .download-drop-file__subs
+                    span.download-drop-file__info Перетащите или загрузите для загрузки изображения
                     label(for='file').btn-default Загрузить
 
             .edit-work__form
@@ -112,19 +112,19 @@
                 .edit-block__field
                   label.edit-block__label
                     span.edit-block__title Название
-                    input(type='text' name='name' value='Дизайн сайта для авто салона Porsche').edit-block__input
+                    input(type='text' name='name' value='Дизайн сайта для авто салона Porsche' placeholder='Название сайта').edit-block__input
                 .edit-block__field
                   label.edit-block__label
                     span.edit-block__title Ссылка
-                    input(type='link' name='link' value='https://www.porsche-pulkovo.ru').edit-block__input
+                    input(type='link' name='link' value='https://www.porsche-pulkovo.ru' placeholder='https://www.example.com').edit-block__input
                 .edit-block__field.edit-block__field--textarea
                   label.edit-block__label
                     span.edit-block__title Описание
-                    textarea(name='desk').edit-block__input.edit-block__input--textarea Порше Центр Пулково - является официальным дилером марки Порше в Санкт-Петербурге и предоставляет полный цикл услуг по продаже и сервисному обслуживанию автомобилей
+                    textarea(name='desk' placeholder='Краткое описание сайта').edit-block__input.edit-block__input--textarea Порше Центр Пулково - является официальным дилером марки Порше в Санкт-Петербурге и предоставляет полный цикл услуг по продаже и сервисному обслуживанию автомобилей
                 .edit-block__field
                   label.edit-block__label
                     span.edit-block__title Добавление тэга
-                    input(type='text' name='tags' value='Jquery, Vue.js, HTML5').edit-block__input
+                    input(type='text' name='tags' value='Jquery, Vue.js, HTML5' placeholder='Добавьте теги (через запятую)').edit-block__input
                 .edit-block__tags
                   ul.tags
                     li.tags__item HTML5
@@ -135,21 +135,24 @@
                       button(type='button').tags__delete
                 .edit-block__btns
                   button(type='button').btn-zero Отмена
-                  button(type='button').btn-default Сохранить
+                  button(type='submit').btn-default Сохранить
 
         .works__show
           .works__add
-            .works__center
-              button(type='button').works__btn
-                .works__plus
-              span.works__info Добавить работу
+            .new-card
+              .new-card__center
+                .new-card__link
+                  button(type='button').new-card__btn
+                    .new-card__plus
+                      .plus
+                span.new-card__info Добавить работу
 
           .works__card
             .work-card.edited
               .work-card__img
                 img(src='../images/content/1.jpg' alt='work 1')
                 .work-card__tags
-                  ul.tags
+                  ul.tags.tags--right
                     li.tags__item HTML5
                     li.tags__item Vue.js
                     li.tags__item javascript
@@ -159,27 +162,104 @@
                   p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
                 a(href='#').work-card__link http://loftschool.ru
                 .work-card__buttons
-                  button(type='button').work-card__btn.work-card__btn--edit Править
-                  button(type='button').work-card__btn.work-card__btn--delete Удалить
+                  button(type='button').btn-card.btn-card--edit Править
+                  button(type='button').btn-card.btn-card--delete Удалить
 
-          .work-card
-            .work-card__img
-              img(src='../images/content/2.jpg' alt='work 2')
-              .work-card__tags
-                ul.tags
-                  li.tags__item HTML5
-                  li.tags__item CSS3
-                  li.tags__item javascript
-            .work-card__info
-              h3.work-card__title Сайт школы образования
-              .work-card__text
-                p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-              a(href='#').work-card__link http://loftschool.ru
-              .work-card__buttons
-                button(type='button').work-card__btn.work-card__btn--edit Править
-                button(type='button').work-card__btn.work-card__btn--delete Удалить
+          .works__card
+            .work-card
+              .work-card__img
+                img(src='../images/content/2.jpg' alt='work 2')
+                .work-card__tags
+                  ul.tags
+                    li.tags__item HTML5
+                    li.tags__item CSS3
+                    li.tags__item javascript
+              .work-card__info
+                h3.work-card__title Сайт школы образования
+                .work-card__text
+                  p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+                a(href='#').work-card__link http://loftschool.ru
+                .work-card__buttons
+                  button(type='button').btn-card.btn-card--edit Править
+                  button(type='button').btn-card.btn-card--delete Удалить
 
-    section
+    section.comments
+      .container
+        .comments__header
+          h2.section-title Блок «Отзывы»
+        
+        .comments__block
+          h3.comments__title Новый отзыв
+
+          form.edit-comment__block
+            .download-file
+              input(type='file' accept='image/jpeg,image/png,image/jpg' name='photo')#photo.download-file__input
+              label(for='photo').download-file__label
+                .download-file__img
+                  img(src='../images/admin/user-default.jpg' alt='photo')
+              span.download-file__text Добавить фото
+            
+            .edit-comment__form
+              .edit-comment__row
+                .edit-comment__field
+                  label.edit-comment__label
+                    span.edit-comment__title Имя автора
+                    input(type='text' name='name' value='Ковальчук Дмитрий').edit-comment__input
+                .edit-comment__field
+                  label.edit-comment__label
+                    span.edit-comment__title Титул автора
+                    input(type='text' name='position' value='Основатель LoftSchool').edit-comment__input
+
+              .edit-comment__field
+                label.edit-comment__label
+                  span.edit-comment__title Отзыв
+                  textarea(type='text' name='desk').edit-comment__input.edit-comment__input--textarea Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
+
+              .edit-comment__btns
+                button(type='button').btn-zero Отмена
+                button(type='submit').btn-default Сохранить
+
+        .comments__show
+          .comments__add
+            .new-card
+              .new-card__center
+                .new-card__link
+                  button(type='button').new-card__btn
+                    .new-card__plus
+                      .plus
+                span.new-card__info Добавить отзыв
+
+          .comments__card
+            .review-card.edited
+              .review-card__user
+                .review-card__img
+                  img(src='../images/content/user1.jpg' alt='user1')
+                .review-card__info
+                  h4.review-card__name Ковальчук Дмитрий
+                  span.review-card__position Основатель Loftschool
+              
+              .review-card__text
+                p Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах
+
+              .review-card__btns
+                button(type='button').btn-card.btn-card--edit Править
+                button(type='button').btn-card.btn-card--delete Удалить
+
+          .comments__card
+            .review-card
+              .review-card__user
+                .review-card__img
+                  img(src='../images/content/user2.jpg' alt='user2')
+                .review-card__info
+                  h4.review-card__name Владимир Сабанцев
+                  span.review-card__position Преподаватель
+              
+              .review-card__text
+                p Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах
+
+              .review-card__btns
+                button(type='button').btn-card.btn-card--edit Править
+                button(type='button').btn-card.btn-card--delete Удалить
 </template>
 
 
@@ -233,7 +313,7 @@ img {
   max-width: 100%;
   display: block;
 }
-button[type="button"] {
+button {
   border: none;
   outline: none;
   cursor: pointer;
@@ -263,6 +343,12 @@ button[type="button"] {
   grid-column-gap: 20px;
   align-items: center;
 }
+.header__link {
+  border-bottom: 1px solid #fff;
+  &:hover {
+    opacity: 0.8;
+  }
+}
 /* user */
 .user {
   display: flex;
@@ -283,66 +369,6 @@ button[type="button"] {
 .head-text {
   font-size: 14px;
   opacity: 0.5;
-}
-/* button */
-.btn {
-  opacity: 1;
-  border-bottom: 1px solid #fff;
-  transition: 0.3s opacity ease;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-  &--ok,
-  &--edited--ok,
-  &--delete,
-  &--edited--delete {
-    width: 14px;
-    height: 14px;
-  }
-  &--ok {
-    background: url(../images/admin/pencil.png) no-repeat center / cover;
-  }
-  &--edited--ok {
-    background: url(../images/admin/tick.png) no-repeat center / cover;
-  }
-  &--delete {
-    background: url(../images/admin/trash.png) no-repeat center / cover;
-  }
-  &--edited--delete {
-    background: url(../images/admin/cross.png) no-repeat center / cover;
-  }
-  &-default,
-  &-zero {
-    display: inline-block;
-    line-height: 1;
-    padding: 15px 40px;
-    border-radius: 25px;
-    transition: 0.3s ease;
-  }
-  &-default {
-    text-transform: uppercase;
-    color: #fff;
-    background-image: linear-gradient(to top, #f29400, #ea7400);
-    &:hover {
-      background-image: linear-gradient(to bottom, #f29400, #ea7400);
-      color: rgba(#fff, 0.8);
-    }
-    &:active {
-      box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.8);
-    }
-  }
-  &-zero {
-    color: #ea7400;
-    margin-right: 5px;
-    &:hover {
-      background: rgba(#ea7400, 0.1);
-      color: rgba(#ea7400, 0.8);
-    }
-    &:active {
-      box-shadow: inset 0 0 3px rgba(234, 117, 0, 0.8);
-    }
-  }
 }
 /* navigation */
 .nav__list {
@@ -415,25 +441,6 @@ button[type="button"] {
 }
 .add__text {
   font-weight: 600;
-}
-/* plus */
-.plus {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to top, #f29400, #ea7400);
-  border-radius: 50%;
-  overflow: hidden;
-  transition: 0.3s ease;
-  &::after {
-    content: "+";
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-  }
 }
 /* add-card */
 .add-card {
@@ -548,46 +555,6 @@ button[type="button"] {
   align-items: center;
   background-image: linear-gradient(to top, #f29400, #ea7400);
 }
-.works__center {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-.works__btn {
-  display: inline-block;
-  width: 150px;
-  height: 150px;
-  margin-bottom: 30px;
-  padding: 0;
-  transition: .3s opacity ease;
-  &:hover {
-    opacity: 0.8;
-  }
-}
-.works__plus {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  &::before {
-    content: '+';
-    font-size: 72px;
-    position: absolute;
-    line-height: 1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-  }
-}
-.works__info {
-  width: 95px;
-  margin: 0 auto;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-}
 /* edit work */
 .edit-work {
   min-height: 775px;
@@ -608,45 +575,9 @@ button[type="button"] {
   padding-right: 12px;
   padding-left: 12px;
 }
-/* box-file */
-.box-file {
-  position: relative;
-  min-height: 275px;
-}
-.box-file__input {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-.box-file__drop {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  border: 2px dashed #a1a1a1;
-  background-color: #dee4ed;
-}
-.box-file__subs {
-  max-width: 225px;
-  text-align: center;
-}
-.box-file__info {
-  display: block;
-  font-weight: 600;
-  opacity: 0.5;
-  margin-bottom: 25px;
-}
 /* edit block */
 .edit-block__field {
-  border-bottom: 1px solid rgba(#414c63, 0.3);
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   &--textarea {
     border: none;
   }
@@ -663,9 +594,12 @@ button[type="button"] {
   font-size: 16px;
   margin-bottom: 18px;
   margin-top: 20px;
+  padding-bottom: 20px;
   outline: none;
   border: none;
   opacity: 1;
+  border-bottom: 1px solid rgba(#414c63, 0.3);
+  transition: .3s border ease;
   &--textarea {
     font-family: inherit;
     font-size: inherit;
@@ -677,52 +611,16 @@ button[type="button"] {
     @media screen and (max-width: 1200px) {
       padding: 10px;
     }
+    &:focus {
+      border: solid 1px rgba(#ea7400, 0.3);
+    }
+  }
+  &:focus {
+    border-bottom: 1px solid rgba(#ea7400, 0.3);
   }
 }
 .edit-block__tags {
   margin-bottom: 40px;
-}
-/* tags */
-.tags {
-  display: flex;
-}
-.tags__item {
-  display: flex;
-  font-size: 13px;
-  padding: 5px 15px;
-  border-radius: 15px;
-  background-color: #ececec;
-  & ~ .tags__item {
-    margin-left: 9px;
-  }
-}
-.tags__delete {
-  display: block;
-  position: relative;
-  width: 10px;
-  height: 10px;
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: #414c63;
-    border-radius: 2px;
-    transition: .3s background-color ease;
-  }
-  &::before {
-    transform: rotate(45deg);
-  }
-  &::after {
-    transform: rotate(-45deg);
-  }
-  &:hover::before,
-  &:hover::after {
-    background: #ea7400;
-  }
 }
 /* work card */
 .work-card {
@@ -769,29 +667,410 @@ button[type="button"] {
   display: flex;
   justify-content: space-between;
 }
-.work-card__btn {
+/* comments */
+.comments {
+  padding-top: 60px;
+  margin-bottom: 30px;
+}
+.comments__header {
+  margin-bottom: 60px;
+}
+.comments__block {
+  box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.1);
+  padding: 30px 19px;
+}
+.comments__title {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(#000, 0.1);
+  margin-bottom: 45px;
+}
+.comments__show {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+  padding-top: 30px;
+  margin-bottom: 30px;
+}
+.comments__add,
+.comments__card {
+  min-height: 380px;
+  height: 100%;
+}
+.comments__add {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to top, #f29400, #ea7400);;
+}
+.comments__btn {
+  margin-bottom: 30px;
+}
+.comments__info {
+  display: block;
+  width: 95px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+/* edit comment */
+.edit-comment__block {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 30px;
+  padding-top: 30px;
+  margin-bottom: 30px;
+}
+.edit-comment__form {
+  max-width: 620px;
+}
+.edit-comment__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+}
+.edit-comment__title {
+  display: block;
   font-weight: 600;
-  color: rgba(65, 76, 99, 0.5);
-  &:hover::after {
-    color: rgba(65, 76, 99, 0.9);
-    opacity: 0.7;
+  opacity: 0.5;
+  margin-bottom: 15px;
+}
+.edit-comment__input {
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 18px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  outline: none;
+  border: none;
+  opacity: 1;
+  border-bottom: 1px solid rgba(#414c63, 0.3);
+  transition: .3s border ease;
+  &--textarea {
+    font-family: inherit;
+    font-size: inherit;
+    resize: none;
+    height: 145px;
+    padding: 10px 80px 10px 20px;
+    line-height: 1.7;
+    border: solid 1px rgba(#414c63, 0.3);
+    @media screen and (max-width: 1200px) {
+      padding: 10px;
+    }
+    &:focus {
+      border: solid 1px rgba(#ea7400, 0.3);
+    }
   }
-  &--edit::after {
-    content: '';
-    width: 17px;
-    height: 17px;
+  &:focus {
+    border-bottom: 1px solid rgba(#ea7400, 0.3);
+  }
+}
+.edit-comment__btns {
+  display: flex;
+  justify-content: flex-end;
+}
+/* review-card */
+.review-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.1);
+  &.edited {
+    opacity: 0.4;
+  }  
+}
+.review-card__user {
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(#000, 0.1);
+}
+.review-card__img {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20px;
+}
+.review-card__name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+.review-card__position {
+  font-weight: 600;
+  opacity: 0.5;
+}
+.review-card__text {
+  flex-grow: 1;
+  padding: 30px 10px;
+  font-weight: 600;
+  opacity: 0.7;
+}
+.review-card__btns {
+  display: flex;
+  justify-content: space-between;
+}
+/************* components **************/
+/************* components **************/
+/* plus */
+.plus {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  &::after {
+    content: "";
     display: block;
-    margin-left: 10px;
-    background: url(../images/admin/pencil-edit.png) no-repeat center / cover;
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: svg-load("cross.svg", fill=#fff, width=100%, height=100%) no-repeat;
+    transition: .2s transform ease;
   }
-  &--delete::after {
-    content: '';
+  &--bg {
+    background-image: linear-gradient(to top, #f29400, #ea7400);
+    &:hover {
+      background-image: linear-gradient(to bottom, #f29400, #ea7400);
+    }
+  }
+  &:hover::after {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.1);
+  }
+}
+/* new-card */
+.new-card {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.new-card__center {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.new-card__link {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 30px;
+}
+.new-card__btn {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  transition: 0.3s opacity ease;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.new-card__plus {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  & .plus {
+    border: 2px solid #fff;
+    background: transparent;
+  }
+}
+.new-card__info {
+  width: 95px;
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+/* tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  &--right {
+    justify-content: flex-end;
+  }
+}
+.tags__item {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  padding: 5px 15px;
+  border-radius: 15px;
+  background-color: #ececec;
+  margin-bottom: 9px;
+  & ~ .tags__item {
+    margin-left: 9px;
+  }
+}
+.tags__delete {
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin-left: 9px;
+  margin-right: -3px;
+  background: svg-load("cross.svg", fill=#414c63, width=100%, height=100%) no-repeat;
+  transition: .3s background ease;
+  &:hover {
+    background: svg-load("cross.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+  }
+}
+/* download-file */
+.download-file {
+  position: relative;
+  text-align: center;
+}
+.download-file__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.download-file__label {
+  cursor: pointer;
+}
+.download-file__img {
+  width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 25px;
+  transition: .3s ease;
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 7px rgba(#ea7400, .5);
+  }
+}
+.download-file__text {
+  font-weight: 600;
+  color: #ea7400;
+  transition: .3s color ease;
+}
+/* download-drop-file */
+.download-drop-file {
+  position: relative;
+  min-height: 275px;
+}
+.download-drop-file__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.download-drop-file__drop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border: 2px dashed #a1a1a1;
+  background-color: #dee4ed;
+}
+.download-drop-file__subs {
+  max-width: 225px;
+  text-align: center;
+}
+.download-drop-file__info {
+  display: block;
+  font-weight: 600;
+  opacity: 0.5;
+  margin-bottom: 25px;
+}
+/* button */
+.btn {
+  opacity: 1;
+  transition: 0.3s opacity ease;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  &--ok,
+  &--edit--ok,
+  &--delete,
+  &--edit--delete {
     width: 14px;
     height: 14px;
-    display: block;
-    margin-left: 10px;
-    background: url(../images/admin/cancel.png) no-repeat center / cover;
+  }
+  &--ok {
+    background: svg-load("pencil.svg", fill=#414c63, width=100%, height=100%) no-repeat;
+  }
+  &--edit--ok {
+    background: svg-load("tick.svg", fill=#00d70a, width=100%, height=100%) no-repeat;
+  }
+  &--delete {
+    background: svg-load("trash.svg", fill=#414c63, width=100%, height=100%) no-repeat;
+  }
+  &--edit--delete {
+    background: svg-load("cross.svg", fill=#bf2929, width=100%, height=100%) no-repeat;
+  }
+  &-default,
+  &-zero {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 1;
+    padding: 15px 40px;
+    border-radius: 25px;
+    transition-property: color, background;
+    transition-duration: .3s;
+    transition-timing-function: ease;
+    &:active {
+      box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.9);
+    }
+  }
+  &-default {
+    text-transform: uppercase;
+    color: #fff;
+    background-image: linear-gradient(to top, #f29400, #ea7400);
+    &:hover {
+      background-image: linear-gradient(to bottom, #f29400, #ea7400);
+      color: rgba(#fff, 0.8);
+    }
+  }
+  &-zero {
+    color: #ea7400;
+    margin-right: 5px;
+    &:hover {
+      background: rgba(#ea7400, 0.2);
+      color: rgba(#ea7400, 0.8);
+    }
+  }
+  &-card {
+    display: flex;
+    font-weight: 600;
+    color: rgba(65, 76, 99, 0.5);
+    &:hover::after {
+      color: rgba(65, 76, 99, 0.9);
+      opacity: 0.7;
+    }
+    &--edit::after {
+      content: "";
+      width: 17px;
+      height: 17px;
+      display: block;
+      margin-left: 10px;
+      background: svg-load("pencil.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+    }
+    &--delete::after {
+      content: "";
+      width: 14px;
+      height: 14px;
+      display: block;
+      margin-left: 10px;
+      background: svg-load("cross.svg", fill=red, width=100%, height=100%) no-repeat;
+    }
   }
 }
 </style>
