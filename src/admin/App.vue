@@ -11,7 +11,7 @@
           span.head-text Панель администрирования
 
         .header__btn
-          a(href='#').header__link Выйти
+          a(href='index.html').header__link Выйти
 
     nav.nav
       ul.nav__list.container
@@ -295,6 +295,7 @@ body {
   min-width: 340px;
   font-family: "Open Sans", Helvetica, sans-serif;
   font-size: 16px;
+  color: $text-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: default;
@@ -318,6 +319,19 @@ button {
   outline: none;
   cursor: pointer;
   background-color: transparent;
+}
+@-webkit-keyframes autofill {
+  to {
+    color: inherit;
+    background: transparent;
+  }
+}
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}
+:not(output):-moz-ui-invalid {
+  box-shadow: 0 0 1.5px 1px transparent;
 }
 /* base */
 .container {

@@ -111,3 +111,23 @@ img {
     margin-bottom: 40px;
   }
 }
+
+/* поля ввода */
+@-webkit-keyframes autofill {
+  to {
+    color: inherit;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}
+:not(output):-moz-ui-invalid {
+  box-shadow: 0 0 1.5px 1px transparent;
+}
+
+textarea {
+  vertical-align: top;
+}
