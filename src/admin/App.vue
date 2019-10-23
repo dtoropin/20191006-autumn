@@ -260,11 +260,38 @@
               .review-card__btns
                 button(type='button').btn-card.btn-card--edit Править
                 button(type='button').btn-card.btn-card--delete Удалить
+
+    .login
+      .login__block
+        a(href='index.html').login__close
+        .login__content
+          .login__title Авторизация
+          form.login-form
+            .login-form__row
+              label.login-form__label
+                span.login-form__title Логин
+                .login-form__field
+                  input(type="text" name="login" required).login-form__input
+                  span.login-form__icon.login-form__icon--user
+                  span.login-form__error
+
+            .login-form__row
+              label.login-form__label
+                span.login-form__title Пароль
+                .login-form__field
+                  input(type="password" name="pass" required).login-form__input
+                  span.login-form__icon.login-form__icon--key
+                  span.login-form__error
+
+            .login-form__row
+              button(type='submit').login-form__btn Отправить
+
 </template>
 
 
 
 <style lang="postcss">
+@import "../styles/mixins.pcss";
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800");
 /* reset */
 * {
@@ -429,7 +456,7 @@ input:-webkit-autofill {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
-  @media screen and (max-width: 768px) {
+  @include tablets {
     grid-template-columns: 1fr;
   }
 }
@@ -463,7 +490,6 @@ input:-webkit-autofill {
   flex-direction: column;
   padding: 30px;
   box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.15);
-  /* margin-bottom: 30px; */
 }
 .add-card__header {
   padding-bottom: 20px;
@@ -622,7 +648,7 @@ input:-webkit-autofill {
     padding: 10px 80px 10px 20px;
     line-height: 1.7;
     border: solid 1px rgba(#414c63, 0.3);
-    @media screen and (max-width: 1200px) {
+    @include desktop {
       padding: 10px;
     }
     &:focus {
@@ -772,7 +798,7 @@ input:-webkit-autofill {
     padding: 10px 80px 10px 20px;
     line-height: 1.7;
     border: solid 1px rgba(#414c63, 0.3);
-    @media screen and (max-width: 1200px) {
+    @include desktop {
       padding: 10px;
     }
     &:focus {
@@ -830,6 +856,129 @@ input:-webkit-autofill {
 .review-card__btns {
   display: flex;
   justify-content: space-between;
+}
+/* login modal */
+.login {
+  display: none;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  left: 0;
+  right: 0;
+  background: url('../images/background/TrainBridge.jpg') no-repeat center / cover;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(#2d3c4e, .9);
+  }
+}
+.login__block {
+  position: relative;
+  background: #fff;
+  z-index: 10;
+  padding: 60px 75px;
+  max-width: 565px;
+  @include phones {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+.login__close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  display: block;
+  width: 19px;
+  height: 19px;
+  background: svg-load("cross.svg", fill=#2d3c4e, width=100%, height=100%) no-repeat;
+  &:hover {
+    background: svg-load("cross.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+  }
+}
+.login__title {
+  font-size: 36px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+}
+/* login-form */
+.login-form__title {
+  display: block;
+  font-weight: 600;
+  opacity: 0.3;
+  margin-bottom: 25px;
+}
+.login-form__field {
+  position: relative;
+  margin-bottom: 40px;
+}
+.login-form__input {
+  width: 100%;
+  padding: 8px 5px 20px 45px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(#2d3c4e, .3);
+  &:focus {
+    border-bottom: 1px solid rgba(#ea7400, .3);
+    & + .login-form__icon--user {
+      background: svg-load("user.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+    }
+    & + .login-form__icon--key {
+      background: svg-load("key.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+    }
+  }
+  &:invalid {
+    border-bottom: 1px solid rgba(#fb0000, .3);
+    & + .login-form__icon--user {
+      background: svg-load("user.svg", fill=#fb0000, width=100%, height=100%) no-repeat;
+    }
+    & + .login-form__icon--key {
+      background: svg-load("key.svg", fill=#fb0000, width=100%, height=100%) no-repeat;
+    }
+  }
+}
+.login-form__icon {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  display: block;
+  width: 26px;
+  height: 30px;
+  margin-right: 20px;
+  opacity: 0.3;
+  &--user {
+    background: svg-load("user.svg", fill=#2d3c4e, width=100%, height=100%) no-repeat;
+  }
+  &--key {
+    background: svg-load("key.svg", fill=#2d3c4e, width=100%, height=100%) no-repeat;
+  }
+}
+.login-form__btn {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  padding: 33px 120px;
+  display: block;
+  margin: 0 auto;
+  background-image: linear-gradient(to top, #f29400, #ea7400);
+  border-radius: 35px 0;
+  &:hover {
+    background-image: linear-gradient(to bottom, #f29400, #ea7400);
+  }
+  &:active {
+    box-shadow: inset 0 0 7px rgba(#fff, .7);
+  }
 }
 /************* components **************/
 /************* components **************/
