@@ -1,34 +1,50 @@
 <template lang="pug">
-  form.edit-comment
-    .download-file
-      input(type='file' accept='image/jpeg,image/png,image/jpg' name='photo')#photo.download-file__input
-      label(for='photo').download-file__label
-        .download-file__img
-          img(src='../../images/content/user-default.jpg' alt='photo')
-        span.download-file__text Изменить фото
-    
-    .edit-comment__form
-      .edit-comment__row
+  .comments__block
+    h3.comments__title Новый отзыв
+    form.edit-comment
+      .download-file
+        input(type='file' accept='image/jpeg,image/png,image/jpg' name='photo')#photo.download-file__input
+        label(for='photo').download-file__label
+          .download-file__img
+            img(:src='src' alt='avatar')
+          span.download-file__text Изменить фото
+      
+      .edit-comment__form
+        .edit-comment__row
+          .edit-comment__field
+            label.edit-comment__label
+              span.edit-comment__title Имя автора
+              input(type='text' name='name' value='Ковальчук Дмитрий').edit-comment__input
+          .edit-comment__field
+            label.edit-comment__label
+              span.edit-comment__title Титул автора
+              input(type='text' name='position' value='Основатель LoftSchool').edit-comment__input
+
         .edit-comment__field
           label.edit-comment__label
-            span.edit-comment__title Имя автора
-            input(type='text' name='name' value='Ковальчук Дмитрий').edit-comment__input
-        .edit-comment__field
-          label.edit-comment__label
-            span.edit-comment__title Титул автора
-            input(type='text' name='position' value='Основатель LoftSchool').edit-comment__input
+            span.edit-comment__title Отзыв
+            textarea(type='text' name='desk').edit-comment__input.edit-comment__input--textarea Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
 
-      .edit-comment__field
-        label.edit-comment__label
-          span.edit-comment__title Отзыв
-          textarea(type='text' name='desk').edit-comment__input.edit-comment__input--textarea Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-
-      .edit-comment__btns
-        button(type='button').btn-zero Отмена
-        button(type='submit').btn-default Сохранить
+        .edit-comment__btns
+          button(type='button').btn-zero Отмена
+          button(type='submit').btn-default Сохранить
 </template>
 
-
+<script>
+export default {
+  props: {
+    photo: {
+      type: String,
+      default: 'user-default.jpg'
+    }
+  },
+  computed: {
+    src() {
+      return require(`../../images/content/${this.photo}`);
+    }
+  }
+}
+</script>
 
 <style lang="postcss" scoped>
 @import "../../styles/mixins.pcss";

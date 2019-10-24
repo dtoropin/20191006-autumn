@@ -1,6 +1,6 @@
 <template lang="pug">
   .content
-    Login
+    //- Login
     Header
     Navigation
 
@@ -14,102 +14,46 @@
             .add__text Добавить группу
 
         .about__block
-          //- карточка
-          .skills
-            .skills__header
-              .skills__title
-                input(type='text' placeholder='Название новой группы').skills__input.skills__input--title
-                .skills__btns
-                  button(type='button').btn.btn--edit--ok
-                  button(type='button').btn.btn--edit--delete
-              
-            .skills__block
-              
-            .skills__footer
-              input(type='text' name='newTitle' placeholder='Новый навык').skills__input
-              input(type='text' name='newPercent').skills__input.skills__input--percent
-              span.skills__percent %
-              button(type='button').skills__plus
-                .plus.plus--bg
-
-          //- карточка
-          .skills
-            .skills__header
-              .skills__title
-                span.skills__value.skills__value--title Workflow
-                .skills__btns
-                  button(type='button').btn.btn--ok
-                  button(type='button').btn.btn--delete
-              
-            .skills__block
-              ul.skills__list
-                li.skills__item
-                  input(type='text' name='skill' value='Git').skills__input
-                  input(type='text' name='percent' value='90').skills__input.skills__input--percent
-                  span.skills__percent %
-                  .skills__btns
-                    button(type='button').btn.btn--edit--ok
-                    button(type='button').btn.btn--edit--delete
-                li.skills__item
-                  span.skills__value Terminal
-                  span.skills__value.skills__value--percent 100
-                  span.skills__percent %
-                  .skills__btns
-                    button(type='button').btn.btn--ok
-                    button(type='button').btn.btn--delete
-                li.skills__item
-                  span.skills__value Gulp
-                  span.skills__value.skills__value--percent 95
-                  span.skills__percent %
-                  .skills__btns
-                    button(type='button').btn.btn--ok
-                    button(type='button').btn.btn--delete
-
-            .skills__footer
-              input(type='text' name='newTitle' placeholder='Новый навык').skills__input
-              input(type='text' name='newPercent').skills__input.skills__input--percent
-              span.skills__percent %
-              button(type='button').skills__plus
-                .plus.plus--bg
+          //- карточка новой группы
+          NewGroupSkills
+          //- карточки групп умений
+          SkillCard(
+            v-for='skill in skills'
+            :key='skill.group'
+            :skill='skill'
+          )
 
     section.works
       .container
         .works__header
           h2.section-title Блок «Работы»
+        //- блок редактирования работы
         EditWork
-
         .works__show
           .works__card
             NewCard(info='Добавить работу')
-          .works__card
-            WorkCard(isEdited=true)
-          .works__card
-            WorkCard
+          //- карточки работ
+          .works__card(
+            v-for='work in works'
+            :key='work.id'
+          )
+            WorkCard(:work='work')
 
     section.comments
       .container
         .comments__header
           h2.section-title Блок «Отзывы»
-        .comments__block
-          h3.comments__title Новый отзыв
-          EditComment
-
+        //- блок редактирования отзыва
+        EditComment
         .comments__show
           .comments__card
             NewCard(info='Добавить отзыв')
-          .comments__card
-            ReviewCard(
-              isEdited=true,
-              photo='user1.jpg',
-              name='Ковальчук Дмитрий',
-              position='Основатель Loftschool'
-            )
-          .comments__card
-            ReviewCard(
-              photo='user2.jpg',
-              name='Владимир Сабанцев',
-              position='Преподаватель'
-            )
+          //- карточки отзывов
+          .comments__card(
+            v-for='comment in comments'
+            :key='comment.id'
+          )
+            ReviewCard(:comment='comment')
 </template>
 
 <script>
@@ -121,6 +65,8 @@ import WorkCard from './components/WorkCard';
 import NewCard from './components/NewCard';
 import EditComment from './components/EditComment';
 import ReviewCard from './components/ReviewCard';
+import SkillCard from './components/SkillCard';
+import NewGroupSkills from './components/NewGroupSkills';
 
 export default {
   components: {
@@ -131,7 +77,19 @@ export default {
     WorkCard,
     NewCard,
     EditComment,
-    ReviewCard
+    ReviewCard,
+    SkillCard,
+    NewGroupSkills
+  },
+  data: () => ({
+    skills: [],
+    comments: [],
+    works: []
+  }),
+  created() {
+    this.skills = require('../data/skills.json');
+    this.comments = require('../data/comments.json');
+    this.works = require('../data/works.json');
   }
 }
 </script>
@@ -184,6 +142,9 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   user-select: none;
+  &.noscroll {
+    overflow: hidden;
+  }
 }
 a {
   display: inline-block;
@@ -193,6 +154,7 @@ a {
 }
 img {
   max-width: 100%;
+  max-height: 100%;
   display: block;
 }
 button {
@@ -300,105 +262,6 @@ input:-webkit-autofill {
 .add__text {
   font-weight: 600;
 }
-/* skills */
-.skills {
-  min-height: 387px;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.15);
-  @include tablets {
-    width: 90%;
-    margin: 0 auto;
-  }
-  @include phones {
-    width: 100%;
-    margin: 0;
-    padding: 20px 10px;
-  }
-}
-.skills__header {
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(#000, 0.1);
-}
-.skills__block {
-  flex-grow: 1;
-  margin-bottom: 60px;
-}
-.skills__title {
-  display: grid;
-  grid-template-columns: 82% 15%;
-  grid-column-gap: 3%;
-  align-items: center;
-}
-.skills__item {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 60px 50px;
-  grid-column-gap: 20px;
-  align-items: center;
-  padding-top: 16px;
-}
-.skills__value,
-.skills__input {
-  width: 100%;
-  font-size: 16px;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid transparent;
-  &--title {
-    font-size: 18px;
-    font-weight: 700;
-  }
-  &--percent {
-    padding-right: 17px;
-  }
-}
-.skills__value {
-  padding: 7px;
-}
-.skills__input {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  transition: 0.3s border ease;
-  &:focus {
-    border-bottom: 1px solid #ea7400;
-  }
-}
-.skills__percent {
-  position: absolute;
-  bottom: 16%;
-  right: 75px;
-}
-.skills__btns {
-  justify-self: end;
-  display: inline-flex;
-  & .btn:first-child {
-    margin-right: 19px;
-  }
-}
-.skills__footer {
-  position: relative;
-  width: 80%;
-  display: grid;
-  margin-left: auto;
-  grid-template-columns: 1fr 60px 50px;
-  grid-column-gap: 20px;
-  align-items: center;
-  @include phones {
-    width: 100%;
-  }
-}
-.skills__plus {
-  & .plus {
-    width: 40px;
-    height: 40px;
-    font-size: 30px;
-  }
-  &:hover .plus {
-    background-image: linear-gradient(to bottom, #f29400, #ea7400);
-  }
-}
 /* works */
 .works {
   padding-top: 60px;
@@ -468,18 +331,6 @@ input:-webkit-autofill {
       min-height: 100px;
     }
   }
-}
-.comments__btn {
-  margin-bottom: 30px;
-}
-.comments__info {
-  display: block;
-  width: 95px;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
 }
 /* tags */
 .tags {

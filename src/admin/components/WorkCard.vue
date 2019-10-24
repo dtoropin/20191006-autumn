@@ -1,17 +1,19 @@
 <template lang="pug">
   .work-card(:class='{edited: isEdited}')
     .work-card__img
-      img(src='../../images/content/1.jpg' alt='work 1')
+      img(:src='src' :alt='work.title')
       .work-card__tags
         ul.tags.tags--right
-          li.tags__item HTML5
-          li.tags__item Vue.js
-          li.tags__item javascript
+          li.tags__item(
+            v-for='(tag, idx) in tags'
+            :key='idx'
+          )
+            span {{ tag }}
     .work-card__info
-      h3.work-card__title Сайт школы образования
+      h3.work-card__title {{ work.title }}
       .work-card__text
-        p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-      a(href='#' target='_blank').work-card__link http://loftschool.ru
+        p {{ work.subs }}
+      a(:href='work.link' target='_blank').work-card__link {{ work.link }}
       .work-card__buttons
         button(type='button').btn-card.btn-card--edit Править
         button(type='button').btn-card.btn-card--delete Удалить
@@ -20,9 +22,17 @@
 <script>
 export default {
   props: {
-    isEdited: {
-      type: Boolean,
-      default: false
+    work: {}
+  },
+  data: () => ({
+    isEdited: false
+  }),
+  computed: {
+    src() {
+      return require(`../../images/content/${this.work.photo}`);
+    },
+    tags() {
+      return this.work.tags.split(', ');
     }
   }
 }

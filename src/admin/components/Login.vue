@@ -25,16 +25,24 @@
             button(type='submit').login-form__btn Отправить
 </template>
 
-
+<script>
+export default {
+  props: {
+    isVisible: {
+      type: Boolean,
+      default: false
+    }
+  }
+}
+</script>
 
 <style lang="postcss" scoped>
 @import "../../styles/mixins.pcss";
 
 /* login modal */
 .login {
-  display: none;
-  /* display: flex; */
-  position: absolute;
+  display: flex;
+  position: fixed;
   top: 0;
   height: 100%;
   left: 0;
@@ -42,6 +50,7 @@
   background: url('../../images/background/TrainBridge.jpg') no-repeat center / cover;
   justify-content: center;
   align-items: center;
+  z-index: 100;
   &::after {
     content: '';
     position: absolute;

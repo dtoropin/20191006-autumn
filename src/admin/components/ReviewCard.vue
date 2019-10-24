@@ -3,13 +3,13 @@
     .review-card__user
       User(
         isReview=true,
-        :name='name',
-        :position='position',
-        :photo='photo'
+        :name='comment.name',
+        :position='comment.pos',
+        :photo='comment.photo'
       )
     
     .review-card__text
-      p Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах
+      p {{ comment.text }}
 
     .review-card__btns
       button(type='button').btn-card.btn-card--edit Править
@@ -21,17 +21,11 @@ import User from './User';
 
 export default {
   props: {
-    isEdited: {
-      type: Boolean,
-      default: false
-    },
-    photo: {
-      type: String,
-      default: 'user-default.jpg'
-    },
-    name: '',
-    position: ''
+    comment: {}
   },
+  data: () => ({
+    isEdited: false
+  }),
   components: {
     User
   }
