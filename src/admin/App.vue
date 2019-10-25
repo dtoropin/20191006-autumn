@@ -372,14 +372,14 @@ input:-webkit-autofill {
   &:hover {
     opacity: 0.8;
   }
-  &--ok,
+  &--edit,
   &--edit--ok,
   &--delete,
   &--edit--delete {
     width: 14px;
     height: 14px;
   }
-  &--ok {
+  &--edit {
     background: svg-load("pencil.svg", fill=#414c63, width=100%, height=100%) no-repeat;
   }
   &--edit--ok {

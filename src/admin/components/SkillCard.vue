@@ -1,24 +1,37 @@
 <template lang="pug">
   .skills
     .skills__header
-      .skills__title
+
+      .skills__title(v-if='isEditGroup === true')
+        input(type='text' placeholder='Название группы' :value='skill.group').skills__input.skills__input--title
+        .skills__btns
+          button(type='button').btn.btn--edit--ok
+          button(type='button').btn.btn--edit--delete
+      .skills__title(v-else)
         span.skills__value.skills__value--title {{ skill.group }}
         .skills__btns
-          button(type='button').btn.btn--ok
+          button(type='button' @click.self='showInputGroup').btn.btn--edit
           button(type='button').btn.btn--delete
       
     .skills__block
       ul.skills__list
-        li.skills__item(
-          v-for='(value, key) in skill.skills'
-          :key='key'
+        li(
+          v-for='(percent, value, idx) in skill.skills'
+          :key='idx'
         )
-          span.skills__value {{ key }}
-          span.skills__value.skills__value--percent {{ value }}
-          span.skills__percent %
-          .skills__btns
-            button(type='button').btn.btn--ok
-            button(type='button').btn.btn--delete
+          SkillInput(
+            v-if='isEdit === true && id === idx'
+            :value='value'
+            :percent='percent'
+            :id='idx'
+          )
+          SkillValue(
+            v-else
+            :value='value'
+            :percent='percent'
+            :id='idx'
+            @showInput='showInput'
+          )
 
     .skills__footer
       input(type='text' name='newTitle' placeholder='Новый навык').skills__input
@@ -29,9 +42,30 @@
 </template>
 
 <script>
+import SkillValue from './SkillValue';
+import SkillInput from './SkillInput';
+
 export default {
   props: {
     skill: {}
+  },
+  components: {
+    SkillValue,
+    SkillInput
+  },
+  data: () => ({
+    isEdit: false,
+    isEditGroup: false,
+    id: null
+  }),
+  methods: {
+    showInput(id) {
+      this.isEdit = true;
+      this.id = id;
+    },
+    showInputGroup() {
+      this.isEditGroup = true;
+    }
   }
 }
 </script>
@@ -70,13 +104,16 @@ export default {
   grid-column-gap: 3%;
   align-items: center;
 }
+.skills__list {
+  padding-top: 16px;
+}
 .skills__item {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 60px 50px;
   grid-column-gap: 20px;
   align-items: center;
-  padding-top: 16px;
+  margin-bottom: 16px;
 }
 .skills__value,
 .skills__input {
@@ -109,7 +146,7 @@ export default {
 }
 .skills__percent {
   position: absolute;
-  bottom: 16%;
+  bottom: 20%;
   right: 75px;
 }
 .skills__btns {
