@@ -1,6 +1,6 @@
 [
   {
-    "group": "frontEnd",
+    "group": "FrontEnd",
     "skills":
     {
       "HTML5": 85,
@@ -10,7 +10,7 @@
     }
   },
   {
-    "group":  "workbench",
+    "group":  "Workbench",
     "skills":
     {
       "GIT": 20,
