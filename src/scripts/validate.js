@@ -16,9 +16,6 @@
   const _setUpListners = function () {
     btn.addEventListener('click', _validateForm);
     popup.addEventListener('click', _closePopup);
-    form.addEventListener('keydown', function (e) {
-      _validateField(e.target);
-    });
   };
 
   const _validateForm = function (e) {
@@ -34,7 +31,9 @@
     }
 
     if (isValid) {
-      _ajax(url, form).then(function (xhr) {
+      const data = new FormData(form);
+      
+      _ajax(url, data).then(function (xhr) {
         if (xhr.status != 200) {
           _showPopup(false, 'error', 'Сообщение не отправлено');
           console.error(xhr.status + ': ' + xhr.statusText);
@@ -84,9 +83,7 @@
     popupServMesText.innerText = text;
   }
 
-  const _ajax = function (url, form) {
-    const data = new FormData(form);
-
+  const _ajax = function (url, data) {
     const promise = new Promise(function (resolve) {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', url, true);
