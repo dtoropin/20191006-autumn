@@ -11,14 +11,12 @@
             span {{ tag }}
     .work-card__info
       h3.work-card__title {{ work.title }}
-      .work-card__subs
-        .work-card__text
-          p {{ work.subs }}
-        .work-card__link
-          a(:href='work.link' target='_blank') {{ work.link }}
-      .work-card__buttons
-        button(type='button').btn-card.btn-card--edit Править
-        button(type='button').btn-card.btn-card--delete Удалить
+      .work-card__text
+        p {{ work.subs }}
+      a(:href='work.link' target='_blank').work-card__link {{ work.link }}
+    .work-card__buttons
+      button(type='button').btn-card.btn-card--edit Править
+      button(type='button').btn-card.btn-card--delete Удалить
 </template>
 
 <script>
@@ -42,6 +40,7 @@ export default {
 
 /* work card */
 .work-card {
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -63,17 +62,11 @@ export default {
 }
 .work-card__info {
   padding: 40px 20px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
 }
 .work-card__title {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 25px;
-}
-.work-card__subs {
-  flex-grow: 1;
 }
 .work-card__text {
   font-weight: 600;
@@ -85,11 +78,15 @@ export default {
   font-weight: 600;
   color: #ea7400;
   margin-bottom: 45px;
-  & a:hover {
+  &:hover {
     opacity: 0.8;
   }
 }
 .work-card__buttons {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
 }

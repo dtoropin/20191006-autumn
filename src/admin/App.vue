@@ -6,10 +6,11 @@
       @changePage='changePage'
     )
 
-    component(
-      :is='currentPageComponent'
-      :data='currentData'
-    )
+    About(:data='skills')
+
+    Works(:data='works')
+
+    Comments(:data='comments')
 
     Login
 
@@ -19,31 +20,10 @@
 export default {
   data: () => ({
     currentPage: 'About',
-    currentData: [],
     skills: [],
     comments: [],
     works: []
   }),
-  computed: {
-    currentPageComponent: function () {
-      return this.currentPage;
-    }
-  },
-  watch: {
-    currentPage: function (val) {
-      switch(val) {
-        case('About'):
-          this.currentData = this.skills;
-          break;
-        case('Works'):
-          this.currentData = this.works;
-          break;
-        case('Comments'):
-          this.currentData = this.comments;
-          break;
-      }
-    }
-  },
   methods: {
     changePage(e) {
       this.currentPage = e;
@@ -53,7 +33,6 @@ export default {
     this.skills = require('../data/skills.json');
     this.comments = require('../data/comments.json');
     this.works = require('../data/works.json');
-    this.currentData = this.skills;
   },
   components: {
     Header: () => import('./components/layout/Header'),

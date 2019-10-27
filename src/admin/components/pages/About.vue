@@ -35,14 +35,14 @@ export default {
 @import "../../../styles/mixins.pcss";
 /* about */
 .about {
-  padding-top: 60px;
+  padding-top: 50px;
   padding-bottom: 30px;
 }
 .about__header {
-  margin-bottom: 60px;
+  margin-bottom: 50px;
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 60px;
+  grid-column-gap: 60px;
   @include phones {
     grid-template-columns: 1fr;
     grid-gap: 30px;

@@ -36,17 +36,17 @@ export default {
 @import "../../../styles/mixins.pcss";
 /* works */
 .works {
-  padding-top: 60px;
+  padding-top: 50px;
 }
 .works__header {
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 .works__show {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 30px;
   padding-top: 30px;
-  padding-bottom: 60px;
+  padding-bottom: 50px;
   @include tablets {
     grid-template-columns: 1fr 1fr;
     padding-bottom: 30px;

@@ -1,6 +1,7 @@
 (function () {
 
   const form = document.querySelector('.contacts-form');
+  const input = document.querySelectorAll('.contacts-form__input');
   const btn = document.querySelector('.contacts-form__btn');
   const popup = document.querySelector('.popup');
   const popupBlock = document.querySelector('.popup__block');
@@ -16,6 +17,9 @@
   const _setUpListners = function () {
     btn.addEventListener('click', _validateForm);
     popup.addEventListener('click', _closePopup);
+    input.forEach(element => {
+      element.addEventListener('keyup', _validateInput);
+    });
   };
 
   const _validateForm = function (e) {
@@ -47,6 +51,10 @@
         }
       });
     }
+  }
+
+  const _validateInput = function (e) {
+    _validateField(e.target);
   }
 
   const _validateField = function (field) {
