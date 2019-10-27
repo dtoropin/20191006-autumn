@@ -8,7 +8,7 @@
         )
 
       .header__title
-        span.head-text Панель администрирования
+        span.header__text Панель администрирования
 
       .header__btn
         a(href='index.html').header__link Выйти

@@ -159,6 +159,7 @@ input:-webkit-autofill {
   font-weight: bold;
   color: #414c63;
 }
+/* plus */
 .plus {
   position: relative;
   width: 100%;
@@ -205,14 +206,8 @@ input:-webkit-autofill {
   &--edit {
     background: svg-load("pencil.svg", fill=#414c63, width=100%, height=100%) no-repeat;
   }
-  &--edit--ok {
-    background: svg-load("tick.svg", fill=#00d70a, width=100%, height=100%) no-repeat;
-  }
   &--delete {
     background: svg-load("trash.svg", fill=#414c63, width=100%, height=100%) no-repeat;
-  }
-  &--edit--delete {
-    background: svg-load("cross.svg", fill=#ff0101, width=100%, height=100%) no-repeat;
   }
   &-default,
   &-zero {

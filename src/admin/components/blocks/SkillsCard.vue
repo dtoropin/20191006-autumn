@@ -2,10 +2,10 @@
   .skills
     .skills__header
       .skills__title
-        input(type='text' placeholder='Название группы' :value='skill.group').skills__input.skills__input--title.read
+        input(type='text' placeholder='Название группы' :value='skill.group').skills__input.skills__input--title
         .skills__btns
-          button(type='button').btn.btn--edit
-          button(type='button').btn.btn--delete
+          button(type='button' @click='editField').btn.btn--edit
+          button(type='button' @click='deleteField').btn.btn--delete
       
     .skills__block
       ul.skills__list
@@ -14,30 +14,54 @@
           :key='idx'
         )
           .skills__item
-            input(type='text' :value='value').skills__input.read
-            input(type='text' :value='percent').skills__input.skills__input--percent.read
+            input(type='text' :value='value').skills__input
+            input(type='text' :value='percent').skills__input.skills__input--percent
             span.skills__percent %
             .skills__btns
-              button(type='button').btn.btn--edit
-              button(type='button').btn.btn--delete
+              button(type='button' @click='editField').btn.btn--edit
+              button(type='button' @click='deleteField').btn.btn--delete
 
-    .skills__footer
+    .skills__footer.edit
       input(type='text' placeholder='Новый навык').skills__input
       input(type='text' value='0').skills__input.skills__input--percent
       span.skills__percent %
-      button(type='submit').skills__plus
+      button(type='button' @click='saveField').skills__plus
         .plus.plus--bg
 </template>
 
 <script>
 export default {
   props: {
-    skill: Object
+    skill: {
+      type: Object,
+      default: {}
+    }
+  },
+  methods: {
+    editField(e) {
+      const item = e.target.parentElement.parentElement;
+      if (item.classList.contains('edit')) {
+        console.log('save skill');
+      }
+      item.classList.toggle('edit');
+    },
+    deleteField(e) {
+      const item = e.target.parentElement.parentElement;
+      if (item.classList.contains('edit')) {
+        item.classList.remove('edit');
+        console.log('cancel edit');
+      } else if (confirm('Удалить skill?')){
+        console.warn('delete skill');
+      }
+    },
+    saveField(e) {
+      console.log('save skill');
+    }
   }
 }
 </script>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 @import "../../../styles/mixins.pcss";
 
 /* skills */
@@ -82,25 +106,35 @@ export default {
   align-items: center;
   margin-bottom: 16px;
 }
+.skills__title.edit,
+.skills__item.edit,
+.skills__footer.edit {
+  & .skills__input {
+    border-bottom: 1px solid #ccc;
+    pointer-events: auto;
+    &:focus {
+      border-bottom: 1px solid rgba(#ea7400, .5);
+    }
+    &.invalid {
+      border-bottom: 1px solid #ff0101;
+    }
+  }
+  & .btn--edit {
+    background: svg-load("tick.svg", fill=#00d70a, width=100%, height=100%) no-repeat;
+  }
+  & .btn--delete {
+    background: svg-load("cross.svg", fill=#ff0101, width=100%, height=100%) no-repeat;
+  }
+}
 .skills__input {
   width: 100%;
   font-size: 16px;
   border: none;
   outline: none;
-  padding: 9.5px;
-  border-bottom: 1px solid #ccc;
+  padding: 7px;
+  border-bottom: 1px solid transparent;
+  pointer-events: none;
   transition: 0.3s border ease;
-  &.read {
-    padding: 7px;
-    border-bottom: 1px solid transparent;
-    pointer-events: none;
-  }
-  &:focus {
-    border-bottom: 1px solid #ea7400;
-  }
-  &.invalid {
-    border-bottom: 1px solid #bf2929;
-  }
   &--title {
     font-size: 18px;
     font-weight: 700;

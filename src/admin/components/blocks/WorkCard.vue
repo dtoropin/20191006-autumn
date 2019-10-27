@@ -11,9 +11,11 @@
             span {{ tag }}
     .work-card__info
       h3.work-card__title {{ work.title }}
-      .work-card__text
-        p {{ work.subs }}
-      a(:href='work.link' target='_blank').work-card__link {{ work.link }}
+      .work-card__subs
+        .work-card__text
+          p {{ work.subs }}
+        .work-card__link
+          a(:href='work.link' target='_blank') {{ work.link }}
       .work-card__buttons
         button(type='button').btn-card.btn-card--edit Править
         button(type='button').btn-card.btn-card--delete Удалить
@@ -40,6 +42,9 @@ export default {
 
 /* work card */
 .work-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.1);
   &.edited {
     opacity: 0.4;
@@ -58,11 +63,17 @@ export default {
 }
 .work-card__info {
   padding: 40px 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 .work-card__title {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 25px;
+}
+.work-card__subs {
+  flex-grow: 1;
 }
 .work-card__text {
   font-weight: 600;
@@ -74,7 +85,7 @@ export default {
   font-weight: 600;
   color: #ea7400;
   margin-bottom: 45px;
-  &:hover {
+  & a:hover {
     opacity: 0.8;
   }
 }

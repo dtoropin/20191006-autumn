@@ -37,7 +37,6 @@ export default {
 /* works */
 .works {
   padding-top: 60px;
-  margin-bottom: 30px;
 }
 .works__header {
   margin-bottom: 60px;
@@ -47,9 +46,10 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 30px;
   padding-top: 30px;
-  margin-bottom: 30px;
+  padding-bottom: 60px;
   @include tablets {
     grid-template-columns: 1fr 1fr;
+    padding-bottom: 30px;
   }
   @include phones {
     grid-template-columns: 1fr;

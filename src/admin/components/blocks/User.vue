@@ -18,8 +18,8 @@ export default {
       type: String,
       default: 'user-default.jpg'
     },
-    name: '',
-    position: ''
+    name: String,
+    position: String
   },
   computed: {
     src() {
