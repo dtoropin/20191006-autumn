@@ -6,11 +6,11 @@
       @changePage='changePage'
     )
 
-    About(:data='skills')
+    About
 
-    Works(:data='works')
+    Works
 
-    Comments(:data='comments')
+    Comments
 
     Login
 
@@ -19,30 +19,22 @@
 <script>
 export default {
   data: () => ({
-    currentPage: 'About',
-    skills: [],
-    comments: [],
-    works: []
+    currentPage: "About"
   }),
   methods: {
     changePage(e) {
       this.currentPage = e;
     }
   },
-  created() {
-    this.skills = require('../data/skills.json');
-    this.comments = require('../data/comments.json');
-    this.works = require('../data/works.json');
-  },
   components: {
-    Header: () => import('./components/layout/Header'),
-    Navigation: () => import('./components/layout/Navigation'),
-    About: () => import('./components/pages/About'),
-    Works: () => import('./components/pages/Works'),
-    Comments: () => import('./components/pages/Comments'),
-    Login: () => import('./components/pages/Login')
+    Header: () => import("./components/layout/Header"),
+    Navigation: () => import("./components/layout/Navigation"),
+    About: () => import("./components/pages/About"),
+    Works: () => import("./components/pages/Works"),
+    Comments: () => import("./components/pages/Comments"),
+    Login: () => import("./components/pages/Login")
   }
-}
+};
 </script>
 
 <style lang="postcss">
@@ -154,8 +146,9 @@ input:-webkit-autofill {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
-    background: svg-load("cross.svg", fill=#fff, width=100%, height=100%) no-repeat;
-    transition: .2s transform ease;
+    background: svg-load("cross.svg", fill=#fff, width=100%, height=100%)
+      no-repeat;
+    transition: 0.2s transform ease;
   }
   &:hover::after {
     transform: translate(-50%, -50%) rotate(45deg) scale(1.1);
@@ -183,10 +176,12 @@ input:-webkit-autofill {
     height: 14px;
   }
   &--edit {
-    background: svg-load("pencil.svg", fill=#414c63, width=100%, height=100%) no-repeat;
+    background: svg-load("pencil.svg", fill=#414c63, width=100%, height=100%)
+      no-repeat;
   }
   &--delete {
-    background: svg-load("trash.svg", fill=#414c63, width=100%, height=100%) no-repeat;
+    background: svg-load("trash.svg", fill=#414c63, width=100%, height=100%)
+      no-repeat;
   }
   &-default,
   &-zero {
@@ -196,7 +191,7 @@ input:-webkit-autofill {
     padding: 15px 40px;
     border-radius: 25px;
     transition-property: color, background;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
     transition-timing-function: ease;
     &:active {
       box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.9);
@@ -233,7 +228,8 @@ input:-webkit-autofill {
       height: 17px;
       display: block;
       margin-left: 10px;
-      background: svg-load("pencil.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+      background: svg-load("pencil.svg", fill=#ea7400, width=100%, height=100%)
+        no-repeat;
     }
     &--delete::after {
       content: "";
@@ -241,7 +237,8 @@ input:-webkit-autofill {
       height: 14px;
       display: block;
       margin-left: 10px;
-      background: svg-load("cross.svg", fill=red, width=100%, height=100%) no-repeat;
+      background: svg-load("cross.svg", fill=red, width=100%, height=100%)
+        no-repeat;
     }
   }
 }

@@ -2,7 +2,10 @@
   .new-card
     .new-card__center
       .new-card__link
-        button(type='button').new-card__btn
+        button(
+          type='button'
+          @click='$emit("addNewBlock")'
+        ).new-card__btn
           .new-card__plus
             .plus
       span.new-card__info {{ info }}
