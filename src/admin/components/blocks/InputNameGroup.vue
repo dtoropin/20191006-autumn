@@ -9,6 +9,7 @@
         placeholder='Название группы'
         v-model='newNameGroup'
       ).skills__input.skills__input--title
+      span(v-if='error').skills__error {{ validation.firstError("newNameGroup") }}
       .skills__btns(v-if='!isEdit')
         button(type='button' @click='editNameGroup').btn.btn--edit
         button(type='button' @click='deleteGroup').btn.btn--delete
@@ -31,15 +32,20 @@ export default {
     isEdit: false,
     newNameGroup: ''
   }),
+  computed: {
+    error() {
+      return this.validation.firstError("newNameGroup");
+    }
+  },
   methods: {
     editNameGroup() {
       this.isEdit = true;
     },
     cancelEditGroup() {
+      this.validation.reset();
       this.isEdit = false;
     },
     saveGroup() {
-      
       this.$validate()
         .then(function (success) {
           if (success) {
