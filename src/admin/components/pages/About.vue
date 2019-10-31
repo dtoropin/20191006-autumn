@@ -3,7 +3,7 @@
     .container
       .about__header
         h2.section-title Блок «Обо мне»
-        a(href='#').add
+        button(type='button' @click='addNewGroup').add
           .add__plus
             .plus.plus--bg
           .add__text Добавить группу
@@ -45,6 +45,11 @@ export default {
   data: () => ({
     skills: []
   }),
+  methods: {
+    addNewGroup() {
+      console.log('add New Group');
+    }
+  },
   created() {
     this.skills = require("../../../data/skills.json");
   },

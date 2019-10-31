@@ -7,6 +7,7 @@
       input(
         type='text'
         v-model='editValue'
+        @blur='onBlur'
       ).skills__input
       span(v-if='errorValue').skills__error {{ errorValue }}
     .skills__field
@@ -66,6 +67,10 @@ export default {
       if (confirm('Удалить skill?')) {
         console.log('delete skill');
       }
+    },
+    onBlur() {
+      console.log('onBlur');
+      this.validation.reset();
     }
   },
   created() {

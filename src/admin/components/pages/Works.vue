@@ -11,10 +11,16 @@
         form(@submit.prevent='saveWork').edit-work__block
           .edit-work__download
             .download-drop-file
-              input(type='file' accept='image/jpeg,image/png,image/jpg')#file.download-drop-file__input
-              .download-drop-file__drop
+              input(
+                type='file' 
+                accept='image/jpeg,image/png,image/jpg'
+                @change='handleFile'
+              )#file.download-drop-file__input
+              .download-drop-file__drop(
+                :style='"backgroundImage: url(" + filePreview + ")"'
+              )
                 .download-drop-file__subs
-                  span.download-drop-file__info Перетащите или загрузите для загрузки изображения
+                  span(v-show='!filePreview').download-drop-file__info Перетащите или загрузите для загрузки изображения
                   label(for='file').btn-default Загрузить
 
           .edit-work__form
@@ -98,8 +104,10 @@ export default {
       title: '',
       link: '',
       subs: '',
-      tags: ''
-    }
+      tags: '',
+      photo: ''
+    },
+    filePreview: ''
   }),
   computed: {
     tagsList() {
@@ -127,6 +135,7 @@ export default {
     },
     cancelEdit() {
       this.validation.reset();
+      this.filePreview = '';
       console.log('Отмена редактирования');
     },
     saveWork() {
@@ -145,6 +154,31 @@ export default {
         item.photo = imgLink;
         return item;
       })
+    },
+    handleFile(e) {
+      const photoFile = this.fileFromForm(e);
+      this.editWork.photo = photoFile;
+      this.renderFile(photoFile).then(f => {
+        this.filePreview = f;
+      });
+    },
+    fileFromForm(e) {
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length) throw new Error("Нет файла");
+      return files[0];
+    },
+    renderFile(file) {
+      const reader = new FileReader();
+      return new Promise((resolve) => {
+        try {
+          reader.readAsDataURL(file);
+          reader.onloadend = () => {
+            resolve(reader.result);
+          };
+        } catch (error) {
+          throw new Error("Ошибка при чтении файла");
+        }
+      });
     }
   },
   created() {

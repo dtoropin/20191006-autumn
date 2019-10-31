@@ -9,10 +9,15 @@
         h3.comments__title Новый отзыв
         form(@submit.prevent='saveComment').edit-comment
           .download-file
-            input(type='file' accept='image/jpeg,image/png,image/jpg' name='photo')#photo.download-file__input
+            input(
+              type='file' 
+              accept='image/jpeg,image/png,image/jpg'
+              @change='handleFile'
+            )#photo.download-file__input
             label(for='photo').download-file__label
               .download-file__img
-                img(src='../../../images/content/user-default.jpg' alt='avatar')
+                img(v-if='filePreview' :src='filePreview' alt='avatar')
+                img(v-else src='../../../images/content/user-default.jpg' alt='avatar')
               span.download-file__text Изменить фото
           
           .edit-comment__form
@@ -75,62 +80,89 @@
 </template>
 
 <script>
-import { Validator } from 'simple-vue-validator';
+import { Validator } from "simple-vue-validator";
 
 export default {
   data: () => ({
     comments: [],
     editComment: {
-      name: '',
-      pos: '',
-      text: ''
-    }
+      name: "",
+      pos: "",
+      text: "",
+      photo: ""
+    },
+    filePreview: ""
   }),
   created() {
     this.comments = require("../../../data/comments.json");
   },
   methods: {
+    handleFile(e) {
+      const photoFile = this.fileFromForm(e);
+      this.editComment.photo = photoFile;
+      this.renderFile(photoFile).then(f => {
+        this.filePreview = f;
+      });
+    },
+    fileFromForm(e) {
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length) throw new Error("Нет файла");
+      return files[0];
+    },
+    renderFile(file) {
+      const reader = new FileReader();
+      return new Promise((resolve) => {
+        try {
+          reader.readAsDataURL(file);
+          reader.onloadend = () => {
+            resolve(reader.result);
+          };
+        } catch (error) {
+          throw new Error("Ошибка при чтении файла");
+        }
+      });
+    },
     cancelEdit() {
       this.validation.reset();
-      console.log('cancel edit comment');
+      this.filePreview = '';
+      console.log("cancel edit comment");
     },
     saveComment() {
-      this.$validate()
-        .then(function (success) {
-          if (success) {
-            console.log('save comment', success);
-          }
-        });
+      this.$validate().then(function(success) {
+        if (success) {
+          console.log("save comment", success);
+        }
+      });
     },
     addNewBlock() {
-      console.log('add new comment');
+      console.log("add new comment");
     },
     editThisComment() {
-      console.log('edit comment');
+      console.log("edit comment");
     },
     deleteComment() {
-      if(confirm('Удалить отзыв?')) {
-        console.log('delete comment');
+      if (confirm("Удалить отзыв?")) {
+        console.log("delete comment");
       }
     }
   },
   validators: {
-    'editComment.name': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "editComment.name": function(value) {
+      return Validator.value(value).required("Заполните поле");
     },
-    'editComment.pos': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "editComment.pos": function(value) {
+      return Validator.value(value).required("Заполните поле");
     },
-    'editComment.text': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "editComment.text": function(value) {
+      return Validator.value(value).required("Заполните поле");
     }
   },
   components: {
-    Input: () => import('../blocks/Input'),
-    NewCard: () => import('../blocks/NewCard'),
-    User: () => import('../blocks/User')
+    Input: () => import("../blocks/Input"),
+    NewCard: () => import("../blocks/NewCard"),
+    User: () => import("../blocks/User")
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -161,7 +193,7 @@ export default {
   min-height: 380px;
   height: 100%;
   &:first-child {
-  @include phones {
+    @include phones {
       min-height: 100px;
     }
   }
@@ -234,7 +266,7 @@ export default {
   cursor: pointer;
   &:hover {
     & .download-file__img {
-      box-shadow: 0 0 10px rgba(#ea7400, .8);
+      box-shadow: 0 0 10px rgba(#ea7400, 0.8);
     }
     & .download-file__text {
       opacity: 0.7;
@@ -242,20 +274,22 @@ export default {
   }
 }
 .download-file__img {
-  width: 100%;
+  width: 187px;
+  height: 187px;
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: 25px;
-  transition: .3s box-shadow ease;
+  transition: 0.3s box-shadow ease;
   @include tablets {
     width: 150px;
+    height: 150px;
     margin: 0 auto;
   }
 }
 .download-file__text {
   font-weight: 600;
   color: #ea7400;
-  transition: .3s color ease, .3s opacity ease;
+  transition: 0.3s color ease, 0.3s opacity ease;
 }
 
 /* review-card */
@@ -267,7 +301,7 @@ export default {
   box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.1);
   &.edited {
     opacity: 0.4;
-  }  
+  }
 }
 .review-card__user {
   padding-bottom: 30px;
