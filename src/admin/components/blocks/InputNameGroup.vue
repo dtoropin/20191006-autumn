@@ -1,20 +1,21 @@
 <template lang="pug">
   .skills__header
     form(
-      @submit.prevent='saveGroup'
+      @submit.prevent
       :class='{edit: isEdit}'
     ).skills__title
-      input(
-        type='text' 
-        placeholder='Название группы'
-        v-model='newNameGroup'
-      ).skills__input.skills__input--title
-      span(v-if='error').skills__error {{ validation.firstError("newNameGroup") }}
+      .skills__field
+        input(
+          type='text' 
+          placeholder='Название группы'
+          v-model='newNameGroup'
+        ).skills__input.skills__input--title
+        span(v-if='error').skills__error {{ validation.firstError("newNameGroup") }}
       .skills__btns(v-if='!isEdit')
         button(type='button' @click='editNameGroup').btn.btn--edit
         button(type='button' @click='deleteGroup').btn.btn--delete
       .skills__btns(v-else)
-        button.btn.btn--edit
+        button(type='submit' @click='saveGroup').btn.btn--edit
         button(type='button' @click='cancelEditGroup').btn.btn--delete
 </template>
 
@@ -40,10 +41,12 @@ export default {
   methods: {
     editNameGroup() {
       this.isEdit = true;
+      console.log('edit Name Group')
     },
     cancelEditGroup() {
       this.validation.reset();
       this.isEdit = false;
+      console.log('cancel Edit Group')
     },
     saveGroup() {
       this.$validate()
@@ -66,7 +69,7 @@ export default {
   },
   validators: {
     'newNameGroup': function(value) {
-      return Validator.value(value).required();
+      return Validator.value(value).required('Заполните поле');
     }
   }
 }

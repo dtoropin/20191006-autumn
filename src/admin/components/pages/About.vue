@@ -150,6 +150,9 @@ export default {
   align-items: center;
   margin-bottom: 16px;
 }
+.skills__label {
+  position: relative;
+}
 .skills__title.edit,
 .skills__item.edit,
 .skills__footer.edit {
@@ -189,18 +192,20 @@ export default {
     padding-right: 17px;
   }
 }
+.skills__field {
+  position: relative;
+}
 .skills__error {
   position: absolute;
   font-size: 13px;
   font-weight: 300;
   color: #fff;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
   display: block;
   padding: 1px 10px;
-  background: #cd1515;
+  background: rgba(#cd1515, .8);
   border-radius: 3px;
+  z-index: 10;
   &::before {
     content: '';
     position: absolute;
@@ -211,14 +216,14 @@ export default {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 11px 8px 11px;
-    border-color: transparent transparent #cd1515 transparent;
+    border-width: 0 10px 5px 10px;
+    border-color: transparent transparent rgba(#cd1515, .8) transparent;
   }
 }
 .skills__percent {
   position: absolute;
   bottom: 20%;
-  right: 75px;
+  right: 5px;
 }
 .skills__btns {
   justify-self: end;

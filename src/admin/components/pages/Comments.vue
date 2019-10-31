@@ -109,18 +109,20 @@ export default {
       console.log('edit comment');
     },
     deleteComment() {
-      console.log('delete comment');
+      if(confirm('Удалить отзыв?')) {
+        console.log('delete comment');
+      }
     }
   },
   validators: {
     'editComment.name': function(value) {
-      return Validator.value(value).required();
+      return Validator.value(value).required('Заполните поле');
     },
     'editComment.pos': function(value) {
-      return Validator.value(value).required();
+      return Validator.value(value).required('Заполните поле');
     },
     'editComment.text': function(value) {
-      return Validator.value(value).required();
+      return Validator.value(value).required('Заполните поле');
     }
   },
   components: {

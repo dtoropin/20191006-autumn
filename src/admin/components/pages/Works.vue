@@ -114,7 +114,9 @@ export default {
       console.log('редактирование работы');
     },
     deleteWork() {
-      console.log('delete work');
+      if(confirm('Удалить работу?')) {
+        console.log('delete work');
+      }
     },
     deleteTag(e) {
       const el = new RegExp(`${e.target.parentElement.innerText},?\ ?`);
@@ -155,16 +157,16 @@ export default {
   },
   validators: {
     'editWork.title': function(value) {
-      return Validator.value(value).required();
+      return Validator.value(value).required('Заполните поле');
     },
     'editWork.link': function(value) {
-      return Validator.value(value).required().url();
+      return Validator.value(value).required('Заполните поле').regex(/^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/, 'Неверный формат url');
     },
     'editWork.subs': function(value) {
-      return Validator.value(value).required();
+      return Validator.value(value).required('Заполните поле');
     },
     'editWork.tags': function(value) {
-      return Validator.value(value).required();
+      return Validator.value(value).required('Заполните поле');
     }
   }
 }

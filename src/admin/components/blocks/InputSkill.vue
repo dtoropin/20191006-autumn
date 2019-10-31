@@ -1,16 +1,26 @@
 <template lang="pug">
   form(
-    @submit.prevent='saveField'
+    @submit.prevent
     :class='{edit: isEdit}'
   ).skills__item
-    input(type='text' :value='value').skills__input
-    input(type='text' :value='percent').skills__input.skills__input--percent
-    span.skills__percent %
+    .skills__field
+      input(
+        type='text'
+        v-model='editValue'
+      ).skills__input
+      span(v-if='errorValue').skills__error {{ errorValue }}
+    .skills__field
+      input(
+        type='text'
+        v-model='editPercent'
+      ).skills__input.skills__input--percent
+      span(v-if='errorPercent').skills__error {{ errorPercent }}
+      span.skills__percent %
     .skills__btns(v-if='!isEdit')
       button(type='button' @click='editField').btn.btn--edit
       button(type='button' @click='deleteField').btn.btn--delete
     .skills__btns(v-else)
-      button.btn.btn--edit
+      button(type='submit' @click='saveField').btn.btn--edit
       button(type='button' @click='cancelEditField').btn.btn--delete
 </template>
 
@@ -20,13 +30,21 @@ import { Validator } from 'simple-vue-validator';
 export default {
   props: {
     value: String,
-    percent: String | Number
+    percent: Number
   },
   data: () => ({
     editValue: String,
-    editPercent: String | Number,
+    editPercent: Number,
     isEdit: false
   }),
+  computed: {
+    errorValue() {
+      return this.validation.firstError("editValue");
+    },
+    errorPercent() {
+      return this.validation.firstError("editPercent");
+    }
+  },
   methods: {
     editField() {
       this.isEdit = true;
@@ -50,10 +68,17 @@ export default {
       }
     }
   },
+  created() {
+    this.editValue = this.value;
+    this.editPercent = this.percent;
+  },
   validators: {
-    // 'editWork.title': function(value) {
-    //   return Validator.value(value).required();
-    // }
+    'editValue': function(value) {
+      return Validator.value(value).required();
+    },
+    'editPercent': function(value) {
+      return Validator.value(value).digit('Только числа').maxLength(2, 'от 0 до 99');
+    }
   }
 }
 </script>
