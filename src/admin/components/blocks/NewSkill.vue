@@ -37,7 +37,7 @@ export default {
   methods: {
     saveSkill() {
       this.$validate()
-        .then(function (success) {
+        .then((success) => {
           if (success) {
             console.log("save Skill", success);
           }

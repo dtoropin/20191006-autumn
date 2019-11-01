@@ -57,7 +57,7 @@ export default {
     },
     saveField() {
       this.$validate()
-        .then(function (success) {
+        .then((success) => {
           if (success) {
             console.log("save skill", success);
           }

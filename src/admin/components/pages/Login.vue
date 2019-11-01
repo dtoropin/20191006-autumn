@@ -4,53 +4,114 @@
       a(href='index.html').login__close
       .login__content
         .login__title Авторизация
-        form.login-form
+        form(@submit.prevent='login').login-form
           .login-form__row
             label.login-form__label
               span.login-form__title Логин
               .login-form__field
-                input(type="text" name="login" required).login-form__input
+                input(
+                  type="text" 
+                  v-model='user.name'
+                ).login-form__input
                 span.login-form__icon.login-form__icon--user
-                span.login-form__error
+                span(
+                  v-show='validation.firstError("user.name")'
+                ).login-form__error {{ validation.firstError("user.name") }}
 
           .login-form__row
             label.login-form__label
               span.login-form__title Пароль
               .login-form__field
-                input(type="password" name="pass" required).login-form__input
+                input(
+                  type="password" 
+                  v-model='user.password'
+                ).login-form__input
                 span.login-form__icon.login-form__icon--key
-                span.login-form__error
+                span(
+                  v-show='validation.firstError("user.password")'
+                ).login-form__error {{ validation.firstError("user.password") }}
 
           .login-form__row
             button(type='submit').login-form__btn Отправить
+
+    .login-popup(
+      :class='{error: error}'
+    )
+      span(v-show='error').login-popup__mes {{ error }}
 </template>
 
+<script>
+import { Validator } from "simple-vue-validator";
+import axios from "axios";
+import { delay } from 'q';
+const baseURL = "https://webdev-api.loftschool.com/";
 
+export default {
+  data: () => ({
+    user: {
+      name: "",
+      password: ""
+    },
+    error: ""
+  }),
+  methods: {
+    login() {
+      this.$validate().then((success) => {
+        if (success) {
+          axios
+            .post(baseURL + "/login", this.user)
+            .then(response => {
+              console.log(response.data);
+              // response.data.token
+            })
+            .catch(error => {
+              // console.log(error.response.data);
+              this.error = error.response.data.error;
+            });
+        }
+      });
+    }
+  },
+  validators: {
+    "user.name": function(value) {
+      return Validator.value(value)
+        .required("Заполните поле")
+        .regex(/^[a-z0-9_-]{3,16}$/, "Неверный формат имени");
+    },
+    "user.password": function(value) {
+      return Validator.value(value)
+        .required("Заполните поле")
+        .regex(/^[a-z0-9_-]{3,12}$/, "Неверный формат пароля");
+    }
+  }
+};
+</script>
 
 <style lang="postcss" scoped>
 @import "../../../styles/mixins.pcss";
 
 /* login modal */
 .login {
-  display: none;
-  /* display: flex; */
+  /* display: none; */
+  display: flex;
   position: fixed;
   top: 0;
   height: 100%;
   left: 0;
   right: 0;
-  background: url('../../../images/background/TrainBridge.jpg') no-repeat center / cover;
+  background: url("../../../images/background/TrainBridge.jpg") no-repeat center /
+    cover;
   justify-content: center;
   align-items: center;
   z-index: 100;
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(#2d3c4e, .9);
+    background: rgba(#2d3c4e, 0.9);
   }
 }
 .login__block {
@@ -72,9 +133,11 @@
   display: block;
   width: 19px;
   height: 19px;
-  background: svg-load("cross.svg", fill=#2d3c4e, width=100%, height=100%) no-repeat;
+  background: svg-load("cross.svg", fill=#2d3c4e, width=100%, height=100%)
+    no-repeat;
   &:hover {
-    background: svg-load("cross.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+    background: svg-load("cross.svg", fill=#ea7400, width=100%, height=100%)
+      no-repeat;
   }
 }
 .login__title {
@@ -101,23 +164,27 @@
   outline: none;
   font-size: 18px;
   font-weight: bold;
-  border-bottom: 1px solid rgba(#2d3c4e, .3);
+  border-bottom: 1px solid rgba(#2d3c4e, 0.3);
   &:focus {
-    border-bottom: 1px solid rgba(#ea7400, .3);
+    border-bottom: 1px solid rgba(#ea7400, 0.3);
     & + .login-form__icon--user {
-      background: svg-load("user.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+      background: svg-load("user.svg", fill=#ea7400, width=100%, height=100%)
+        no-repeat;
     }
     & + .login-form__icon--key {
-      background: svg-load("key.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+      background: svg-load("key.svg", fill=#ea7400, width=100%, height=100%)
+        no-repeat;
     }
   }
   &:invalid {
-    border-bottom: 1px solid rgba(#fb0000, .3);
+    border-bottom: 1px solid rgba(#fb0000, 0.3);
     & + .login-form__icon--user {
-      background: svg-load("user.svg", fill=#fb0000, width=100%, height=100%) no-repeat;
+      background: svg-load("user.svg", fill=#fb0000, width=100%, height=100%)
+        no-repeat;
     }
     & + .login-form__icon--key {
-      background: svg-load("key.svg", fill=#fb0000, width=100%, height=100%) no-repeat;
+      background: svg-load("key.svg", fill=#fb0000, width=100%, height=100%)
+        no-repeat;
     }
   }
 }
@@ -131,10 +198,35 @@
   margin-right: 20px;
   opacity: 0.3;
   &--user {
-    background: svg-load("user.svg", fill=#2d3c4e, width=100%, height=100%) no-repeat;
+    background: svg-load("user.svg", fill=#2d3c4e, width=100%, height=100%)
+      no-repeat;
   }
   &--key {
-    background: svg-load("key.svg", fill=#2d3c4e, width=100%, height=100%) no-repeat;
+    background: svg-load("key.svg", fill=#2d3c4e, width=100%, height=100%)
+      no-repeat;
+  }
+}
+.login-form__error {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1px 10px;
+  color: #fff;
+  background: #cd1515;
+  border-radius: 3px;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 11px 8px 11px;
+    border-color: transparent transparent #cd1515 transparent;
   }
 }
 .login-form__btn {
@@ -151,7 +243,25 @@
     background-image: linear-gradient(to bottom, #f29400, #ea7400);
   }
   &:active {
-    box-shadow: inset 0 0 7px rgba(#fff, .7);
+    box-shadow: inset 0 0 7px rgba(#fff, 0.7);
+  }
+}
+.login-popup {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  min-width: 200px;
+  padding: 30px;
+  color: #fff;
+  z-index: 50;
+  &.warn {
+    background-color: #b18333;
+  }
+  &.error {
+    background-color: #b13333;
   }
 }
 </style>

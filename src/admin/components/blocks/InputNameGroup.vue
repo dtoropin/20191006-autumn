@@ -50,7 +50,7 @@ export default {
     },
     saveGroup() {
       this.$validate()
-        .then(function (success) {
+        .then((success) => {
           if (success) {
             console.log("save Group", success);
           }

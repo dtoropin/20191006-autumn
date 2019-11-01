@@ -140,7 +140,7 @@ export default {
     },
     saveWork() {
       this.$validate()
-        .then(function (success) {
+        .then((success) => {
           if (success) {
             console.log('save work', success);
           }

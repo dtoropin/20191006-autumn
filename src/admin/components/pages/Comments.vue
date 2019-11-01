@@ -128,7 +128,7 @@ export default {
       console.log("cancel edit comment");
     },
     saveComment() {
-      this.$validate().then(function(success) {
+      this.$validate().then((success) => {
         if (success) {
           console.log("save comment", success);
         }
