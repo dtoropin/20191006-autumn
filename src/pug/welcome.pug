@@ -62,6 +62,12 @@ section.welcome#welcome
             - for (var i = 0; i < navLink.length; i++)
               li.nav__item
                 a.nav__link(href=`${navLink[i].link}`)= navLink[i].title
+            li.nav__item.nav__item--mobile
+              ul.social
+                - for (var i = 0; i < social.length; i++)
+                  li.social__item
+                    a.social__link(href=`${social[i].link}` title=`${social[i].title}` target='_blank')
+                      +icon(`${social[i].icon}`, 'social__icon')
 
       .welcome__links
         ul.social

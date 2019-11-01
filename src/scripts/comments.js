@@ -19,8 +19,8 @@ new Vue({
       spaceBetween: 70,
       slidesPerGroup: 2,
       navigation: {
-        nextEl: '.comments__arrow--left',
-        prevEl: '.comments__arrow--right',
+        nextEl: '.comments__arrow--right',
+        prevEl: '.comments__arrow--left',
         disabledClass: 'disabled'
       },
       breakpoints: {

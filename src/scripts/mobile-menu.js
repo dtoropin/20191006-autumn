@@ -2,6 +2,7 @@
 
   const hamburger = document.querySelector('.hamburger');
   const navList = document.querySelector('.nav__list');
+  const title = document.querySelector('.welcome__head');
   const body = document.body;
 
 	const init = function () {
@@ -19,6 +20,7 @@
     if (window.innerWidth < 768) {
       hamburger.classList.toggle('active');
       body.classList.toggle('noscroll');
+      title.classList.toggle('hidden');
     }
   }
 
