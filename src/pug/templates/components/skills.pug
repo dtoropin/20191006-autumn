@@ -2,7 +2,7 @@ script(type='text/x-template')#skills-container
   ul.skills__charts
     li.skills__item(
       v-for='skill in skills'
-      :key='skill.group'
+      :key='skill.id'
     )
       chart(
         :skill='skill'
@@ -11,14 +11,14 @@ script(type='text/x-template')#skills-container
 
 script(type='text/x-template')#skills-chart
   .chart
-    h3.chart__label {{ skill.group }}
+    h3.chart__label {{ skill.category }}
     ul.chart__list
       li.chart__item(
-        v-for='(percent, name) in skill.skills'
-        :key='name'
+        v-for='{percent, title, id} in skill.skills'
+        :key='id'
       )
         diagramm(
-          :name='name'
+          :name='title'
           :percent='percent'
         )
 

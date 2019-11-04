@@ -7,7 +7,7 @@
       input(
         type='text'
         v-model='editValue'
-        @blur='onBlur'
+        ref='input'
       ).skills__input
       span(v-if='errorValue').skills__error {{ errorValue }}
     .skills__field
@@ -26,12 +26,19 @@
 </template>
 
 <script>
-import { Validator } from 'simple-vue-validator';
+import { Validator } from "simple-vue-validator";
+import axios from "axios";
+axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
+const token = localStorage.getItem("token") || "";
+axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+// user.id = 193
 
 export default {
   props: {
     value: String,
-    percent: Number
+    percent: Number,
+    category: Number,
+    id: Number
   },
   data: () => ({
     editValue: String,
@@ -49,28 +56,43 @@ export default {
   methods: {
     editField() {
       this.isEdit = true;
-      console.log('edit skill');
+      this.$refs.input.focus();
     },
     cancelEditField() {
       this.isEdit = false;
-      console.log('cancel edit skill');
+      this.editValue = this.value;
+      this.editPercent = this.percent;
     },
     saveField() {
-      this.$validate()
-        .then((success) => {
-          if (success) {
-            console.log("save skill", success);
-          }
-        });
+      this.$validate().then(success => {
+        if (success) {
+          axios
+            .post(`/skills/${this.id}`, {
+              title: this.editValue,
+              percent: this.editPercent,
+              category: this.category
+            })
+            .then(response => {
+              this.isEdit = false;
+              this.$emit("updateSkill");
+            })
+            .catch(error => {
+              console.error(error.response.data.error);
+            });
+        }
+      });
     },
     deleteField() {
-      if (confirm('Удалить skill?')) {
-        console.log('delete skill');
+      if (confirm(`Удалить "${this.value}: ${this.percent}%"?`)) {
+        axios
+          .delete(`/skills/${this.id}`)
+          .then(response => {
+            this.$emit("updateSkill");
+          })
+          .catch(error => {
+            console.error(error.response.data.error);
+          });
       }
-    },
-    onBlur() {
-      console.log('onBlur');
-      this.validation.reset();
     }
   },
   created() {
@@ -78,12 +100,14 @@ export default {
     this.editPercent = this.percent;
   },
   validators: {
-    'editValue': function(value) {
+    editValue: function(value) {
       return Validator.value(value).required();
     },
-    'editPercent': function(value) {
-      return Validator.value(value).digit('Только числа').maxLength(2, 'от 0 до 99');
+    editPercent: function(value) {
+      return Validator.value(value)
+        .digit("Только числа")
+        .maxLength(2, "от 0 до 99");
     }
   }
-}
+};
 </script>

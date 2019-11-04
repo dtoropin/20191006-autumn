@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import axios from "axios";
+axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
 
 const diagramm = {
   template: '#skills-diagramm',
@@ -28,6 +30,14 @@ new Vue({
   }),
   components: { chart },
   created() {
-    this.skills = require('../data/skills.json');
+    axios
+      .get("/categories/193")
+      .then(response => {
+        this.skills = response.data;
+        console.log(this.skills);
+      })
+      .catch(error => {
+        console.error(error.response.data.error);
+      });
   }
 })

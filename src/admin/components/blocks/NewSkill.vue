@@ -19,11 +19,19 @@
 </template>
 
 <script>
-import { Validator } from 'simple-vue-validator';
+import { Validator } from "simple-vue-validator";
+import axios from "axios";
+axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
+const token = localStorage.getItem("token") || "";
+axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+// user.id = 193
 
 export default {
+  props: {
+    category: Number
+  },
   data: () => ({
-    newSkill: '',
+    newSkill: "",
     newPercent: 0 | Number
   }),
   computed: {
@@ -36,21 +44,36 @@ export default {
   },
   methods: {
     saveSkill() {
-      this.$validate()
-        .then((success) => {
-          if (success) {
-            console.log("save Skill", success);
-          }
-        });
+      this.$validate().then(success => {
+        if (success) {
+          axios
+            .post("/skills", {
+              title: this.newSkill,
+              percent: this.newPercent,
+              category: this.category
+            })
+            .then(response => {
+              this.validation.reset();
+              this.newSkill = "";
+              this.newPercent = 0;
+              this.$emit("updateSkill");
+            })
+            .catch(error => {
+              console.error(error.response.data.error);
+            });
+        }
+      });
     }
   },
   validators: {
-    'newSkill': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    newSkill: function(value) {
+      return Validator.value(value).required("Заполните поле");
     },
-    'newPercent': function(value) {
-      return Validator.value(value).digit('Только числа').maxLength(2, 'от 0 до 99');
+    newPercent: function(value) {
+      return Validator.value(value)
+        .digit("Только числа")
+        .maxLength(2, "от 0 до 99");
     }
   }
-}
+};
 </script>

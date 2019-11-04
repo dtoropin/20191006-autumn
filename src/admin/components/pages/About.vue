@@ -10,48 +10,84 @@
 
       .about__block
         //- карточка новой группы
-        .skills
-          InputNameGroup
+        .skills(v-if='isNewGroup')
+          InputNameGroup(
+            @updateCategories="updateCategories"
+            @deleteGroup="deleteGroup"
+          )
           .skills__block
-          NewSkill
 
         //- карточки групп умений
         .skills(
-          v-for='skill in skills'
-          :key='skill.group'
+          v-for='cat in categories'
+          :key='cat.id'
         )
           InputNameGroup(
-            :groupName='skill.group'
+            :groupName='cat.category'
+            :id='cat.id'
+            @updateCategories="updateCategories"
+            @deleteGroup="deleteGroup"
           )
             
           .skills__block
             ul.skills__list
               li(
-                v-for='(percent, value, idx) in skill.skills'
-                :key='idx'
+                v-for='skill in cat.skills'
+                :key='skill.id'
               )
                 InputSkill(
-                  :value='value'
-                  :percent='percent'
+                  :value='skill.title'
+                  :percent='skill.percent'
+                  :category='skill.category'
+                  :id='skill.id'
+                  @updateSkill='getCategories'
                 )
 
-          NewSkill
+          NewSkill(
+            :category='cat.id'
+            @updateSkill='getCategories'
+          )
 </template>
 
 <script>
-import { Validator } from 'simple-vue-validator';
+import { Validator } from "simple-vue-validator";
+import axios from "axios";
+axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
+const token = localStorage.getItem("token") || "";
+axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+// user.id = 193
 
 export default {
   data: () => ({
-    skills: []
+    categories: [],
+    isNewGroup: false
   }),
   methods: {
     addNewGroup() {
-      console.log('add New Group');
+      this.isNewGroup = true;
+    },
+    updateCategories(cat) {
+      this.isNewGroup = false;
+      if (cat) this.categories.unshift(cat);
+    },
+    deleteGroup(id) {
+      this.isNewGroup = false;
+      if (id) this.categories = this.categories.filter(cat => cat.id !== id);
+    },
+    getCategories() {
+      axios
+        .get("/categories/193")
+        .then(response => {
+          this.categories = response.data;
+        })
+        .catch(error => {
+          console.error(error.response.data.error);
+        });
     }
   },
   created() {
-    this.skills = require("../../../data/skills.json");
+    // this.skills = require("../../../data/skills.json");
+    this.getCategories();
   },
   components: {
     InputSkill: () => import("../blocks/InputSkill"),
@@ -208,11 +244,11 @@ export default {
   top: 100%;
   display: block;
   padding: 1px 10px;
-  background: rgba(#cd1515, .8);
+  background: rgba(#cd1515, 0.8);
   border-radius: 3px;
   z-index: 10;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -222,7 +258,7 @@ export default {
     height: 0;
     border-style: solid;
     border-width: 0 10px 5px 10px;
-    border-color: transparent transparent rgba(#cd1515, .8) transparent;
+    border-color: transparent transparent rgba(#cd1515, 0.8) transparent;
   }
 }
 .skills__percent {

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .login
+  .login(v-if='!isLogin')
     .login__block
       a(href='index.html').login__close
       .login__content
@@ -35,16 +35,17 @@
             button(type='submit').login-form__btn Отправить
 
     .login-popup(
+      v-show='error'
       :class='{error: error}'
     )
-      span(v-show='error').login-popup__mes {{ error }}
+      span.login-popup__mes {{ error }}
 </template>
 
 <script>
 import { Validator } from "simple-vue-validator";
 import axios from "axios";
-import { delay } from 'q';
-const baseURL = "https://webdev-api.loftschool.com/";
+axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
+const token = localStorage.getItem("token") || "";
 
 export default {
   data: () => ({
@@ -52,20 +53,27 @@ export default {
       name: "",
       password: ""
     },
-    error: ""
+    error: "",
+    isLogin: false
   }),
+  created() {
+    if(token !== "") {
+      this.isLogin = true;
+    }
+  },
   methods: {
     login() {
-      this.$validate().then((success) => {
+      this.$validate().then(success => {
         if (success) {
           axios
-            .post(baseURL + "/login", this.user)
+            .post("/login", this.user)
             .then(response => {
-              console.log(response.data);
-              // response.data.token
+              const token = response.data.token;
+              axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+              localStorage.setItem("token", token);
+              this.isLogin = true;
             })
             .catch(error => {
-              // console.log(error.response.data);
               this.error = error.response.data.error;
             });
         }

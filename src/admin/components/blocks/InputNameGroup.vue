@@ -9,6 +9,7 @@
           type='text' 
           placeholder='Название группы'
           v-model='newNameGroup'
+          ref='input'
         ).skills__input.skills__input--title
         span(v-if='error').skills__error {{ validation.firstError("newNameGroup") }}
       .skills__btns(v-if='!isEdit')
@@ -20,18 +21,27 @@
 </template>
 
 <script>
-import { Validator } from 'simple-vue-validator';
+import { Validator } from "simple-vue-validator";
+import axios from "axios";
+axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
+const token = localStorage.getItem("token") || "";
+axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+// user.id = 193
 
 export default {
   props: {
     groupName: {
       type: String,
-      default: ''
+      default: ""
+    },
+    id: {
+      type: Number,
+      default: 0
     }
   },
   data: () => ({
     isEdit: false,
-    newNameGroup: ''
+    newNameGroup: ""
   }),
   computed: {
     error() {
@@ -41,36 +51,55 @@ export default {
   methods: {
     editNameGroup() {
       this.isEdit = true;
-      console.log('edit Name Group')
+      this.$refs.input.focus();
     },
     cancelEditGroup() {
       this.validation.reset();
+      this.newNameGroup = this.groupName;
       this.isEdit = false;
-      console.log('cancel Edit Group')
     },
     saveGroup() {
-      this.$validate()
-        .then((success) => {
-          if (success) {
-            console.log("save Group", success);
-          }
-        });
+      this.$validate().then(success => {
+        if (success) {
+          const id = this.id !== 0 ? `/${this.id}` : "";
+          axios
+            .post("/categories" + id, { title: this.newNameGroup })
+            .then(response => {
+              this.isEdit = false;
+              const cat = id !== "" ? false : response.data;
+              this.$emit("updateCategories", cat);
+            })
+            .catch(error => {
+              console.error(error.response.data.error);
+            });
+        }
+      });
     },
     deleteGroup() {
-      if (confirm('Удалить Group?')) {
-        console.log('delete Group');
+      if (this.id !== 0 && confirm(`Удалить "${this.newNameGroup}"?`)) {
+        axios
+          .delete("/categories/" + this.id)
+          .then(response => {
+            this.isEdit = false;
+            this.$emit("deleteGroup", this.id);
+          })
+          .catch(error => {
+            console.error(error.response.data.error);
+          });
+      } else {
+        this.$emit("deleteGroup", false);
       }
     }
   },
   created() {
-    if(this.groupName != '') {
+    if (this.groupName !== "") {
       this.newNameGroup = this.groupName;
     }
   },
   validators: {
-    'newNameGroup': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    newNameGroup: function(value) {
+      return Validator.value(value).required("Заполните поле");
     }
   }
-}
+};
 </script>
