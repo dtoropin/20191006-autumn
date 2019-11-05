@@ -1,7 +1,7 @@
 <template lang="pug">
   .login(v-if='!isLogin')
     .login__block
-      a(href='index.html').login__close
+      button(type='button' @click.prevent='logout').login__close
       .login__content
         .login__title Авторизация
         form(@submit.prevent='login').login-form
@@ -12,6 +12,7 @@
                 input(
                   type="text" 
                   v-model='user.name'
+                  autofocus
                 ).login-form__input
                 span.login-form__icon.login-form__icon--user
                 span(
@@ -57,7 +58,7 @@ export default {
     isLogin: false
   }),
   created() {
-    if(token !== "") {
+    if (token !== "") {
       this.isLogin = true;
     }
   },
@@ -78,6 +79,9 @@ export default {
             });
         }
       });
+    },
+    logout() {
+      document.location.href = "index.html";
     }
   },
   validators: {

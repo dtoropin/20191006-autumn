@@ -11,15 +11,23 @@
         span.header__text Панель администрирования
 
       .header__btn
-        a(href='index.html').header__link Выйти
+        a(href='#' @click.prevent='logout').header__link Выйти
 </template>
 
 <script>
 export default {
   components: {
-    User: () => import('../blocks/User')
+    User: () => import("../blocks/User")
+  },
+  methods: {
+    logout() {
+      if (confirm("Выйти из Admin?")) {
+        localStorage.clear();
+        document.location.href = "index.html";
+      }
+    }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -51,6 +59,7 @@ export default {
   opacity: 0.5;
 }
 .header__link {
+  color: #fff;
   border-bottom: 1px solid #fff;
   &:hover {
     opacity: 0.8;

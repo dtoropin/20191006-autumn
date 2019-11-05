@@ -34,7 +34,6 @@ new Vue({
       .get("/categories/193")
       .then(response => {
         this.skills = response.data;
-        console.log(this.skills);
       })
       .catch(error => {
         console.error(error.response.data.error);
