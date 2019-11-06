@@ -4,7 +4,7 @@
       .new-card__link
         button(
           type='button'
-          @click='$emit("addNewBlock")'
+          @click='$emit("editorComment")'
         ).new-card__btn
           .new-card__plus
             .plus

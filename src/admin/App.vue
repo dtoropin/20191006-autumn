@@ -6,9 +6,9 @@
       @changePage='changePage'
     )
 
-    About
+    //- About
 
-    Works
+    //- Works
 
     Comments
 
