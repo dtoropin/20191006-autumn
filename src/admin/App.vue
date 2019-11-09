@@ -1,6 +1,6 @@
 <template lang="pug">
   .content
-    Header
+    HeaderBlock
     Navigation(
       :page='this.currentPage'
       @changePage='changePage'
@@ -8,9 +8,9 @@
 
     //- About
 
-    //- Works
+    Works
 
-    Comments
+    //- Comments
 
     Login
 
@@ -27,7 +27,7 @@ export default {
     }
   },
   components: {
-    Header: () => import("./components/layout/Header"),
+    HeaderBlock: () => import("./components/layout/HeaderBlock"),
     Navigation: () => import("./components/layout/Navigation"),
     About: () => import("./components/pages/About"),
     Works: () => import("./components/pages/Works"),

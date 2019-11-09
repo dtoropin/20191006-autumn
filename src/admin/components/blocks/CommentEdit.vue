@@ -103,13 +103,25 @@ export default {
     saveComment() {
       this.$validate().then(success => {
         if (success) {
-          let data = new FormData();
-          data.append('photo', this.editPhoto);
-          data.append('author', this.editAuthor);
-          data.append('occ', this.editOcc);
-          data.append('text', this.editText);
-          this.$emit('saveComment', data);
-          this.cancelEdit();
+          if (
+            this.photo === this.editPhoto &&
+            this.author === this.editAuthor &&
+            this.occ === this.editOcc &&
+            this.text === this.editText
+          ) {
+            this.cancelEdit();
+            return false;
+          } else {
+            let data = new FormData();
+            if (typeof(this.editPhoto) !== 'string') {
+              data.append('photo', this.editPhoto);
+            }
+            data.append('author', this.editAuthor);
+            data.append('occ', this.editOcc);
+            data.append('text', this.editText);
+            this.$emit('saveComment', data);
+            this.cancelEdit();
+          }
         }
       });
     }

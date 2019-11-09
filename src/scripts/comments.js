@@ -55,7 +55,7 @@ new Vue({
         this.comments = this.makeArrPhotoLink(response.data);
       })
       .catch(error => {
-        console.error(error.response.data.error);
+        console.error(error);
       });
   }
 })

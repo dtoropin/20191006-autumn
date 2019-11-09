@@ -20,7 +20,7 @@
         .comments__card
           NewCard(
             info='Добавить отзыв'
-            @editorComment='editorComment'
+            @addNewCard='editorComment'
           )
 
         //- карточки отзывов
