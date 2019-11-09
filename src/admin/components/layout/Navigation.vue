@@ -1,12 +1,21 @@
 <template lang="pug">
   nav.nav
     ul.nav__list.container
-      li.nav__item(:class='{active: this.page === "About"}')
-        a(href='#' @click.prevent='$emit("changePage", "About")').nav__link Обо мне
-      li.nav__item(:class='{active: this.page === "Works"}')
-        a(href='#' @click.prevent='$emit("changePage", "Works")').nav__link Работы
-      li.nav__item(:class='{active: this.page === "Comments"}')
-        a(href='#' @click.prevent='$emit("changePage", "Comments")').nav__link Отзывы
+      li.nav__item
+        router-link(
+          to='/'
+          class='nav__link'
+        ) Обо мне
+      li.nav__item
+        router-link(
+          to='/works'
+          class='nav__link'
+        ) Работы
+      li.nav__item
+        router-link(
+          to='/comments'
+          class='nav__link'
+        ) Отзывы
 </template>
 
 <script>
@@ -26,23 +35,6 @@ export default {
 .nav__list {
   display: flex;
 }
-.nav__item {
-  border-bottom: solid 3px transparent;
-  transition: 0.3s border ease;
-  &:hover {
-    border-bottom: solid 3px rgba(#ea7400, 0.6);
-    & > .nav__link {
-      color: rgba(#ea7400, 0.8);
-    }
-  }
-  &.active {
-    border-bottom: solid 3px #ea7400;
-    & > .nav__link {
-      pointer-events: none;
-      color: #ea7400;
-    }
-  }
-}
 .nav__link {
   width: 125px;
   text-align: center;
@@ -50,9 +42,19 @@ export default {
   padding-top: 30px;
   padding-bottom: 30px;
   color: #414c63;
-  transition: 0.3s color ease;
+  border-bottom: solid 3px transparent;
+  transition: 0.3s all ease;
   @include phones {
     width: 113px;
+  }
+  &:hover {
+    border-bottom: solid 3px rgba(#ea7400, 0.6);
+    color: rgba(#ea7400, 0.8);
+  }
+  &.router-link-exact-active {
+    border-bottom: solid 3px #ea7400;
+    pointer-events: none;
+    color: #ea7400;
   }
 }
 </style>

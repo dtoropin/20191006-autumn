@@ -1,31 +1,18 @@
 <template lang="pug">
   .content
     HeaderBlock
-    Navigation(
-      :page='this.currentPage'
-      @changePage='changePage'
-    )
+    Navigation
 
+    router-view
     //- About
-
-    Works
-
+    //- Works
     //- Comments
-
     Login
 
 </template>
 
 <script>
 export default {
-  data: () => ({
-    currentPage: "About"
-  }),
-  methods: {
-    changePage(e) {
-      this.currentPage = e;
-    }
-  },
   components: {
     HeaderBlock: () => import("./components/layout/HeaderBlock"),
     Navigation: () => import("./components/layout/Navigation"),
