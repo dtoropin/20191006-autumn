@@ -4,8 +4,6 @@
       SkillsGroupName(
         :groupName='cat.category'
         :id='cat.id'
-        @deleteComponent='deleteComponent'
-        @saveGroup='saveGroup'
       )
 
     .skills__block
@@ -15,18 +13,12 @@
           :key='skill.id'
         )
           SkillsItem(
-            :title='skill.title'
-            :percent='skill.percent'
-            :skillId='skill.id'
-            :category='skill.category'
-            @deleteSkill='deleteSkill'
-            @updateSkill='updateSkill'
+            :skill='skill'
           )
 
     .skills__footer
       SkillsAddItem(
         :category='cat.id'
-        @saveSkill='saveSkill'
       )
 </template>
 
@@ -35,27 +27,7 @@ export default {
   props: {
     cat: {
       type: Object,
-      default: () => ({
-        category: '',
-        id: 0
-      })
-    }
-  },
-  methods: {
-    deleteComponent(id) {
-      this.$emit('deleteComponent', id);
-    },
-    saveGroup(event) {
-      this.$emit('saveGroup', event);
-    },
-    deleteSkill(skillId) {
-      this.$emit('deleteSkill', skillId);
-    },
-    updateSkill(event) {
-      this.$emit('updateSkill', event);
-    },
-    saveSkill(event) {
-      this.$emit('saveSkill', event);
+      required: true
     }
   },
   components: {

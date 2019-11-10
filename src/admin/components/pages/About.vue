@@ -12,103 +12,30 @@
         Skills(
           v-if='isNew'
           :class='{new: isNew}'
-          @deleteComponent='deleteComponent'
-          @saveGroup='saveGroup'
         )
         Skills(
           v-for='cat in categories'
           :key='cat.id'
           :cat='cat'
-          @deleteComponent='deleteComponent'
-          @saveGroup='saveGroup'
-          @deleteSkill='deleteSkill'
-          @updateSkill='updateSkill'
-          @saveSkill='saveSkill'
         )
 </template>
 
 <script>
-import axios from "axios";
-axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
-const token = localStorage.getItem("token") || "";
-axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-// user.id = 193
-
+import { mapActions, mapState } from 'vuex';
 export default {
-  data: () => ({
-    isNew: false,
-    categories: []
-  }),
+  computed: {
+    ...mapState('categories', {
+      categories: state => state.categories,
+      isNew: state => state.isNew
+    })
+  },
   components: {
     Skills: () => import("../blocks/Skills")
   },
   methods: {
+    ...mapActions('categories', ['getCategories', 'changeIsNew']),
     addNewGroup() {
-      this.isNew = true;
-    },
-    deleteComponent(id) {
-      if (id === 0) this.isNew = false;
-      else {
-        axios
-          .delete("/categories/" + id)
-          .then(response => {
-            this.getCategories();
-          })
-          .catch(error => {
-            console.error(error.response.data.error);
-          });
-      }
-    },
-    saveGroup(event) {
-      const eidtId = event.id !== 0 ? `/${event.id}` : '';
-      axios
-        .post("/categories" + eidtId, { title: event.title })
-        .then(response => {
-          this.getCategories();
-        })
-        .catch(error => {
-          console.error(error.response.data.error);
-        });
-    },
-    getCategories() {
-      axios
-        .get("/categories/193")
-        .then(response => {
-          this.categories = response.data;
-        })
-        .catch(error => {
-          console.error(error.response.data.error);
-        });
-    },
-    deleteSkill(skillId) {
-      axios
-        .delete(`/skills/${skillId}`)
-        .then(response => {
-          this.getCategories();
-        })
-        .catch(error => {
-          console.error(error.response.data.error);
-        });
-    },
-    updateSkill(event) {
-      axios
-        .post(`/skills/${event.id}`, event.data)
-        .then(response => {
-          this.getCategories();
-        })
-        .catch(error => {
-          console.error(error.response.data.error);
-        });
-    },
-    saveSkill(event) {
-      axios
-        .post("/skills", event)
-        .then(response => {
-          this.getCategories();
-        })
-        .catch(error => {
-          console.error(error.response.data.error);
-        });
+      this.changeIsNew(true);
     }
   },
   created() {

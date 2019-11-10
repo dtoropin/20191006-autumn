@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import axios from "axios";
 axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
 const token = localStorage.getItem("token") || "";
@@ -43,7 +44,6 @@ axios.defaults.headers["Authorization"] = `Bearer ${token}`;
 
 export default {
   data: () => ({
-    works: [],
     title: '',
     techs: '',
     photo: '',
@@ -53,7 +53,13 @@ export default {
     isEdit: false,
     isUpdate: false
   }),
+  computed: {
+    ...mapState('works', {
+      works: state => state.works
+    })
+  },
   methods: {
+    ...mapActions('works', ['getWorks']),
     editorWork() {
       this.isEdit = true;
     },
@@ -97,16 +103,6 @@ export default {
         })
         .catch(error => {
           console.error(error.response);
-        });
-    },
-    getWorks() {
-      axios
-        .get('/works/193')
-        .then(response => {
-          this.works = response.data;
-        })
-        .catch(error => {
-          console.error(error.response.data.error);
         });
     }
   },

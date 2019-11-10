@@ -16,11 +16,12 @@
       button(type='button' @click='cancelEdit').btn.btn--delete
     .group__btns(v-else)
       button(type='button' @click='editGroup').btn.btn--edit
-      button(type='button' @click='deleteComponent').btn.btn--delete
+      button(type='button' @click='deleteGroup').btn.btn--delete
 </template>
 
 <script>
 import { Validator } from "simple-vue-validator";
+import { mapActions } from 'vuex';
 export default {
   data: () => ({
     isEdit: false,
@@ -39,10 +40,16 @@ export default {
     }
   },
   methods: {
-    deleteComponent() {
+    ...mapActions('categories', [
+      'addCategory',
+      'deleteCategory',
+      'changeIsNew'
+    ]),
+    deleteGroup() {
       const title = this.groupName !== '' ? this.groupName : 'Группу';
       if (confirm(`Удалить "${this.groupName}"?`)) {
-        this.$emit('deleteComponent', this.id);
+        this.changeIsNew(false);
+        if (this.id !== 0) this.deleteCategory(this.id);
       }
     },
     editGroup() {
@@ -54,18 +61,24 @@ export default {
       this.isEdit = false;
       this.editGroupName = this.groupName;
     },
-    saveGroup() {
-      this.$validate().then(success => {
-        if (success) {
+    async saveGroup() {
+      try {
+        if (await this.$validate()) {
+          this.changeIsNew(false);
           if (this.editGroupName === this.groupName) {
             this.isEdit = false;
             return false;
           } else {
-            this.$emit('saveGroup', {id: this.id, title: this.editGroupName});
-            if (this.id === 0) this.$emit('deleteComponent', 0);
+            this.id !== 0 
+              ? console.log(this.id) 
+              : this.addCategory(this.editGroupName)
           }
         }
-      })
+      } catch (error) {
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        );
+      }
     }
   },
   created() {

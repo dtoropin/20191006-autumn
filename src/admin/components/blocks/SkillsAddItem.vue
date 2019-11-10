@@ -19,10 +19,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { Validator } from "simple-vue-validator";
 export default {
   props: {
-    category: Number
+    category: {
+      type: Number,
+      required: true
+    }
   },
   data: () => ({
     newTitle: '',
@@ -37,20 +41,25 @@ export default {
     }
   },
   methods: {
-    saveSkill() {
-      this.$validate().then(success => {
-        if (success) {
-          const data = {
+    ...mapActions('skills', ['addSkill']),
+    async saveSkill() {
+      try {
+        if (await this.$validate()) {
+          const skill = {
             title: this.newTitle,
             percent: this.newPercent,
             category: this.category
           }
-          this.$emit('saveSkill', data);
+          this.addSkill(skill);
           this.validation.reset();
           this.newTitle = '';
           this.newPercent = 0;
         }
-      })
+      } catch (error) {
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        );
+      }
     },
     onBlur() {
       this.validation.reset();

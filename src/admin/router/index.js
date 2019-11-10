@@ -3,22 +3,21 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import About from '../components/pages/About.vue';
-import Works from '../components/pages/Works.vue';
-import Comments from '../components/pages/Comments.vue';
-
 const routes = [
   {
     path: '/',
-    component: About
+    component: () => import('../components/pages/About.vue'),
+    name: 'About'
   },
   {
     path: '/works',
-    component: Works
+    component: () => import('../components/pages/Works.vue'),
+    name: 'Works'
   },
   {
     path: '/comments',
-    component: Comments
+    component: () => import('../components/pages/Comments.vue'),
+    name: 'Comments'
   }
 ];
 

@@ -6,14 +6,15 @@
     .item__field
       input(
         type='text'
-        v-model='editTitle'
-        ref='input'
+        v-model='editSkill.title'
+        ref='inputTitle'
       ).item__input
       span(v-if='errorTitle').item__error {{ errorTitle }}
     .item__field
       input(
         type='text'
-        v-model='editPercent'
+        v-model='editSkill.percent'
+        ref='inputPercent'
       ).item__input.item__input--percent
       span(v-if='errorPercent').item__error {{ errorPercent }}
       span.item__percent %
@@ -21,81 +22,85 @@
       button(type='submit' @click='updateSkill').btn.btn--edit
       button(type='button' @click='cancelEdit').btn.btn--delete
     .item__btns(v-else)
-      button(type='button' @click='editSkill').btn.btn--edit
+      button(type='button' @click='editedSkill').btn.btn--edit
       button(type='button' @click='deleteSkill').btn.btn--delete
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { Validator } from "simple-vue-validator";
 export default {
   props: {
-    title: String,
-    percent: Number,
-    skillId: Number,
-    category: Number
+    skill: {
+      type: Object,
+      required: true
+    }
   },
   data: () => ({
     isEdit: false,
-    editTitle: '',
-    editPercent: 0
+    editSkill: {}
   }),
   computed: {
     errorTitle() {
-      return this.validation.firstError("editTitle");
+      return this.validation.firstError("editSkill.title");
     },
     errorPercent() {
-      return this.validation.firstError("editPercent");
+      return this.validation.firstError("editSkill.percent");
     }
   },
   methods: {
-    editSkill() {
+    ...mapActions("skills", ["removeSkill", "editThisSkill"]),
+    editedSkill() {
       this.isEdit = true;
-      this.$refs.input.focus();
+      this.$refs.inputTitle.focus();
     },
     cancelEdit() {
       this.validation.reset();
       this.isEdit = false;
-      this.editTitle = this.title;
-      this.editPercent = this.percent;
+      this.editSkill.title = this.skill.title;
+      this.editSkill.percent = this.skill.percent;
     },
     deleteSkill() {
-      if (confirm(`Удалить skill "${this.title}"?`)) {
-        this.$emit('deleteSkill', this.skillId);
+      if (confirm(`Удалить skill "${this.editSkill.title}"?`)) {
+        this.removeSkill(this.editSkill);
       }
     },
-    updateSkill() {
-      this.isEdit = false;
-      this.$refs.input.blur();
-      if (this.editTitle === this.title && this.editPercent === this.percent) {
-        return false;
-      }
-      this.$validate().then(success => {
-        if (success) {
-          const data = {
-            title: this.editTitle,
-            percent: this.editPercent,
-            category: this.category
-          };
-          this.$emit('updateSkill', {id: this.skillId, data: data});
+    async updateSkill() {
+      try {
+        this.isEdit = false;
+        this.$refs.inputTitle.blur();
+        this.$refs.inputPercent.blur();
+        if (
+          this.editSkill.title === this.skill.title &&
+          this.editSkill.percent === this.skill.percent
+        ) {
+          return false;
         }
-      })
+        if (await this.$validate()) {
+          this.editThisSkill(this.editSkill);
+        }
+      } catch (error) {
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        );
+      }
     }
   },
   created() {
-    this.editPercent = this.percent;
-    this.editTitle = this.title;
+    this.editSkill = { ...this.skill };
   },
   validators: {
-    editTitle: function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "editSkill.title": function(value) {
+      return Validator.value(value).required("Заполните поле");
     },
-    editPercent: function(value) {
+    "editSkill.percent": function(value) {
       return Validator.value(value)
+        .required("Заполните поле")
         .digit("Только числа")
         .maxLength(2, "от 0 до 99");
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>

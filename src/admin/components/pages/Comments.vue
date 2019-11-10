@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import axios from "axios";
 axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
 const token = localStorage.getItem("token") || "";
@@ -43,7 +44,6 @@ axios.defaults.headers["Authorization"] = `Bearer ${token}`;
 
 export default {
   data: () => ({
-    comments: [],
     photo: '',
     author: '',
     occ: '',
@@ -52,12 +52,18 @@ export default {
     isEdit: false,
     isUpdate: false
   }),
+  computed: {
+    ...mapState('comments', {
+      comments: state => state.comments
+    })
+  },
   components: {
     NewCard: () => import('../blocks/NewCard'),
     CommentEdit: () => import('../blocks/CommentEdit'),
     Comment: () => import('../blocks/Comment')
   },
   methods: {
+    ...mapActions('comments', ['getComments']),
     editorComment() {
       this.isEdit = true;
     },
@@ -99,16 +105,6 @@ export default {
         })
         .catch(error => {
           console.error(error.response);
-        });
-    },
-    getComments() {
-      axios
-        .get('/reviews/193')
-        .then(response => {
-          this.comments = response.data;
-        })
-        .catch(error => {
-          console.error(error.response.data.error);
         });
     }
   },
