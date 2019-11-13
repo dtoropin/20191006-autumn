@@ -1,7 +1,7 @@
 <template lang="pug">
   .edit-work
     h3.edit-work__title Редактирование работы
-    form(@submit.prevent='saveWork').edit-work__block
+    form(@submit.prevent='savedWork').edit-work__block
       .edit-work__download
         .edit-work__file
           input(
@@ -34,26 +34,26 @@
           .edit-block__field
             Input(
               label='Название'
-              v-model='editTitle'
+              v-model='work.title'
               :error='errorTitle'
             )
           .edit-block__field
             Input(
               label='Ссылка'
-              v-model='editLink'
+              v-model='work.link'
               :error='errorLink'
             )
           .edit-block__field.edit-block__field--textarea
             Input(
               label='Описание'
               type='textarea'
-              v-model='editDescription'
+              v-model='work.description'
               :error='errorDescription'
             )
           .edit-block__field
             Input(
               label='Теги'
-              v-model='editTechs'
+              v-model='work.techs'
               :error='errorTechs'
             )
           .edit-block__tags
@@ -66,49 +66,49 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { Validator } from "simple-vue-validator";
 export default {
   props: {
-    title: '',
-    techs: '',
-    photo: '',
-    link: '',
-    description: ''
+    editWork: Object
   },
   data: () => ({
-    editTitle: '',
-    editTechs: '',
-    editPhoto: '',
-    editLink: '',
-    editDescription: '',
+    work: {
+      title: '',
+      photo: '',
+      link: '',
+      techs: '',
+      description: ''
+    },
     filePreview: ''
   }),
   computed: {
     tagsList() {
-      if(this.editTechs && this.editTechs !== '') return this.editTechs.split(', ');
+      if(this.work.techs && this.work.techs !== '') return this.work.techs.split(', ');
     },
     srcPhoto() {
-      if (this.photo) {
-        return 'https://webdev-api.loftschool.com/' + this.photo;
+      if (this.work.photo !== '') {
+        return 'https://webdev-api.loftschool.com/' + this.work.photo;
       }
     },
     errorPhoto() {
-      return this.validation.firstError('editPhoto');
+      return this.validation.firstError('work.photo');
     },
     errorTitle() {
-      return this.validation.firstError('editTitle');
+      return this.validation.firstError('work.title');
     },
     errorLink() {
-      return this.validation.firstError('editLink');
+      return this.validation.firstError('work.link');
     },
     errorDescription() {
-      return this.validation.firstError('editDescription');
+      return this.validation.firstError('work.description');
     },
     errorTechs() {
-      return this.validation.firstError('editTechs');
+      return this.validation.firstError('work.techs');
     }
   },
   methods: {
+    ...mapActions('works', ['saveWork', 'updateWork']),
     cancelEdit() {
       this.validation.reset();
       this.$emit('cancelEdit');
@@ -116,41 +116,32 @@ export default {
     deleteTag(e) {
       const el = new RegExp(`${e.target.parentElement.innerText},?\ ?`);
       // удаляем элемент
-      const str = this.editTechs.replace(el, '');
+      const str = this.work.techs.replace(el, '');
       // удаляем запятую в конце строки
-      this.editTechs = str.replace(/,\s*$/, '');
+      this.work.techs = str.replace(/,\s*$/, '');
     },
-    saveWork() {
-      this.$validate()
-        .then((success) => {
-          if (success) {
-            if (
-              this.photo === this.editPhoto &&
-              this.title === this.editTitle &&
-              this.techs === this.editTechs &&
-              this.link === this.editLink &&
-              this.description === this.editDescription
-            ) {
-              this.cancelEdit();
-              return false;
-            } else {
-              let data = new FormData();
-              if (typeof(this.editPhoto) !== 'string') {
-                data.append('photo', this.editPhoto);
-              }
-              data.append('title', this.editTitle);
-              data.append('link', this.editLink);
-              data.append('description', this.editDescription);
-              data.append('techs', this.editTechs);
-              this.$emit('saveWork', data);
-              this.cancelEdit();
-            }
-          }
-        });
+    async savedWork() {
+      try {
+        if (await this.$validate()) {
+          let formData = new FormData();
+          formData.append('photo', this.work.photo);
+          formData.append('title', this.work.title);
+          formData.append('link', this.work.link);
+          formData.append('description', this.work.description);
+          formData.append('techs', this.work.techs);
+          if (!this.work.id) this.saveWork(formData);
+          else this.updateWork([this.work.id, formData]);
+          this.cancelEdit();
+        }
+      } catch (error) {
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        );
+      }
     },
     handleFile(e) {
       const photoFile = this.fileFromForm(e);
-      this.editPhoto = photoFile;
+      this.work.photo = photoFile;
       this.renderFile(photoFile).then(f => {
         this.filePreview = f;
       });
@@ -174,32 +165,30 @@ export default {
       });
     }
   },
+  created() {
+    if (this.editWork.id) {
+      this.work = {...this.editWork};
+    }
+  },
   components: {
     Input: () => import('../blocks/Input')
   },
   validators: {
-    'editPhoto': function(value) {
+    'work.photo': function(value) {
       return Validator.value(value).required('Добавьте фото');
     },
-    'editTitle': function(value) {
+    'work.title': function(value) {
       return Validator.value(value).required('Заполните поле');
     },
-    'editLink': function(value) {
+    'work.link': function(value) {
       return Validator.value(value).required('Заполните поле').url('Неверный формат url');
     },
-    'editDescription': function(value) {
+    'work.description': function(value) {
       return Validator.value(value).required('Заполните поле');
     },
-    'editTechs': function(value) {
+    'work.techs': function(value) {
       return Validator.value(value).required('Заполните поле');
     }
-  },
-  created() {
-    this.editTitle = this.title;
-    this.editTechs = this.techs;
-    this.editPhoto = this.photo;
-    this.editLink = this.link;
-    this.editDescription = this.description;
   }
 }
 </script>

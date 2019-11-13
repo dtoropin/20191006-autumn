@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { isMethod } from 'babel-types';
+import { mapActions } from 'vuex';
 export default {
   props: {
     work: Object
@@ -34,9 +34,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions('works', ['removeWork']),
     deleteWork() {
       if (confirm(`Удалить работу "${this.work.title}"?`)) {
-        this.$emit('deleteWork', this.work.id);
+        this.removeWork(this.work.id);
       }
     },
     editWork() {

@@ -79,7 +79,7 @@ export default {
     },
     async deleteCategory({ commit }, id) {
       try {
-        const { data } = await this.$axios.delete(`/categories/${id}`);
+        await this.$axios.delete(`/categories/${id}`);
         commit('DELETE_CATEGORY', id);
       } catch (error) {
         throw new Error(

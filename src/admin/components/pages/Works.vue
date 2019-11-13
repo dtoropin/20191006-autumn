@@ -8,12 +8,7 @@
       WorkEdit(
         v-if='isEdit'
         @cancelEdit='cancelEdit'
-        @saveWork='saveWork'
-        :title='title'
-        :techs='techs'
-        :photo='photo'
-        :link='link'
-        :description='description'
+        :editWork='work'
       )
 
       .works__show
@@ -30,28 +25,16 @@
         )
           Work(
             :work='work'
-            @deleteWork='deleteWork'
             @editWork='editWork'
           )
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import axios from "axios";
-axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
-const token = localStorage.getItem("token") || "";
-axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-
 export default {
   data: () => ({
-    title: '',
-    techs: '',
-    photo: '',
-    link: '',
-    description: '',
-    id: 0,
-    isEdit: false,
-    isUpdate: false
+    work: {},
+    isEdit: false
   }),
   computed: {
     ...mapState('works', {
@@ -64,46 +47,12 @@ export default {
       this.isEdit = true;
     },
     cancelEdit() {
-      this.title = '';
-      this.techs = '';
-      this.photo = '';
-      this.link = '';
-      this.description = '';
-      this.id = 0;
-      this.isUpdate = false;
       this.isEdit = false;
+      this.work = {}
     },
     editWork(id) {
-      const work = this.works.filter(work => work.id === id)[0];
-      this.title = work.title;
-      this.techs = work.techs;
-      this.photo = work.photo;
-      this.link = work.link;
-      this.description = work.description;
-      this.id = work.id;
+      this.work = this.works.filter(work => work.id === id)[0];
       this.isEdit = true;
-      this.isUpdate = true;
-    },
-    saveWork(data) {
-      const id = !this.isUpdate ? '' : `/${this.id}`;
-      axios
-        .post('/works' + id, data)
-        .then(response => {
-          this.getWorks();
-        })
-        .catch(error => {
-          console.error(error.response);
-        });
-    },
-    deleteWork(id) {
-      axios
-        .delete(`/works/${id}`)
-        .then(response => {
-          this.getWorks();
-        })
-        .catch(error => {
-          console.error(error.response);
-        });
     }
   },
   components: {
