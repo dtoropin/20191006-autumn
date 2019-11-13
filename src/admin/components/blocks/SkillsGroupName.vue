@@ -28,7 +28,10 @@ export default {
     editGroupName: ''
   }),
   props: {
-    groupName: String,
+    groupName: {
+      type:String,
+      default: ''
+    },
     id: {
       type: Number,
       default: 0
