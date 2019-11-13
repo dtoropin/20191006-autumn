@@ -17,6 +17,14 @@ export default {
         if (cat.id !== id) return cat;
       })
     },
+    UPDATE_CATEGORY(state, data) {
+      state.categories = state.categories.map(cat => {
+        if (cat.id === data.id) {
+          cat.category = data.category
+        }
+        return cat;
+      })
+    },
     CHANGE_ISNEW(state, bool) {
       state.isNew = bool;
     },
@@ -99,6 +107,21 @@ export default {
         commit('SHOW_MESSAGE', {
           className: 'warn',
           text: 'категория удалена'
+        })
+      } catch (error) {
+        commit('SHOW_MESSAGE', {
+          className: 'error',
+          text: error.response.data.error || error.response.data.message
+        })
+      }
+    },
+    async updateCategory({ commit }, cat) {
+      try {
+        const { data } = await this.$axios.post(`/categories/${cat.id}`, {title: cat.title});
+        commit('UPDATE_CATEGORY', data.category);
+        commit('SHOW_MESSAGE', {
+          className: 'ok',
+          text: 'категория сохранена'
         })
       } catch (error) {
         commit('SHOW_MESSAGE', {

@@ -53,8 +53,6 @@ export default {
 .work {
   position: relative;
   height: 100%;
-  display: flex;
-  flex-direction: column;
   box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.1);
   &.edited {
     opacity: 0.4;

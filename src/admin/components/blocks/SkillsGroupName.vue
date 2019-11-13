@@ -43,6 +43,7 @@ export default {
     ...mapActions('categories', [
       'addCategory',
       'deleteCategory',
+      'updateCategory',
       'changeIsNew'
     ]),
     deleteGroup() {
@@ -64,21 +65,25 @@ export default {
     async saveGroup() {
       try {
         if (await this.$validate()) {
-          this.changeIsNew(false);
-          if (this.editGroupName === this.groupName) {
-            this.isEdit = false;
-            return false;
-          } else {
-            this.id !== 0 
-              ? console.log(this.id) 
-              : this.addCategory(this.editGroupName)
-          }
+          this.isEdit = false;
+          this.id !== 0 
+            ? this.updateGroup()
+            : this.createGroup()
         }
       } catch (error) {
         throw new Error(
           error.response.data.error || error.response.data.message
         );
       }
+    },
+    createGroup() {
+      this.changeIsNew(false);
+      this.addCategory(this.editGroupName)
+    },
+    updateGroup() {
+      this.$refs.input.blur();
+      if (this.editGroupName === this.groupName) return false;
+      this.updateCategory({id: this.id, title: this.editGroupName})
     }
   },
   created() {

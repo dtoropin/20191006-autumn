@@ -27,7 +27,7 @@ export default {
   props: {
     cat: {
       type: Object,
-      required: true
+      default: {}
     }
   },
   components: {
