@@ -9,11 +9,7 @@
         h3.comments__title Новый отзыв
         CommentEdit(
           @cancelEdit='cancelEdit'
-          @saveComment='saveComment'
-          :photo='photo'
-          :author='author'
-          :occ='occ'
-          :text='text'
+          :editComment='comment'
         )
 
       .comments__show
@@ -30,27 +26,16 @@
         )
           Comment(
             :comment='comment'
-            @deleteComment='deleteComment'
             @editComment='editComment'
           )
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import axios from "axios";
-axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
-const token = localStorage.getItem("token") || "";
-axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-
 export default {
   data: () => ({
-    photo: '',
-    author: '',
-    occ: '',
-    text: '',
-    id: 0,
-    isEdit: false,
-    isUpdate: false
+    comment: {},
+    isEdit: false
   }),
   computed: {
     ...mapState('comments', {
@@ -68,44 +53,12 @@ export default {
       this.isEdit = true;
     },
     cancelEdit() {
-      this.photo = '';
-      this.author = '';
-      this.occ = '';
-      this.text = '';
-      this.id = 0;
-      this.isUpdate = false;
+      this.comment = {};
       this.isEdit = false;
     },
-    saveComment(data) {
-      const id = !this.isUpdate ? '' : `/${this.id}`;
-      axios
-        .post('/reviews' + id, data)
-        .then(response => {
-          this.getComments();
-        })
-        .catch(error => {
-          console.error(error.response);
-        });
-    },
     editComment(id) {
-      const comment = this.comments.filter(comment => comment.id === id)[0];
-      this.photo = comment.photo;
-      this.author = comment.author;
-      this.occ = comment.occ;
-      this.text = comment.text;
-      this.id = comment.id;
+      this.comment = this.comments.filter(comment => comment.id === id)[0];
       this.isEdit = true;
-      this.isUpdate = true;
-    },
-    deleteComment(id) {
-      axios
-        .delete(`/reviews/${id}`)
-        .then(response => {
-          this.getComments();
-        })
-        .catch(error => {
-          console.error(error.response);
-        });
     }
   },
   created() {

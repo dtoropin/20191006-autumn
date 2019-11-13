@@ -16,10 +16,12 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   props: {
     comment: {
-      type: Object
+      type: Object,
+      required: true
     }
   },
   computed: {
@@ -28,9 +30,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions('comments', ['removeComment']),
     deleteComment() {
       if (confirm(`Удалить отзыв "${this.comment.author}"?`)) {
-        this.$emit('deleteComment', this.comment.id);
+        this.removeComment(this.comment.id);
       }
     },
     editComment() {

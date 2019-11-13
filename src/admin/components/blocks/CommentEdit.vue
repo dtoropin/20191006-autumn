@@ -1,5 +1,5 @@
 <template lang="pug">
-  form(@submit.prevent='saveComment').edit-comment
+  form(@submit.prevent='savedComment').edit-comment
     .download-file
       input(
         type='file' 
@@ -9,7 +9,7 @@
       label(for='photo').download-file__label
         .download-file__img
           img(v-if='filePreview' :src='filePreview' alt='avatar')
-          img(v-else-if='photo' :src='"https://webdev-api.loftschool.com/" + photo' alt='avatar')
+          img(v-else-if='comment.photo' :src='"https://webdev-api.loftschool.com/" + comment.photo' alt='avatar')
           img(v-else src='../../../images/content/user-default.jpg' alt='avatar')
         span.download-file__text Изменить фото
         span(v-if='errorFile').download-file__error {{ errorFile }}
@@ -18,20 +18,20 @@
       .edit-comment__row
         .edit-comment__field
           Input(
-            v-model='editAuthor'
+            v-model='comment.author'
             label='Имя автора'
             :error='errorAuthor'
           )
         .edit-comment__field
           Input(
-            v-model='editOcc'
+            v-model='comment.occ'
             label='Титул автора'
             :error='errorOcc'
           )
 
       .edit-comment__field
         Input(
-          v-model='editText'
+          v-model='comment.text'
           label='Отзыв'
           type='textarea'
           :error='errorText'
@@ -43,39 +43,40 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { Validator } from "simple-vue-validator";
 export default {
   props: {
-    photo: '',
-    author: '',
-    occ: '',
-    text: ''
+    editComment: Object
   },
   data: () => ({
-    editPhoto: '',
-    editAuthor: '',
-    editOcc: '',
-    editText: '',
+    comment: {
+      photo: '',
+      author: '',
+      occ: '',
+      text: ''
+    },
     filePreview: ''
   }),
   computed: {
     errorFile() {
-      return this.validation.firstError('editPhoto');
+      return this.validation.firstError('comment.photo');
     },
     errorAuthor() {
-      return this.validation.firstError('editAuthor');
+      return this.validation.firstError('comment.author');
     },
     errorOcc() {
-      return this.validation.firstError('editOcc');
+      return this.validation.firstError('comment.occ');
     },
     errorText() {
-      return this.validation.firstError('editText');
+      return this.validation.firstError('comment.text');
     }
   },
   methods: {
+    ...mapActions('comments', ['saveComment', 'updateComment']),
     handleFile(e) {
       const photoFile = this.fileFromForm(e);
-      this.editPhoto = photoFile;
+      this.comment.photo = photoFile;
       this.renderFile(photoFile).then(f => this.filePreview = f);
     },
     fileFromForm(e) {
@@ -100,54 +101,48 @@ export default {
       this.validation.reset();
       this.$emit('cancelEdit');
     },
-    saveComment() {
-      this.$validate().then(success => {
-        if (success) {
-          if (
-            this.photo === this.editPhoto &&
-            this.author === this.editAuthor &&
-            this.occ === this.editOcc &&
-            this.text === this.editText
-          ) {
-            this.cancelEdit();
-            return false;
-          } else {
-            let data = new FormData();
-            if (typeof(this.editPhoto) !== 'string') {
-              data.append('photo', this.editPhoto);
-            }
-            data.append('author', this.editAuthor);
-            data.append('occ', this.editOcc);
-            data.append('text', this.editText);
-            this.$emit('saveComment', data);
-            this.cancelEdit();
+    async savedComment() {
+      try {
+        if (await this.$validate()) {
+          let data = new FormData();
+          if (typeof(this.comment.photo) !== 'string') {
+            data.append('photo', this.comment.photo);
           }
+          data.append('author', this.comment.author);
+          data.append('occ', this.comment.occ);
+          data.append('text', this.comment.text);
+          if (!this.comment.id) this.saveComment(data);
+          else this.updateComment([this.comment.id, data]);
+          this.cancelEdit();
         }
-      });
+      } catch (error) {
+        throw new Error(
+          error.response.data.error || error.response.data.message
+        );
+      }
     }
   },
   components: {
     Input: () => import('../blocks/Input')
   },
   validators: {
-    'editPhoto': function(value) {
+    'comment.photo': function(value) {
       return Validator.value(value).required('Добавьте фото');
     },
-    'editAuthor': function(value) {
+    'comment.author': function(value) {
       return Validator.value(value).required('Заполните поле');
     },
-    'editOcc': function(value) {
+    'comment.occ': function(value) {
       return Validator.value(value).required('Заполните поле');
     },
-    'editText': function(value) {
+    'comment.text': function(value) {
       return Validator.value(value).required('Заполните поле');
     }
   },
   created() {
-    this.editPhoto = this.photo;
-    this.editAuthor = this.author;
-    this.editOcc = this.occ;
-    this.editText = this.text;
+    if (this.editComment.id) {
+      this.comment = {...this.editComment};
+    }
   }
 }
 </script>
