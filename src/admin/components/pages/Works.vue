@@ -27,6 +27,7 @@
             :work='work'
             @editWork='editWork'
           )
+    Popup(:message='message')
 </template>
 
 <script>
@@ -38,7 +39,8 @@ export default {
   }),
   computed: {
     ...mapState('works', {
-      works: state => state.works
+      works: state => state.works,
+      message: state => state.message
     })
   },
   methods: {
@@ -58,7 +60,8 @@ export default {
   components: {
     WorkEdit: () => import('../blocks/WorkEdit'),
     NewCard: () => import('../blocks/NewCard'),
-    Work: () => import('../blocks/Work')
+    Work: () => import('../blocks/Work'),
+    Popup: () => import('../blocks/Popup')
   },
   created() {
     this.getWorks();

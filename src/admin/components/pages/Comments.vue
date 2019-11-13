@@ -28,6 +28,7 @@
             :comment='comment'
             @editComment='editComment'
           )
+    Popup(:message='message')
 </template>
 
 <script>
@@ -39,13 +40,15 @@ export default {
   }),
   computed: {
     ...mapState('comments', {
-      comments: state => state.comments
+      comments: state => state.comments,
+      message: state => state.message
     })
   },
   components: {
     NewCard: () => import('../blocks/NewCard'),
     CommentEdit: () => import('../blocks/CommentEdit'),
-    Comment: () => import('../blocks/Comment')
+    Comment: () => import('../blocks/Comment'),
+    Popup: () => import('../blocks/Popup')
   },
   methods: {
     ...mapActions('comments', ['getComments']),

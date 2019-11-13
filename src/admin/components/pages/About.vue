@@ -18,6 +18,7 @@
           :key='cat.id'
           :cat='cat'
         )
+    Popup(:message='message')
 </template>
 
 <script>
@@ -26,11 +27,13 @@ export default {
   computed: {
     ...mapState('categories', {
       categories: state => state.categories,
-      isNew: state => state.isNew
+      isNew: state => state.isNew,
+      message: state => state.message
     })
   },
   components: {
-    Skills: () => import("../blocks/Skills")
+    Skills: () => import("../blocks/Skills"),
+    Popup: () => import("../blocks/Popup")
   },
   methods: {
     ...mapActions('categories', ['getCategories', 'changeIsNew']),

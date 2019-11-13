@@ -2,7 +2,8 @@ export default {
   namespaced: true,
   state: {
     categories: [],
-    isNew: false
+    isNew: false,
+    message: {}
   },
   mutations: {
     SET_CATEGORIES(state, categories) {
@@ -54,6 +55,14 @@ export default {
         return category;
       };
       state.categories = state.categories.map(findCategory);
+    },
+    SHOW_MESSAGE(state, mess) {
+      setTimeout(() => state.message = {}, 4000)
+      state.message = {
+        show: true,
+        className: mess.className,
+        text: mess.text
+      }
     }
   },
   actions: {
@@ -62,29 +71,40 @@ export default {
         const { data } = await this.$axios.get('/categories/193');
         commit('SET_CATEGORIES', data);
       } catch (error) {
-        throw new Error(
-          error.response.data.error || error.response.data.message
-        );
+        commit('SHOW_MESSAGE', {
+          className: 'error',
+          text: error.response.data.error || error.response.data.message
+        })
       }
     },
     async addCategory({ commit }, title) {
       try {
         const { data } = await this.$axios.post('/categories', { title });
         commit('ADD_CATEGORY', data);
+        commit('SHOW_MESSAGE', {
+          className: 'ok',
+          text: 'категория добавлена'
+        })
       } catch (error) {
-        throw new Error(
-          error.response.data.error || error.response.data.message
-        );
+        commit('SHOW_MESSAGE', {
+          className: 'error',
+          text: error.response.data.error || error.response.data.message
+        })
       }
     },
     async deleteCategory({ commit }, id) {
       try {
         await this.$axios.delete(`/categories/${id}`);
         commit('DELETE_CATEGORY', id);
+        commit('SHOW_MESSAGE', {
+          className: 'warn',
+          text: 'категория удалена'
+        })
       } catch (error) {
-        throw new Error(
-          error.response.data.error || error.response.data.message
-        );
+        commit('SHOW_MESSAGE', {
+          className: 'error',
+          text: error.response.data.error || error.response.data.message
+        })
       }
     },
     changeIsNew({ commit }, bool) {
