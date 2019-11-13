@@ -1,18 +1,18 @@
 <template lang="pug">
   .content
-    HeaderBlock
-    Navigation
-
+    HeaderBlock(v-if='user.id')
+    Navigation(v-if='user.id')
     router-view
-    //- About
-    //- Works
-    //- Comments
-    Login
-
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
+  computed: {
+    ...mapState('user', {
+      user: state => state.user
+    })
+  },
   components: {
     HeaderBlock: () => import("./components/layout/HeaderBlock"),
     Navigation: () => import("./components/layout/Navigation"),

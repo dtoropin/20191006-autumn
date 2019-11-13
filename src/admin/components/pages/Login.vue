@@ -63,22 +63,19 @@ export default {
     }
   },
   methods: {
-    login() {
-      this.$validate().then(success => {
-        if (success) {
-          axios
-            .post("/login", this.user)
-            .then(response => {
-              const token = response.data.token;
-              axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-              localStorage.setItem("token", token);
-              this.isLogin = true;
-            })
-            .catch(error => {
-              this.error = error.response.data.error;
-            });
+    async login() {
+      if (await this.$validate()) {
+        try {
+          const response = await axios.post("/login", this.user);
+          const token = response.data.token;
+          axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+          localStorage.setItem("token", token);
+          this.isLogin = true;
+          this.$router.replace("/");
+        } catch (error) {
+          this.error = error.response.data.error;
         }
-      });
+      }
     },
     logout() {
       document.location.href = "index.html";
