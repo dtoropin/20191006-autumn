@@ -16,7 +16,7 @@ export default {
   props: {
     info: String
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>

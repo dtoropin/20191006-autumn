@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 export default {
   computed: {
-    ...mapState('categories', {
+    ...mapState("categories", {
       categories: state => state.categories,
       isNew: state => state.isNew,
       message: state => state.message
@@ -36,12 +36,12 @@ export default {
     Popup: () => import("../blocks/Popup")
   },
   methods: {
-    ...mapActions('categories', ['getCategories', 'changeIsNew']),
+    ...mapActions("categories", ["getCategories", "changeIsNew"]),
     addNewGroup() {
       this.changeIsNew(true);
     }
   },
-  created() {
+  mounted() {
     this.getCategories();
   }
 };

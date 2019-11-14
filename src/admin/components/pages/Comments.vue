@@ -32,26 +32,26 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 export default {
   data: () => ({
     comment: {},
     isEdit: false
   }),
   computed: {
-    ...mapState('comments', {
+    ...mapState("comments", {
       comments: state => state.comments,
       message: state => state.message
     })
   },
   components: {
-    NewCard: () => import('../blocks/NewCard'),
-    CommentEdit: () => import('../blocks/CommentEdit'),
-    Comment: () => import('../blocks/Comment'),
-    Popup: () => import('../blocks/Popup')
+    NewCard: () => import("../blocks/NewCard"),
+    CommentEdit: () => import("../blocks/CommentEdit"),
+    Comment: () => import("../blocks/Comment"),
+    Popup: () => import("../blocks/Popup")
   },
   methods: {
-    ...mapActions('comments', ['getComments']),
+    ...mapActions("comments", ["getComments"]),
     editorComment() {
       this.isEdit = true;
     },
@@ -64,7 +64,7 @@ export default {
       this.isEdit = true;
     }
   },
-  created() {
+  mounted() {
     this.getComments();
   }
 };

@@ -21,16 +21,16 @@
 
 <script>
 import { Validator } from "simple-vue-validator";
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
   data: () => ({
     isEdit: false,
-    editGroupName: ''
+    editGroupName: ""
   }),
   props: {
     groupName: {
-      type:String,
-      default: ''
+      type: String,
+      default: ""
     },
     id: {
       type: Number,
@@ -39,18 +39,18 @@ export default {
   },
   computed: {
     error() {
-      return this.validation.firstError('editGroupName');
+      return this.validation.firstError("editGroupName");
     }
   },
   methods: {
-    ...mapActions('categories', [
-      'addCategory',
-      'deleteCategory',
-      'updateCategory',
-      'changeIsNew'
+    ...mapActions("categories", [
+      "addCategory",
+      "deleteCategory",
+      "updateCategory",
+      "changeIsNew"
     ]),
     deleteGroup() {
-      const title = this.groupName !== '' ? this.groupName : 'Группу';
+      const title = this.groupName !== "" ? this.groupName : "Группу";
       if (confirm(`Удалить "${this.groupName}"?`)) {
         this.changeIsNew(false);
         if (this.id !== 0) this.deleteCategory(this.id);
@@ -69,9 +69,7 @@ export default {
       try {
         if (await this.$validate()) {
           this.isEdit = false;
-          this.id !== 0 
-            ? this.updateGroup()
-            : this.createGroup()
+          this.id !== 0 ? this.updateGroup() : this.createGroup();
         }
       } catch (error) {
         throw new Error(
@@ -81,16 +79,16 @@ export default {
     },
     createGroup() {
       this.changeIsNew(false);
-      this.addCategory(this.editGroupName)
+      this.addCategory(this.editGroupName);
     },
     updateGroup() {
       this.$refs.input.blur();
       if (this.editGroupName === this.groupName) return false;
-      this.updateCategory({id: this.id, title: this.editGroupName})
+      this.updateCategory({ id: this.id, title: this.editGroupName });
     }
   },
   created() {
-    if (this.groupName !== '') {
+    if (this.groupName !== "") {
       this.editGroupName = this.groupName;
     }
   },
@@ -99,7 +97,7 @@ export default {
       return Validator.value(value).required("Заполните поле");
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>

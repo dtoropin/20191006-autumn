@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 import { Validator } from "simple-vue-validator";
 export default {
   props: {
@@ -29,7 +29,7 @@ export default {
     }
   },
   data: () => ({
-    newTitle: '',
+    newTitle: "",
     newPercent: 0
   }),
   computed: {
@@ -41,7 +41,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('skills', ['addSkill']),
+    ...mapActions("skills", ["addSkill"]),
     async saveSkill() {
       try {
         if (await this.$validate()) {
@@ -49,10 +49,10 @@ export default {
             title: this.newTitle,
             percent: this.newPercent,
             category: this.category
-          }
+          };
           this.addSkill(skill);
           this.validation.reset();
-          this.newTitle = '';
+          this.newTitle = "";
           this.newPercent = 0;
         }
       } catch (error) {
@@ -75,7 +75,7 @@ export default {
         .maxLength(2, "от 0 до 99");
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>

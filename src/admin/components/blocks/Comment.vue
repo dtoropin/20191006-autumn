@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
   props: {
     comment: {
@@ -26,21 +26,21 @@ export default {
   },
   computed: {
     srcPhoto() {
-      return 'https://webdev-api.loftschool.com/' + this.comment.photo;
+      return "https://webdev-api.loftschool.com/" + this.comment.photo;
     }
   },
   methods: {
-    ...mapActions('comments', ['removeComment']),
+    ...mapActions("comments", ["removeComment"]),
     deleteComment() {
       if (confirm(`Удалить отзыв "${this.comment.author}"?`)) {
         this.removeComment(this.comment.id);
       }
     },
     editComment() {
-      this.$emit('editComment', this.comment.id);
+      this.$emit("editComment", this.comment.id);
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -64,8 +64,8 @@ export default {
 }
 .comment__img {
   flex-shrink: 0;
-  width: 50PX;
-  height: 50PX;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 20px;

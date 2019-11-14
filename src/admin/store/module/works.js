@@ -31,9 +31,10 @@ export default {
     }
   },
   actions: {
-    async getWorks({ commit }) {
+    async getWorks({ commit, rootState }) {
       try {
-        const { data } =  await this.$axios.get('/works/193');
+        const userID = rootState.user.user.id;
+        const { data } =  await this.$axios.get(`/works/${userID}`);
         commit('SET_WORKS', data);
       } catch (error) {
         commit('SHOW_MESSAGE', {

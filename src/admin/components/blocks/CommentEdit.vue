@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 import { Validator } from "simple-vue-validator";
 export default {
   props: {
@@ -51,33 +51,33 @@ export default {
   },
   data: () => ({
     comment: {
-      photo: '',
-      author: '',
-      occ: '',
-      text: ''
+      photo: "",
+      author: "",
+      occ: "",
+      text: ""
     },
-    filePreview: ''
+    filePreview: ""
   }),
   computed: {
     errorFile() {
-      return this.validation.firstError('comment.photo');
+      return this.validation.firstError("comment.photo");
     },
     errorAuthor() {
-      return this.validation.firstError('comment.author');
+      return this.validation.firstError("comment.author");
     },
     errorOcc() {
-      return this.validation.firstError('comment.occ');
+      return this.validation.firstError("comment.occ");
     },
     errorText() {
-      return this.validation.firstError('comment.text');
+      return this.validation.firstError("comment.text");
     }
   },
   methods: {
-    ...mapActions('comments', ['saveComment', 'updateComment']),
+    ...mapActions("comments", ["saveComment", "updateComment"]),
     handleFile(e) {
       const photoFile = this.fileFromForm(e);
       this.comment.photo = photoFile;
-      this.renderFile(photoFile).then(f => this.filePreview = f);
+      this.renderFile(photoFile).then(f => (this.filePreview = f));
     },
     fileFromForm(e) {
       let files = e.target.files || e.dataTransfer.files;
@@ -86,7 +86,7 @@ export default {
     },
     renderFile(file) {
       const reader = new FileReader();
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         try {
           reader.readAsDataURL(file);
           reader.onloadend = () => {
@@ -99,18 +99,18 @@ export default {
     },
     cancelEdit() {
       this.validation.reset();
-      this.$emit('cancelEdit');
+      this.$emit("cancelEdit");
     },
     async savedComment() {
       try {
         if (await this.$validate()) {
           let data = new FormData();
-          if (typeof(this.comment.photo) !== 'string') {
-            data.append('photo', this.comment.photo);
+          if (typeof this.comment.photo !== "string") {
+            data.append("photo", this.comment.photo);
           }
-          data.append('author', this.comment.author);
-          data.append('occ', this.comment.occ);
-          data.append('text', this.comment.text);
+          data.append("author", this.comment.author);
+          data.append("occ", this.comment.occ);
+          data.append("text", this.comment.text);
           if (!this.comment.id) this.saveComment(data);
           else this.updateComment([this.comment.id, data]);
           this.cancelEdit();
@@ -123,28 +123,28 @@ export default {
     }
   },
   components: {
-    Input: () => import('../blocks/Input')
+    Input: () => import("../blocks/Input")
   },
   validators: {
-    'comment.photo': function(value) {
-      return Validator.value(value).required('Добавьте фото');
+    "comment.photo": function(value) {
+      return Validator.value(value).required("Добавьте фото");
     },
-    'comment.author': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "comment.author": function(value) {
+      return Validator.value(value).required("Заполните поле");
     },
-    'comment.occ': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "comment.occ": function(value) {
+      return Validator.value(value).required("Заполните поле");
     },
-    'comment.text': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "comment.text": function(value) {
+      return Validator.value(value).required("Заполните поле");
     }
   },
   created() {
     if (this.editComment.id) {
-      this.comment = {...this.editComment};
+      this.comment = { ...this.editComment };
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -245,7 +245,7 @@ export default {
   background: #cd1515;
   border-radius: 3px;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 100%;
     left: 50%;

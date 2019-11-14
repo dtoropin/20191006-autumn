@@ -7,7 +7,7 @@ script(type='text/x-template')#slider
 
       .slider__preview
         preview(
-          :slides='slides'
+          :slides='slidesSlice'
           :idx='slideIdx'
           @slide='handleSlide'
         )
@@ -24,21 +24,7 @@ script(type='text/x-template')#slider
           +icon('link', 'slider__icon')
           span Посмотреть сайт
 
-    .slider__idx {{ slideIdx + 1 }}
-
-
-script(type='text/x-template')#control
-  .control
-    button.control__arrow.control__arrow--prev(
-      type='button'
-      @click.prevent="$emit('slide', 'next')" 
-    )
-      +icon('arrow-down', 'control__icon')
-    button.control__arrow.control__arrow--next(
-      type='button'
-      @click.prevent="$emit('slide', 'prev')" 
-    )
-      +icon('arrow-down', 'control__icon')
+    .slider__idx {{ currentSlide.index + 1 }}
 
 
 script(type='text/x-template')#preview
@@ -54,6 +40,20 @@ script(type='text/x-template')#preview
           @click.prevent="$emit('slide', slide.idx)" 
         )
           img(:src='slide.photo', 'preview__img', 'preview pictures')
+
+
+script(type='text/x-template')#control
+  .control
+    button.control__arrow.control__arrow--prev(
+      type='button'
+      @click.prevent="$emit('slide', 'next')" 
+    )
+      +icon('arrow-down', 'control__icon')
+    button.control__arrow.control__arrow--next(
+      type='button'
+      @click.prevent="$emit('slide', 'prev')" 
+    )
+      +icon('arrow-down', 'control__icon')
 
 
 script(type='text/x-template')#tags

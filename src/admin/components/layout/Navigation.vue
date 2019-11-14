@@ -23,10 +23,10 @@ export default {
   props: {
     page: {
       type: String,
-      default: 'About'
+      default: "About"
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>

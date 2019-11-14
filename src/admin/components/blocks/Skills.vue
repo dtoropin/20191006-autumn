@@ -27,7 +27,12 @@ export default {
   props: {
     cat: {
       type: Object,
-      default: {}
+      default() {
+        return {
+          category: '',
+          id: 0
+        }
+      }
     }
   },
   components: {

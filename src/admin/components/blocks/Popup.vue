@@ -11,12 +11,12 @@ export default {
     message: {
       type: Object,
       default: {
-        text: 'success',
-        className: 'ok'
+        text: "success",
+        className: "ok"
       }
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -25,7 +25,7 @@ export default {
   position: fixed;
   bottom: 0;
   left: 50%;
-  background-color: rgba(#2d3c4e, .9);
+  background-color: rgba(#2d3c4e, 0.9);
   z-index: 100;
   justify-content: center;
   align-items: center;

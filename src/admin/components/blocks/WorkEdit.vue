@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 import { Validator } from "simple-vue-validator";
 export default {
   props: {
@@ -74,61 +74,62 @@ export default {
   },
   data: () => ({
     work: {
-      title: '',
-      photo: '',
-      link: '',
-      techs: '',
-      description: ''
+      title: "",
+      photo: "",
+      link: "",
+      techs: "",
+      description: ""
     },
-    filePreview: ''
+    filePreview: ""
   }),
   computed: {
     tagsList() {
-      if(this.work.techs && this.work.techs !== '') return this.work.techs.split(', ');
+      if (this.work.techs && this.work.techs !== "")
+        return this.work.techs.split(",").filter(el => el.trim());
     },
     srcPhoto() {
-      if (this.work.photo !== '') {
-        return 'https://webdev-api.loftschool.com/' + this.work.photo;
+      if (this.work.photo !== "") {
+        return "https://webdev-api.loftschool.com/" + this.work.photo;
       }
     },
     errorPhoto() {
-      return this.validation.firstError('work.photo');
+      return this.validation.firstError("work.photo");
     },
     errorTitle() {
-      return this.validation.firstError('work.title');
+      return this.validation.firstError("work.title");
     },
     errorLink() {
-      return this.validation.firstError('work.link');
+      return this.validation.firstError("work.link");
     },
     errorDescription() {
-      return this.validation.firstError('work.description');
+      return this.validation.firstError("work.description");
     },
     errorTechs() {
-      return this.validation.firstError('work.techs');
+      return this.validation.firstError("work.techs");
     }
   },
   methods: {
-    ...mapActions('works', ['saveWork', 'updateWork']),
+    ...mapActions("works", ["saveWork", "updateWork"]),
     cancelEdit() {
       this.validation.reset();
-      this.$emit('cancelEdit');
+      this.$emit("cancelEdit");
     },
     deleteTag(e) {
       const el = new RegExp(`${e.target.parentElement.innerText},?\ ?`);
       // удаляем элемент
-      const str = this.work.techs.replace(el, '');
+      const str = this.work.techs.replace(el, "");
       // удаляем запятую в конце строки
-      this.work.techs = str.replace(/,\s*$/, '');
+      this.work.techs = str.replace(/,\s*$/, "");
     },
     async savedWork() {
       try {
         if (await this.$validate()) {
           let formData = new FormData();
-          formData.append('photo', this.work.photo);
-          formData.append('title', this.work.title);
-          formData.append('link', this.work.link);
-          formData.append('description', this.work.description);
-          formData.append('techs', this.work.techs);
+          formData.append("photo", this.work.photo);
+          formData.append("title", this.work.title);
+          formData.append("link", this.work.link);
+          formData.append("description", this.work.description);
+          formData.append("techs", this.work.techs);
           if (!this.work.id) this.saveWork(formData);
           else this.updateWork([this.work.id, formData]);
           this.cancelEdit();
@@ -153,7 +154,7 @@ export default {
     },
     renderFile(file) {
       const reader = new FileReader();
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         try {
           reader.readAsDataURL(file);
           reader.onloadend = () => {
@@ -167,30 +168,32 @@ export default {
   },
   created() {
     if (this.editWork.id) {
-      this.work = {...this.editWork};
+      this.work = { ...this.editWork };
     }
   },
   components: {
-    Input: () => import('../blocks/Input')
+    Input: () => import("../blocks/Input")
   },
   validators: {
-    'work.photo': function(value) {
-      return Validator.value(value).required('Добавьте фото');
+    "work.photo": function(value) {
+      return Validator.value(value).required("Добавьте фото");
     },
-    'work.title': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "work.title": function(value) {
+      return Validator.value(value).required("Заполните поле");
     },
-    'work.link': function(value) {
-      return Validator.value(value).required('Заполните поле').url('Неверный формат url');
+    "work.link": function(value) {
+      return Validator.value(value)
+        .required("Заполните поле")
+        .url("Неверный формат url");
     },
-    'work.description': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "work.description": function(value) {
+      return Validator.value(value).required("Заполните поле");
     },
-    'work.techs': function(value) {
-      return Validator.value(value).required('Заполните поле');
+    "work.techs": function(value) {
+      return Validator.value(value).required("Заполните поле");
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -261,7 +264,7 @@ export default {
   border-radius: 3px;
   z-index: 10;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -284,7 +287,7 @@ export default {
   right: 0;
   left: 0;
   border: 2px dashed #a1a1a1;
-  background: no-repeat center / cover,  #dee4ed;
+  background: no-repeat center / cover, #dee4ed;
 }
 .edit-work__subs {
   max-width: 225px;
@@ -335,10 +338,12 @@ export default {
   height: 10px;
   margin-left: 9px;
   margin-right: -3px;
-  background: svg-load("cross.svg", fill=#414c63, width=100%, height=100%) no-repeat;
-  transition: .3s background ease;
+  background: svg-load("cross.svg", fill=#414c63, width=100%, height=100%)
+    no-repeat;
+  transition: 0.3s background ease;
   &:hover {
-    background: svg-load("cross.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+    background: svg-load("cross.svg", fill=#ea7400, width=100%, height=100%)
+      no-repeat;
   }
 }
 </style>

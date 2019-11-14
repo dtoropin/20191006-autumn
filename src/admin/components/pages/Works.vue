@@ -31,26 +31,26 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 export default {
   data: () => ({
     work: {},
     isEdit: false
   }),
   computed: {
-    ...mapState('works', {
+    ...mapState("works", {
       works: state => state.works,
       message: state => state.message
     })
   },
   methods: {
-    ...mapActions('works', ['getWorks']),
+    ...mapActions("works", ["getWorks"]),
     editorWork() {
       this.isEdit = true;
     },
     cancelEdit() {
       this.isEdit = false;
-      this.work = {}
+      this.work = {};
     },
     editWork(id) {
       this.work = this.works.filter(work => work.id === id)[0];
@@ -58,15 +58,15 @@ export default {
     }
   },
   components: {
-    WorkEdit: () => import('../blocks/WorkEdit'),
-    NewCard: () => import('../blocks/NewCard'),
-    Work: () => import('../blocks/Work'),
-    Popup: () => import('../blocks/Popup')
+    WorkEdit: () => import("../blocks/WorkEdit"),
+    NewCard: () => import("../blocks/NewCard"),
+    Work: () => import("../blocks/Work"),
+    Popup: () => import("../blocks/Popup")
   },
-  created() {
+  mounted() {
     this.getWorks();
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>

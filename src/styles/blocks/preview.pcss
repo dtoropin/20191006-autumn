@@ -1,4 +1,20 @@
+.preview {
+  position: relative;
+  height: 100PX;
+
+  @include desktop {
+    width: 75PX;
+  }
+
+  @include tablets {
+    width: 68.75PX;
+  }
+}
+
 .preview__list {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   display: flex;
   justify-content: flex-end;
 }
@@ -20,13 +36,13 @@
 
 .preview__link {
   display: block;
-  width: 160px;
+  width: 160PX;
 
   @include desktop {
-    width: 120px;
+    width: 120PX;
   }
 
   @include tablets {
-    width: 110px;
+    width: 110PX;
   }
 }

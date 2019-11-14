@@ -1,15 +1,18 @@
 <template lang="pug">
   .content
-    HeaderBlock(v-if='user.id')
+    HeaderBlock(
+      v-if='user.id'
+      :user='user'
+    )
     Navigation(v-if='user.id')
     router-view
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState('user', {
+    ...mapState("user", {
       user: state => state.user
     })
   },

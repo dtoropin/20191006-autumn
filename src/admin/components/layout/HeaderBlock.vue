@@ -3,8 +3,8 @@
     .header__container.container
       .header__user
         User(
-          photo='DSCN0377.JPG',
-          name='Денис Торопин'
+          :photo='photo',
+          :name='name'
         )
 
       .header__title
@@ -16,6 +16,20 @@
 
 <script>
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    photo() {
+      return this.user.id === 193 ? "DSCN0377.JPG" : "user-default.jpg";
+    },
+    name() {
+      return this.user.id === 193 ? "Денис Торопин" : this.user.name;
+    }
+  },
   components: {
     User: () => import("../blocks/User")
   },

@@ -10,6 +10,7 @@ export default {
       state.categories = categories;
     },
     ADD_CATEGORY(state, category) {
+      category.skills = [];
       state.categories.unshift(category);
     },
     DELETE_CATEGORY(state, id) {
@@ -31,6 +32,7 @@ export default {
     ADD_SKILL(state, newSkill) {
       state.categories = state.categories.map(cat => {
         if (cat.id === newSkill.category) {
+          if (!cat.skills) cat.skills = [];
           cat.skills.push(newSkill);
         }
         return cat;
@@ -74,9 +76,10 @@ export default {
     }
   },
   actions: {
-    async getCategories({ commit }) {
+    async getCategories({ commit, rootState }) {
       try {
-        const { data } = await this.$axios.get('/categories/193');
+        const userID = rootState.user.user.id;
+        const { data } = await this.$axios.get(`/categories/${userID}`);
         commit('SET_CATEGORIES', data);
       } catch (error) {
         commit('SHOW_MESSAGE', {

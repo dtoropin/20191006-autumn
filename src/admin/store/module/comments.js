@@ -31,9 +31,10 @@ export default {
     }
   },
   actions: {
-    async getComments({ commit }) {
+    async getComments({ commit, rootState }) {
       try {
-        const { data } =  await this.$axios.get('/reviews/193');
+        const userID = rootState.user.user.id;
+        const { data } =  await this.$axios.get(`/reviews/${userID}`);
         commit('SET_COMMENTS', data);
       } catch (error) {
         commit('SHOW_MESSAGE', {

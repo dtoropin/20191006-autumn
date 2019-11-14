@@ -20,31 +20,31 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
   props: {
     work: Object
   },
   computed: {
     tags() {
-      return this.work.techs.split(', ');
+      return this.work.techs.split(", ");
     },
     srcPhoto() {
-      return 'https://webdev-api.loftschool.com/' + this.work.photo;
+      return "https://webdev-api.loftschool.com/" + this.work.photo;
     }
   },
   methods: {
-    ...mapActions('works', ['removeWork']),
+    ...mapActions("works", ["removeWork"]),
     deleteWork() {
       if (confirm(`Удалить работу "${this.work.title}"?`)) {
         this.removeWork(this.work.id);
       }
     },
     editWork() {
-      this.$emit('editWork', this.work.id);
+      this.$emit("editWork", this.work.id);
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -124,10 +124,12 @@ export default {
   height: 10px;
   margin-left: 9px;
   margin-right: -3px;
-  background: svg-load("cross.svg", fill=#414c63, width=100%, height=100%) no-repeat;
-  transition: .3s background ease;
+  background: svg-load("cross.svg", fill=#414c63, width=100%, height=100%)
+    no-repeat;
+  transition: 0.3s background ease;
   &:hover {
-    background: svg-load("cross.svg", fill=#ea7400, width=100%, height=100%) no-repeat;
+    background: svg-load("cross.svg", fill=#ea7400, width=100%, height=100%)
+      no-repeat;
   }
 }
 </style>
