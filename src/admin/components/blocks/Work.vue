@@ -5,8 +5,8 @@
       .work__tags
         ul.tags.tags--right
           li.tags__item(
-            v-for='tag in tags'
-            :key='tag'
+            v-for='(tag, ind) in tags'
+            :key='ind'
           )
             span {{ tag }}
     .work__info
