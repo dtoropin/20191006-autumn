@@ -1,7 +1,7 @@
 <template lang="pug">
-  .login
+  .login(v-if='!isLogin')
     .login__block
-      a(href='index.html').login__close
+      button(type='button' @click.prevent='logout').login__close
       .login__content
         .login__title Авторизация
         form(@submit.prevent='login').login-form
@@ -12,6 +12,7 @@
                 input(
                   type="text" 
                   v-model='user.name'
+                  autofocus
                 ).login-form__input
                 span.login-form__icon.login-form__icon--user
                 span(
@@ -35,16 +36,17 @@
             button(type='submit').login-form__btn Отправить
 
     .login-popup(
+      v-show='error'
       :class='{error: error}'
     )
-      span(v-show='error').login-popup__mes {{ error }}
+      span.login-popup__mes {{ error }}
 </template>
 
 <script>
 import { Validator } from "simple-vue-validator";
 import axios from "axios";
-import { delay } from 'q';
-const baseURL = "https://webdev-api.loftschool.com/";
+axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
+const token = localStorage.getItem("token") || "";
 
 export default {
   data: () => ({
@@ -52,24 +54,31 @@ export default {
       name: "",
       password: ""
     },
-    error: ""
+    error: "",
+    isLogin: false
   }),
+  created() {
+    if (token !== "") {
+      this.isLogin = true;
+    }
+  },
   methods: {
-    login() {
-      this.$validate().then((success) => {
-        if (success) {
-          axios
-            .post(baseURL + "/login", this.user)
-            .then(response => {
-              console.log(response.data);
-              // response.data.token
-            })
-            .catch(error => {
-              // console.log(error.response.data);
-              this.error = error.response.data.error;
-            });
+    async login() {
+      if (await this.$validate()) {
+        try {
+          const response = await axios.post("/login", this.user);
+          const token = response.data.token;
+          axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+          localStorage.setItem("token", token);
+          this.isLogin = true;
+          this.$router.replace("/");
+        } catch (error) {
+          this.error = error.response.data.error;
         }
-      });
+      }
+    },
+    logout() {
+      document.location.href = "index.html";
     }
   },
   validators: {

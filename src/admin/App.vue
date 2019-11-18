@@ -1,33 +1,23 @@
 <template lang="pug">
   .content
-    Header
-    Navigation(
-      :page='this.currentPage'
-      @changePage='changePage'
+    HeaderBlock(
+      v-if='user.id'
+      :user='user'
     )
-
-    About
-
-    Works
-
-    Comments
-
-    Login
-
+    Navigation(v-if='user.id')
+    router-view
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  data: () => ({
-    currentPage: "About"
-  }),
-  methods: {
-    changePage(e) {
-      this.currentPage = e;
-    }
+  computed: {
+    ...mapState("user", {
+      user: state => state.user
+    })
   },
   components: {
-    Header: () => import("./components/layout/Header"),
+    HeaderBlock: () => import("./components/layout/HeaderBlock"),
     Navigation: () => import("./components/layout/Navigation"),
     About: () => import("./components/pages/About"),
     Works: () => import("./components/pages/Works"),

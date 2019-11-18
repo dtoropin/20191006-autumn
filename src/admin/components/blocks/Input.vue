@@ -23,11 +23,11 @@ export default {
     error: String,
     type: {
       type: String,
-      default: 'text'
+      default: "text"
     },
     value: String
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -51,7 +51,7 @@ export default {
   background: #cd1515;
   border-radius: 3px;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -77,7 +77,7 @@ export default {
   border: none;
   opacity: 1;
   border-bottom: 1px solid rgba(#414c63, 0.3);
-  transition: .3s border ease;
+  transition: 0.3s border ease;
   &--textarea {
     font-family: inherit;
     font-size: inherit;

@@ -7,24 +7,39 @@ script(type='text/x-template')#slider
 
       .slider__preview
         preview(
-          :slides='slides'
-          :currentSlide='currentSlide'
+          :slides='slidesSlice'
+          :idx='slideIdx'
           @slide='handleSlide'
         )
 
     .slider__desk
       .slider__tags
-        tags(:tags='tags')
+        tags(:tags='currentSlide.techs')
 
       .slider__text
         h3.slider__title {{ currentSlide.title }}
         .slider__subs
-          p {{ currentSlide.subs }}
+          p {{ currentSlide.description }}
         a.slider__link(:href='currentSlide.link' target='_blank')
           +icon('link', 'slider__icon')
           span Посмотреть сайт
 
-    .slider__idx {{ currentSlide.id }}
+    .slider__idx {{ currentSlide.index + 1 }}
+
+
+script(type='text/x-template')#preview
+  .preview
+    ul.preview__list
+      li.preview__item(
+        v-for='slide in slides'
+        :key='slide.id'
+        :class='{active: slide.idx === idx}'
+      )
+        a.preview__link(
+          href='#'
+          @click.prevent="$emit('slide', slide.idx)" 
+        )
+          img(:src='slide.photo', 'preview__img', 'preview pictures')
 
 
 script(type='text/x-template')#control
@@ -39,21 +54,6 @@ script(type='text/x-template')#control
       @click.prevent="$emit('slide', 'prev')" 
     )
       +icon('arrow-down', 'control__icon')
-
-
-script(type='text/x-template')#preview
-  .preview
-    ul.preview__list
-      li.preview__item(
-        v-for='slide in slides'
-        :key='slide.id'
-        :class='{active: slide.id === currentSlide.id}'
-      )
-        a.preview__link(
-          href='#'
-          @click.prevent="$emit('slide', slide.id)" 
-        )
-          img(:src='slide.photo', 'preview__img', 'preview pictures')
 
 
 script(type='text/x-template')#tags

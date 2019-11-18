@@ -16,7 +16,7 @@ export default {
     },
     photo: {
       type: String,
-      default: 'user-default.jpg'
+      default: "user-default.jpg"
     },
     name: String,
     position: String
@@ -26,7 +26,7 @@ export default {
       return require(`../../../images/content/${this.photo}`);
     }
   }
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -46,8 +46,8 @@ export default {
 }
 .user__img {
   flex-shrink: 0;
-  width: 50PX;
-  height: 50PX;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 20px;

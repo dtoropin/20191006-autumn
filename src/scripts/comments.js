@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import axios from "axios";
+axios.defaults.baseURL = "https://webdev-api.loftschool.com/";
 
 import 'swiper/dist/css/swiper.css';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
@@ -40,14 +42,20 @@ new Vue({
   methods: {
     makeArrPhotoLink(data) {
       return data.map(item => {
-        const imgLink = require(`../images/content/${item.photo}`);
+        const imgLink = 'https://webdev-api.loftschool.com/' + item.photo;
         item.photo = imgLink;
         return item;
       })
     }
   },
   created() {
-    const data = require('../data/comments.json');
-    this.comments = this.makeArrPhotoLink(data);
+    axios
+      .get("/reviews/193")
+      .then(response => {
+        this.comments = this.makeArrPhotoLink(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 })
