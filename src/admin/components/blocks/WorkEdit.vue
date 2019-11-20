@@ -146,14 +146,17 @@ export default {
     },
     dragFile(e) {
       e.preventDefault();
-      e.target.classList.add('active');
+      const zone = document.querySelector('.edit-work__drop');
+      zone.classList.add('active');
     },
     dragLeave(e) {
-      e.target.classList.remove('active');
+      const zone = document.querySelector('.edit-work__drop');
+      zone.classList.remove('active');
     },
     dropFile(e) {
       e.preventDefault();
-      e.target.classList.remove('active');
+      const zone = document.querySelector('.edit-work__drop');
+      zone.classList.remove('active');
       this.handleFile(e);
     },
     handleFile(e) {
