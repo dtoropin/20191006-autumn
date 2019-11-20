@@ -17,6 +17,7 @@
           .edit-work__drop(
             v-if='filePreview'
             :style='"backgroundImage: url(" + filePreview + ")"'
+            :class='{active: isDrag}'
           )
             .edit-work__subs
               span.edit-work__info(
@@ -26,6 +27,7 @@
           .edit-work__drop(
             v-else
             :style='"backgroundImage: url(" + srcPhoto + ")"'
+            :class='{active: isDrag}'
           )
             .edit-work__subs
               span.edit-work__info(
@@ -84,7 +86,8 @@ export default {
       techs: "",
       description: ""
     },
-    filePreview: ""
+    filePreview: "",
+    isDrag: false
   }),
   computed: {
     tagsList() {
@@ -146,17 +149,14 @@ export default {
     },
     dragFile(e) {
       e.preventDefault();
-      const zone = document.querySelector('.edit-work__drop');
-      zone.classList.add('active');
+      this.isDrag = true;
     },
     dragLeave(e) {
-      const zone = document.querySelector('.edit-work__drop');
-      zone.classList.remove('active');
+      this.isDrag = false;
     },
     dropFile(e) {
       e.preventDefault();
-      const zone = document.querySelector('.edit-work__drop');
-      zone.classList.remove('active');
+      this.isDrag = false;
       this.handleFile(e);
     },
     handleFile(e) {
