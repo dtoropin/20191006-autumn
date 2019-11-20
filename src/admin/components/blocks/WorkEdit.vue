@@ -3,7 +3,11 @@
     h3.edit-work__title Редактирование работы
     form(@submit.prevent='savedWork').edit-work__block
       .edit-work__download
-        .edit-work__file
+        .edit-work__file(
+          @dragover='dragFile'
+          @dragleave='dragLeave'
+          @drop='dropFile'
+        )
           input(
             type='file' 
             accept='image/jpeg,image/png,image/jpg'
@@ -139,6 +143,18 @@ export default {
           error.response.data.error || error.response.data.message
         );
       }
+    },
+    dragFile(e) {
+      e.preventDefault();
+      e.target.classList.add('active');
+    },
+    dragLeave(e) {
+      e.target.classList.remove('active');
+    },
+    dropFile(e) {
+      e.preventDefault();
+      e.target.classList.remove('active');
+      this.handleFile(e);
     },
     handleFile(e) {
       const photoFile = this.fileFromForm(e);
@@ -288,6 +304,9 @@ export default {
   left: 0;
   border: 2px dashed #a1a1a1;
   background: no-repeat center / cover, #dee4ed;
+  &.active {
+    border: 2px dashed #ea7400;
+  }
 }
 .edit-work__subs {
   max-width: 225px;
